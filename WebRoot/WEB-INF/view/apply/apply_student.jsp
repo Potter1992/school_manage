@@ -20,9 +20,9 @@ input, select {
 }
 </style>
 <script type="text/javascript">
-	$(function(){
-		$("#s_password").click(function(){
-			alert(this.val);			
+	$(function() {
+		$("#s_password").click(function() {
+			alert(this.val);
 		});
 	});
 </script>
@@ -48,35 +48,40 @@ input, select {
 
 						<input type="text" class="input" id="s_no" name="s_no"
 							placeholder="学号" /> <input type="text" class="input"
-							id="s_password" name="s_name" placeholder="姓名" /> <input
-							type="password" class="input" name="s_password" placeholder="密码" />
+							id="s_password" name="s_name" placeholder="姓名"
+							value="${student.xm }" /> <input type="password" class="input"
+							name="s_password" placeholder="密码" value="${student.xsmm }" />
 						<!-- 当输入完学号密码时，进行验证并获取学生的基本信息 jquery -->
 
-						<input type="text" name="s_sex" value="男"><br> <a
-							class="button input-file" href="javascript:void(0);"
+						<input type="text" name="s_sex" value="${student.xb }"><br>
+						<a class="button input-file" href="javascript:void(0);"
 							style="margin-top: 10px"> + 请选择签字上传 <input name="s_img"
 							type="file" />
 						</a> <br> <input type="text" value="1" name="c_id"
 							hidden="hidden" class="学生"> <select id="s_before_academy"
 							class="input" name="s_before_academy">
-							<c:forEach items="${list_academy}" var="academy">
-								<option>${academy.academy_name}</option>
+							<c:forEach items="${student}" var="s">
+								<option>${s.xy}</option>
 							</c:forEach>
 						</select> <select id="s_before_subject" class="input"
 							name="s_before_academy">
-							<c:forEach items="${list_subject}" var="subject">
-								<option>${subject.zymc}</option>
+							<c:forEach items="${student}" var="s">
+								<option>${s.zymc}</option>
 							</c:forEach>
-						</select> <input type="s_before_grade" class="input" name="s_before_grade"
-							placeholder="异动前年级" /> <input type="s_before_class"
-							class="input" name="s_before_class" placeholder="异动前班级" /> <input
-							type="s_year" class="input" name="s_year" placeholder="学制" /> <label
-							style="margin-top: 20px">学籍状态:</label> <input type="text"
-							name="s_before_status" value="${有或无}" class="input" /> 学历状态:<input
-							type="text" class="input" name="s_before_education"
-							placeholder="学历前" value="${学历}" /> 注册状态<input type="text"
-							name="s_before_regist" value="有"> 在校状态<input type="text"
-							name="s_before_school" value="有">
+						</select> <input type="text" class="input" name="s_before_grade"
+							placeholder="异动前年级" value="${student.dqszj }" /> <input
+							type="text" class="input" name="s_before_class"
+							placeholder="异动前班级" value="${student.xzb }" /> <input
+							type="s_year" class="input" name="s_year" placeholder="学制"
+							value="${student.xz }" />
+							
+							 <label style="margin-top: 20px">学籍状态:</label>
+						<input type="text" name="s_before_status" value="${student.xjzt}"
+							class="input" /> 学历状态:<input type="text" class="input"
+							name="s_before_education" placeholder="学历前" value="${student.cc}" />
+						注册状态<input type="text" name="s_before_regist"
+							value="${student.zc }"> 在校状态<input type="text"
+							name="s_before_school" value="${student.zx }">
 
 					</div>
 				</div>

@@ -90,13 +90,13 @@ public class IndexController extends Controller {
 	/*
 	 * 给申请页面传数据
 	 */
-	public void regist() {
+	/*public void regist() {
 		List<Academy> aList = Academy.me.findAll();
 		setAttr("list_academy", aList);
 		List<Zfxfzb_xsjbxxb> zList = Zfxfzb_xsjbxxb.me.findAll();
 		setAttr("list_subject", zList);
 		render("apply_student.jsp");
-	}
+	}*/
 
 	/*
 	 * 处理上传的图片

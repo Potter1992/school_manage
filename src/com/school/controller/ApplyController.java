@@ -40,7 +40,7 @@ public class ApplyController extends Controller {
 	 */
 	public void apply_form() {
 		
-		render("apply_student.jsp");
+		render("validate_student.jsp");
 	}
 
 	/**
@@ -51,13 +51,14 @@ public class ApplyController extends Controller {
 		String para_password = getPara("s_password");
 		List<Zfxfzb_xsjbxxb> student=Zfxfzb_xsjbxxb.me.findWithValidate(para_sno, para_password);
 		if (student.size()>0) {
-			setAttr("msg", "登陆成功");
+			
+//			setAttr("msg", "登陆成功");
+			setAttr("student", student);
 			render("apply_student.jsp");
 		}else {
 			setAttr("msg", "登陆失败,学号或密码不正确");
+			render("validate_student.jsp");
 		}
-		
-		render("apply_student.jsp");
 	}
 
 	/*
