@@ -8,9 +8,8 @@
 </head>
 <body>
 <form action="handleImg" enctype="multipart/form-data" method="post">
-<input type="file" name="image">
-<input type="submit" value="提交图片">
-${msg}
+<input type="file" name="image"> <input type="submit" value="提交图片">
+		${msg}
 <img alt="图片" src="${img}" style="width: 100px;height: 100px">
 </form>
 </body>

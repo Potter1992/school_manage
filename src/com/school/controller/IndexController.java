@@ -111,7 +111,7 @@ public class IndexController extends Controller {
 		Image image = (Image )bufferedImage;
 	System.out.println(image);
 		if (file.getName().endsWith("jpg")) {
-			// file.renameTo(new File("upload/image/xxxx.jpg"));
+			 file.renameTo(new File("upload/image/"+"201201001003"+".jpg"));
 			setAttr("img", "upload/image/" + file.getName());
 			setAttr("msg", "上传成功");
 			render("handleImg.jsp");
