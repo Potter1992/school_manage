@@ -1,14 +1,20 @@
 package com.school.controller;
 
+import imageop.GraphicsUtilities;
+
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
+import com.school.model.Zfxfzb_xsjbxxb;
+import com.school.utils.HSLColor;
 import com.school.utils.HandleImage;
 
 /**
@@ -30,18 +36,27 @@ public class ApplyController extends Controller {
 	}
 
 	/**
-	 * 渲染申请页面
+	 * 渲染申请页面,点击申请时进行申请学生学号密码验证，并获取学生的信息，初始化申请页面
 	 */
 	public void apply_form() {
+		
 		render("apply_student.jsp");
 	}
 
 	/**
-	 * 验证用户输入的学号和密码，当用户输入完学号密码和姓名的时候触发验证
+	 * 验证用户输入的学号和密码
 	 */
 	public void validate_student() {
-		String para_sno=getPara("s_no");
-		String para_password=getPara("s_password");
+		String para_sno = getPara("s_no");
+		String para_password = getPara("s_password");
+		List<Zfxfzb_xsjbxxb> student=Zfxfzb_xsjbxxb.me.findWithValidate(para_sno, para_password);
+		if (student.size()>0) {
+			setAttr("msg", "登陆成功");
+			render("apply_student.jsp");
+		}else {
+			setAttr("msg", "登陆失败,学号或密码不正确");
+		}
+		
 		render("apply_student.jsp");
 	}
 
@@ -51,6 +66,8 @@ public class ApplyController extends Controller {
 	public void handleImg() throws Exception {
 		// 为每一个用户创建一个文件名以他的学号命名
 		File file = getFile("image", "image").getFile();
+//		GraphicsUtilities.
+		
 
 		if (file.getName().endsWith("jpg")) {
 			file.renameTo(new File("upload/image/" + "201201001003" + ".jpg"));
