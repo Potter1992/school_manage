@@ -19,13 +19,6 @@ input, select {
 	margin-top: 10px;
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-		$("#s_password").click(function() {
-			alert(this.val);
-		});
-	});
-</script>
 </head>
 
 <body>

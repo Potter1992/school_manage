@@ -1,10 +1,6 @@
 package com.school.controller;
 
-import imageop.GraphicsUtilities;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +11,6 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
 import com.school.model.Zfxfzb_xsjbxxb;
 import com.school.utils.HSLColor;
-import com.school.utils.HandleImage;
 
 /**
  * 当输入完密码时进行验证，学号和密码是否正确，此时需从oral数据库中查询学生的基本信息
@@ -51,8 +46,6 @@ public class ApplyController extends Controller {
 		String para_password = getPara("s_password");
 		List<Zfxfzb_xsjbxxb> student=Zfxfzb_xsjbxxb.me.findWithValidate(para_sno, para_password);
 		if (student.size()>0) {
-			
-//			setAttr("msg", "登陆成功");
 			setAttr("student", student);
 			render("apply_student.jsp");
 		}else {

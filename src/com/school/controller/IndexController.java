@@ -20,7 +20,6 @@ import com.school.model.Approve_person;
 import com.school.model.Role;
 import com.school.model.Student_apply;
 import com.school.model.Zfxfzb_xsjbxxb;
-import com.school.utils.HandleImage;
 
 public class IndexController extends Controller {
 	public void index() {
@@ -105,11 +104,6 @@ public class IndexController extends Controller {
 		// 为每一个用户创建一个文件名以他的学号命名
 		File file = getFile("image", "image").getFile();
 		
-		ImageIcon imageData=new ImageIcon("upload/image/"+file.getName());
-		byte[] imgbytes=HandleImage.transferAlpha(imageData.getImage());
-		BufferedImage bufferedImage=HandleImage.ByteToBufferedImage(imgbytes);
-		Image image = (Image )bufferedImage;
-	System.out.println(image);
 		if (file.getName().endsWith("jpg")) {
 			 file.renameTo(new File("upload/image/"+"201201001003"+".jpg"));
 			setAttr("img", "upload/image/" + file.getName());
