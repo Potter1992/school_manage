@@ -38,15 +38,7 @@
 	<div class="admin">
 
 		<div class="tab">
-			<div class="tab-head">
-				<strong></strong>
-				<ul class="tab-nav">
-					<li class="active"><a href="#tab-apply-detail">申请详情</a></li>
-
-
-					<li><a href="#tab-process-detail">进度详情</a></li>
-				</ul>
-			</div>
+			<jsp:include page="tab-head.jsp" ></jsp:include>
 			<div class="tab-body">
 				<div class="tab-panel active" id="tab-apply-detail">
 					<ul class="list-group list-striped">
@@ -96,7 +88,7 @@
 								<li>异动时间:</li>
 							<li>${stu.s_changetime}</li></font>
 						</c:forEach>
-						id: 学号:s_no 姓名:s_name 密码:s_password 性别:s_sex 签字图片s_img 异动类型:c_id
+						<!-- id: 学号:s_no 姓名:s_name 密码:s_password 性别:s_sex 签字图片s_img 异动类型:c_id
 						异动前学院:s_before_academy 异动后学院s_after_academy 异动前专业:s_before_subject
 						异动后专业s_after_subject 异动前班级s_before_class 异动后班级s_after_class
 						异动前年级:s_before_grade 异动后年级s_after_grade 学制:s_year
@@ -104,16 +96,12 @@
 						异动前是否有学籍s_before_status 异动后是否有学籍s_after_status
 						学历(前后)s_before_education s_after_education 是否注册(前后)
 						s_before_regist s_after_regist 是否在校(前后) s_before_school
-						s_after_school 异动时间s_changetime
+						s_after_school 异动时间s_changetime -->
 					</ul>
 
-
-
-
-
-
 				</div>
-				<div class="tab-panel active" id="tab-process-detail">进度详情</div>
+				<jsp:include page="tab-process-detail.jsp"></jsp:include>
+				
 			</div>
 		</div>
 		<p class="text-right text-gray">
