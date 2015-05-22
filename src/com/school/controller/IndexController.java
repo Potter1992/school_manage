@@ -23,6 +23,7 @@ import com.school.model.Zfxfzb_xsjbxxb;
 
 public class IndexController extends Controller {
 	public void index() {
+		
 		render("index.jsp");
 	}
 

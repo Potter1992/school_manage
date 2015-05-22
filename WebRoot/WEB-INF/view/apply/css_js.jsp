@@ -20,6 +20,10 @@
 	line-height: 40px;
 	border-bottom: 0px;
 }
+input, select, #option_label {
+	margin-top: 10px;
+	margin-right: 10px;
+}
 </style>
 </head>
 

@@ -43,7 +43,7 @@ public class Config extends JFinalConfig {
 		
 		ActiveRecordPlugin aPlugin=new ActiveRecordPlugin("mysql",cPlugin);
 		me.add(aPlugin);
-		aPlugin.addMapping("change",Change.class);
+		aPlugin.addMapping("change_apply",Change.class);
 		aPlugin.addMapping("academy",Academy.class);
 		aPlugin.addMapping("approve_person", Approve_person.class);
 		aPlugin.addMapping("role", Role.class);

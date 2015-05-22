@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
-
 import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
+import com.school.model.Change;
 import com.school.model.Zfxfzb_xsjbxxb;
-import com.school.utils.HSLColor;
 
 /**
  * 当输入完密码时进行验证，学号和密码是否正确，此时需从oral数据库中查询学生的基本信息
@@ -30,32 +28,46 @@ public class ApplyController extends Controller {
 	}
 
 	/**
-	 * 渲染申请页面,点击申请时进行申请学生学号密码验证，并获取学生的信息，初始化申请页面
+	 * 渲染申请页面,点击申请时进行申请学生学号密码验证，并获取学生的信息，初始化申请页面,取出异动类型
 	 */
 	public void apply_form() {
 
+		List<Change> changess = Change.me.findAll();
+//		setAttr("change_data", changess);
+		setSessionAttr("change_data", changess);
 		render("validate_student.jsp");
 	}
 
 	/**
-	 * 验证用户输入的学号和密码,
+	 * 验证用户输入的学号和密码,获取异动类型的id
 	 */
 	public void validate_student() {
 		String para_sno = getPara("s_no");
 		String para_password = getPara("s_password");
+		String change_id=getPara("c_name");
+		
 		List<Zfxfzb_xsjbxxb> student = Zfxfzb_xsjbxxb.me.findWithValidate(
 				para_sno, para_password);
-		
-		
-		if (student != null && student.size()>0) {
+
+		if (student != null && student.size() > 0) {
 			setSessionAttr("current_student", student.get(0));
 			setAttr("student", getSessionAttr("current_student"));
+			
 			render("apply_stu.jsp");
 		} else {
 			setAttr("s_no", para_sno);
 			setAttr("msg", "登陆失败,学号或密码不正确");
 			render("validate_student.jsp");
 		}
+	}
+
+	/*
+	 * 获取异动类型的数据
+	 */
+	public void getChangeData() {
+
+		List<Change> changess = Change.me.findAll();
+		renderJson(changess);
 	}
 
 	/*
