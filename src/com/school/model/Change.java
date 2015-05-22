@@ -15,4 +15,12 @@ public class Change extends Model<Change> {
 
 		return find("select * from change_apply");
 	}
+
+	/**
+	 * 根据异动类型名称查找c_id
+	 */
+	public Change findIDChangeByName(String c_name) {
+		Change change = findFirst("select * from change_apply where c_name = ?",c_name);
+		return change;
+	}
 }

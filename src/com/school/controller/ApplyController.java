@@ -44,7 +44,9 @@ public class ApplyController extends Controller {
 	public void validate_student() {
 		String para_sno = getPara("s_no");
 		String para_password = getPara("s_password");
-		String change_id=getPara("c_name");
+		String change_name=getPara("c_name");
+		//根据id获取异动类型的名称
+		Change change=Change.me.findIDChangeByName(change_name);
 		
 		List<Zfxfzb_xsjbxxb> student = Zfxfzb_xsjbxxb.me.findWithValidate(
 				para_sno, para_password);
@@ -52,7 +54,7 @@ public class ApplyController extends Controller {
 		if (student != null && student.size() > 0) {
 			setSessionAttr("current_student", student.get(0));
 			setAttr("student", getSessionAttr("current_student"));
-			
+			setAttr("change", change);
 			render("apply_stu.jsp");
 		} else {
 			setAttr("s_no", para_sno);

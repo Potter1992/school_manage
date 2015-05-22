@@ -26,7 +26,7 @@
 						<div class=" border border-blue radius-big float-left "
 							id="option_head">学生信息</div>
 						<div class="border border-blue radius-big float-right"
-							id="option_head">变动信息</div>
+							id="option_head">${change.c_name }信息</div>
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
