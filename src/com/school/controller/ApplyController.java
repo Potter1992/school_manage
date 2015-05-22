@@ -7,6 +7,7 @@ import java.util.Map;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
 import com.school.model.Change;
+import com.school.model.Student_apply;
 import com.school.model.Zfxfzb_xsjbxxb;
 
 /**
@@ -16,16 +17,6 @@ import com.school.model.Zfxfzb_xsjbxxb;
  *
  */
 public class ApplyController extends Controller {
-	/**
-	 * 保存提交的表单,将提交的数据保存在数据库中的apply_student表中
-	 */
-	public void save() {
-		Map<String, String[]> map = getParaMap();
-		for (String key : map.keySet()) {
-			System.out.println(key);
-		}
-		System.out.println(map);
-	}
 
 	/**
 	 * 渲染申请页面,点击申请时进行申请学生学号密码验证，并获取学生的信息，初始化申请页面,取出异动类型
@@ -33,7 +24,7 @@ public class ApplyController extends Controller {
 	public void apply_form() {
 
 		List<Change> changess = Change.me.findAll();
-//		setAttr("change_data", changess);
+		// setAttr("change_data", changess);
 		setSessionAttr("change_data", changess);
 		render("validate_student.jsp");
 	}
@@ -44,10 +35,10 @@ public class ApplyController extends Controller {
 	public void validate_student() {
 		String para_sno = getPara("s_no");
 		String para_password = getPara("s_password");
-		String change_name=getPara("c_name");
-		//根据id获取异动类型的名称
-		Change change=Change.me.findIDChangeByName(change_name);
-		
+		String change_name = getPara("c_name");
+		// 根据id获取异动类型的名称
+		Change change = Change.me.findIDChangeByName(change_name);
+
 		List<Zfxfzb_xsjbxxb> student = Zfxfzb_xsjbxxb.me.findWithValidate(
 				para_sno, para_password);
 
@@ -63,13 +54,17 @@ public class ApplyController extends Controller {
 		}
 	}
 
-	/*
-	 * 获取异动类型的数据
+	/**
+	 * 保存学生提交的表单到数据库
 	 */
-	public void getChangeData() {
+	public void save_apply() {
+		Student_apply student_apply = getModel(Student_apply.class, "stu");
+		
+		if (student_apply.save()) {
+			renderText("保存失败");
+		}
+		render("index/login_after_student");
 
-		List<Change> changess = Change.me.findAll();
-		renderJson(changess);
 	}
 
 	/*

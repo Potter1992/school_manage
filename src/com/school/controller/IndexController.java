@@ -72,10 +72,6 @@ public class IndexController extends Controller {
 
 			if (r_name.trim().equals("学生")) {// 判断角色类型
 				render("login_after_leader.jsp");
-				// setAttr("blogPage", Blog.dao.paginate(1, 10, "select *",
-				// "from blog");
-				// Role.me.paginate(pageNumber, pageSize, select,
-				// sqlExceptSelect)
 			} else {
 			}
 		} else {
@@ -83,20 +79,10 @@ public class IndexController extends Controller {
 		}
 	}
 
-	public void test() {
-		render("test.jsp");
+	public void login_after_student() {
+		render("login_after_student.jsp");
 	}
 
-	/*
-	 * 给申请页面传数据
-	 */
-	/*public void regist() {
-		List<Academy> aList = Academy.me.findAll();
-		setAttr("list_academy", aList);
-		List<Zfxfzb_xsjbxxb> zList = Zfxfzb_xsjbxxb.me.findAll();
-		setAttr("list_subject", zList);
-		render("apply_student.jsp");
-	}*/
 
 	/*
 	 * 处理上传的图片

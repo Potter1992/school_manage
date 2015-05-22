@@ -17,7 +17,7 @@
 
 <body>
 
-	<form action="" id="search-form">
+	<form action="save_apply" id="search-form" method="post">
 		<div class="panel-body" style="padding: 40px;">
 
 			<div class="form-group">
@@ -30,41 +30,41 @@
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
+						<input type="text" name="stu.s_password" value="${student.xsmm }" >
 						<label id="option_label">学号:</label><input readonly="readonly"
-							type="text" class="input" id="s_no" name="s_no" placeholder="学号"
+							type="text" class="input" id="s_no" name="stu.s_no" placeholder="学号"
 							value="${student.xh }" /><br> <label id="option_label ">姓名:</label>
 						<input readonly="readonly" type="text" class="input" id="s_name"
-							name="s_name" placeholder="姓名" value="${student.xm }" /> <br>
+							name="stu.s_name" placeholder="姓名" value="${student.xm }" /> <br>
 						<label id="option_label">性别:</label><input readonly="readonly"
-							type="text" name="s_sex" value="${student.xb}"><br>
-						<input type="text" value="1" name="c_id" hidden="hidden"><br>
+							type="text" name="stu.s_sex" value="${student.xb}"><br>
 						<label id="option_label id="option_label">您所在的学院:</label> <select
 							id="s_before_academy" readonly="readonly" class="input"
-							name="s_before_academy">
+							name="stu.s_before_academy">
 							<option>${student.xy}</option>
 
 						</select> <br> <label id="option_label">您的专业:</label> <select
-							id="s_before_subject" class="input" name="s_before_academy">
+							id="s_before_subject" class="input" name="stu.s_before_subject">
 							<option>${student.zymc}</option>
 						</select> <br> <label id="option_label">您所在的年级:</label> <input
 							type="text" class="input" readonly="readonly"
-							name="s_before_grade" placeholder="异动前年级" readonly="readonly"
+							name="stu.s_before_grade" placeholder="异动前年级" readonly="readonly"
 							value="${student.dqszj}" /> <br> <label id="option_label">您所在的班级:</label>
-						<input type="text" class="input" name="s_before_class"
+						<input type="text" class="input" name="stu.s_before_class"
 							readonly="readonly" placeholder="异动前班级" value="${student.xzb }" />
 						<br> <label id="option_label">学年:</label> <input
-							type="s_year" class="input" readonly="readonly" name="s_year"
+							type="text" class="input" readonly="readonly" name="stu.s_year"
 							placeholder="学制" value="${student.xz }" /> <br> <label
 							id="option_label">学籍状态:</label> <input type="text"
-							readonly="readonly" name="s_before_status"
+							readonly="readonly" name="stu.s_before_status"
 							value="${student.xjzt}" class="input" /> <br> <label
 							id="option_label">学历状态:</label> <input type="text" class="input"
-							readonly="readonly" name="s_before_education" placeholder="学历前"
+							readonly="readonly" name="stu.s_before_education" placeholder="学历前"
 							value="${student.cc}" /> <br> <label id="option_label">注册状态:</label>
-						<input type="text" name="s_before_regist" class="input"
+						<input type="text" name="stu.s_before_regist" class="input"
 							readonly="readonly" value="${student.zc }"> <br> <label
 							id="option_label">在校状态:</label> <input type="text" class="input"
-							readonly="readonly" name="s_before_school" value="${student.zx}">
+							readonly="readonly" name="stu.s_before_school" value="${student.zx}">
 
 					</div>
 				</div>
@@ -77,36 +77,40 @@
 				<div class="border border-green radius-big float-right"
 					style="width: 50%; padding: 10px 20px; margin-left: 10px">
 					<br> <label id="option_label">学院:</label> <select
-						id="s_after_academy" class="input" name="s_after_academy">
+						id="stu.s_after_academy" class="input" name="stu.s_after_academy">
 						<c:forEach items="${list_academy}" var="academy">
 							<option>${academy.academy_name}</option>
 						</c:forEach>
 					</select> <br> <label id="option_label">专业:</label> <select
-						id="s_after_subject" class="input" name="s_after_academy">
+						id="s_after_subject" class="input" name="stu.s_after_subject">
 						<c:forEach items="${list_subject}" var="subject">
 							<option>${subject.zymc}</option>
 						</c:forEach>
 					</select> <br> <label id="option_label">年级:</label> <input
-						type="s_after_grade" class="input" name="s_after_grade"
+						type="text" class="input" name="stu.s_after_grade"
 						placeholder="异动后年级" /> <br> <label id="option_label">班级:</label>
-					<input type="s_after_class" class="input" name="s_after_class"
+					<input type="text" class="input" name="stu.s_after_class"
 						placeholder="异动后班级" /> <br> <label id="option_label">学籍状态:</label><input
-						type="radio" name="s_after_status" value="有" checked="checked">
-					有<input type="radio" name="s_after_status" value="无"
+						type="radio" name="stu.s_after_status" value="有" checked="checked">
+					有<input type="radio" name="stu.s_after_status" value="无"
 						style="margin-left: 20px"> 无<br> <br> <label
 						id="option_label">学历:</label><select id="s_after_education"
-						class="input" name="s_after_education">
+						class="input" name="stu.s_after_education">
 						<option>无</option>
 						<option>本科</option>
 						<option>专科</option>
-					</select> <br> <label id="option_label">注册状态:</label><input
-						type="radio" name="s_after_regist" value="有" checked="checked">
-					有 <input type="radio" name="s_after_regist" value="无"
+					</select> <br> 
+					<label id="option_label">注册状态:</label><input
+						type="radio" name="stu.s_after_regist" value="有" checked="checked">
+					有 
+					<input type="radio" name="stu.s_after_regist" value="无"
 						style="margin-left: 20px"> 无<br> <label
-						id="option_label">在校状态:</label><input type="radio"
-						name="s_after_school" value="有" checked="checked"> 有 <input
-						type="radio" name="s_after_school" value="无"
-						style="margin-left: 20px"> 无<br> <input type="submit"
+						id="option_label">在校状态:</label>
+						<input type="radio"
+						name="stu.s_after_school" value="有" checked="checked"> 有 <input
+						type="radio" name="stu.s_after_school" value="无"
+						style="margin-left: 20px"> 无<br>
+						 <input type="submit"
 						value="提交申请" class="button radius-big text-green "
 						style="margin-top: 20px; width: 100%" />
 				</div>
