@@ -9,12 +9,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
-<link rel="stylesheet" href="css/pintuer.css">
-<link rel="stylesheet" href="css/admin.css">
-<script src="js/jquery.js"></script>
-<script src="js/pintuer.js"></script>
-<script src="js/respond.js"></script>
-<script src="js/admin.js"></script>
+<jsp:include page="css_js.jsp"></jsp:include>
 </head>
 
 <body>
@@ -38,55 +33,56 @@
 	<div class="admin">
 
 		<div class="tab">
-			<jsp:include page="tab-head.jsp" ></jsp:include>
+			<jsp:include page="tab-head.jsp"></jsp:include>
 			<div class="tab-body">
 				<div class="tab-panel active" id="tab-apply-detail">
 					<ul class="list-group list-striped">
 						<c:forEach items="${stu_list}" var="stu">
 							<font size="1dp"><li>学号:</li>
-							<li>${stu.s_no}</li>
+								<li>${stu.s_no}</li>
 								<li>性别:</li>
-							<li>${stu.s_sex}</li>
+								<li>${stu.s_sex}</li>
 								<li>签字图片:</li>
-							<li><img alt="签字图片" src="/image/${stu.s_img}" style="width: 300px;height: 60px"> </li>
+								<li><img alt="签字图片" src="/image/${stu.s_img}"
+									style="width: 300px; height: 60px"></li>
 								<li>异动类型ID:</li>
-							<li>${stu.c_id}</li>
+								<li>${stu.c_id}</li>
 								<li>异动前学院:</li>
-							<li>${stu.s_before_academy}</li>
+								<li>${stu.s_before_academy}</li>
 								<li>异动后学院:</li>
-							<li>${stu.s_after_academy}</li>
+								<li>${stu.s_after_academy}</li>
 								<li>异动前专业:</li>
-							<li>${stu.s_before_subject}</li>
+								<li>${stu.s_before_subject}</li>
 								<li>异动后专业:</li>
-							<li>${stu.s_after_subject}</li>
+								<li>${stu.s_after_subject}</li>
 								<li>异动前班级:</li>
-							<li>${stu.s_before_class}</li>
+								<li>${stu.s_before_class}</li>
 								<li>异动后班级:</li>
-							<li>${stu.s_after_class}</li>
+								<li>${stu.s_after_class}</li>
 								<li>学制</li>
-							<li>${stu.s_year}</li>
+								<li>${stu.s_year}</li>
 								<li>异动前专业代码:</li>
-							<li>${stu.s_before_subject_no}</li>
+								<li>${stu.s_before_subject_no}</li>
 								<li>异动后专业代码:</li>
-							<li>${stu.s_after_subject_no}</li>
+								<li>${stu.s_after_subject_no}</li>
 								<li>异动前学籍状态:</li>
-							<li>${stu.s_before_status}</li>
+								<li>${stu.s_before_status}</li>
 								<li>异动后学籍状态:</li>
-							<li>${stu.s_after_status}</li>
+								<li>${stu.s_after_status}</li>
 								<li>异动前学历:</li>
-							<li>${stu.s_before_education}</li>
+								<li>${stu.s_before_education}</li>
 								<li>异动后学历:</li>
-							<li>${stu.s_after_education}</li>
+								<li>${stu.s_after_education}</li>
 								<li>异动前是否注册:</li>
-							<li>${stu.s_before_regist}</li>
+								<li>${stu.s_before_regist}</li>
 								<li>异动后是否注册:</li>
-							<li>${stu.s_after_regist}</li>
+								<li>${stu.s_after_regist}</li>
 								<li>异动前是否在校:</li>
-							<li>${stu.s_before_school}</li>
+								<li>${stu.s_before_school}</li>
 								<li>异动后是否在校:</li>
-							<li>${stu.s_after_school}</li>
+								<li>${stu.s_after_school}</li>
 								<li>异动时间:</li>
-							<li>${stu.s_changetime}</li></font>
+								<li>${stu.s_changetime}</li></font>
 						</c:forEach>
 						<!-- id: 学号:s_no 姓名:s_name 密码:s_password 性别:s_sex 签字图片s_img 异动类型:c_id
 						异动前学院:s_before_academy 异动后学院s_after_academy 异动前专业:s_before_subject
@@ -101,7 +97,12 @@
 
 				</div>
 				<jsp:include page="tab-process-detail.jsp"></jsp:include>
+				<div class="tab-panel active" id="tab-manage-detail">
+				申请管理
 				
+				
+				</div>
+
 			</div>
 		</div>
 		<p class="text-right text-gray">

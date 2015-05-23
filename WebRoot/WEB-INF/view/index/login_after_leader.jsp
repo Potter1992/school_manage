@@ -8,28 +8,27 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
-<link rel="stylesheet" href="css/pintuer.css">
-<link rel="stylesheet" href="css/admin.css">
-<script src="js/jquery.js"></script>
-<script src="js/pintuer.js"></script>
-<script src="js/respond.js"></script>
-<script src="js/admin.js"></script>
+<jsp:include page="css_js.jsp"></jsp:include>
+<script src="js/auto_hidden.js"></script>
 </head>
 
 <body>
+<input type="text" id="r_level" value="${r_level}" hidden="hidden" >
 	<div class="lefter">
 		<div class="logo">学生异动管理</div>
+		<div></div>
 	</div>
 	<div class="righter nav-navicon" id="admin-nav">
 		<div class="mainer">
-			<div class="admin-navbar">
+			<div class="admin-navbar" style="margin-top: 13px">
 				<span class="float-right"> <a
-					class="button button-little bg-yellow" href="login.html">注销登录</a>
+					class="button button-little bg-yellow" href="unLogin">注销登录</a>
 				</span>
 				<ul class="nav nav-inline admin-nav">
 					<li class="active"><a href="#" class="icon-cog"> 详情</a></li>
 				</ul>
 			</div>
+			
 
 		</div>
 	</div>
@@ -38,26 +37,26 @@
 
 		<div class="tab">
 			<div class="tab-head">
-				<strong></strong>
+				<strong>${r_level }</strong>
 				<ul class="tab-nav">
-					<li class="active"><a href="#tab-apply-detail">申请详情</a></li>
-					<li><a href="#tab-process-detail">进度详情</a></li>
+					<li class="active">
+					<a href="#tab-apply-detail" id="apply">申请详情</a></li>
+					<li><a href="#tab-process-detail" id="process">进度详情</a></li>
+					<li><a href="#tab-student-detail" id="student">学生申请</a></li>
+					<li><a href="#tab-manage-detail" id="manage">系统管理</a></li>
 				</ul>
 			</div>
+
+
 			<div class="tab-body">
 				<div class="tab-panel active" id="tab-apply-detail">申请详情</div>
-				<div class="tab-panel active" id="tab-process-detail" style="">进度详情<
-				</div>
+				<div class="tab-panel " id="tab-process-detail">进度详情</div>
+				<div class="tab-panel  " id="tab-student-detail">学生申请</div>
+				<div class="tab-panel " id="tab-manage-detail">系统管理</div>
 			</div>
 		</div>
-		<p class="text-right text-gray">
-			基于<a class="text-gray" target="_blank" href="http://www.pintuer.com">拼图前端框架</a>构建
-		</p>
+		<p class="text-right text-gray">${msg}</p>
 	</div>
 
-	<div class="hidden">
-		<script src="http://s4.cnzz.com/stat.php?id=5952475&web_id=5952475"
-			language="JavaScript"></script>
-	</div>
 </body>
 </html>

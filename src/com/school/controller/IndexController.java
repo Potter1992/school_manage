@@ -1,20 +1,15 @@
 package com.school.controller;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.servlet.http.HttpSession;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.StrKit;
-import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.upload.MultipartRequest;
-import com.jfinal.upload.UploadFile;
-import com.oreilly.servlet.multipart.Part;
 import com.school.model.Academy;
 import com.school.model.Approve_person;
 import com.school.model.Role;
@@ -23,7 +18,7 @@ import com.school.model.Zfxfzb_xsjbxxb;
 
 public class IndexController extends Controller {
 	public void index() {
-		
+
 		render("index.jsp");
 	}
 
@@ -40,9 +35,10 @@ public class IndexController extends Controller {
 	public void login_student() {
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
-		setSessionAttr("stu_list", Student_apply.me.getCurrentStudent(username, password));//设置当前用户
-		List<Student_apply> stulist=getSessionAttr("stu_list");
-		
+		setSessionAttr("stu_list",
+				Student_apply.me.getCurrentStudent(username, password));// 设置当前用户
+		List<Student_apply> stulist = getSessionAttr("stu_list");
+
 		if (stulist.size() != 0) {
 			render("login_after_student.jsp");
 		} else {
@@ -58,22 +54,24 @@ public class IndexController extends Controller {
 	public void login() {
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
-		setSessionAttr("app_person", Approve_person.me.getCurrentApprove_person(username, password));
-		// 审核人员
-		List<Approve_person> list = getSessionAttr("app_person");
-		// 判断角色的类型
-		if (list.size() != 0) {
-			int r_id = 0;
-			for (Approve_person app : list) {
-				r_id = app.get("r_id");// 获取审批人对象中的r_id角色类型
-			}
-			Role role = Role.me.findById(r_id);
-			String r_name = role.get("r_name");
+		Approve_person approve_person = Approve_person.me.findByLogin(username,
+				password);
 
-			if (r_name.trim().equals("学生")) {// 判断角色类型
-				render("login_after_leader.jsp");
+		// 判断角色的类型
+		if (approve_person != null && !approve_person.equals("")) {
+			setSessionAttr("app_person", approve_person);
+			// 审核人员
+			Approve_person app = getSessionAttr("app_person");
+			int r_id = app.get("r_id");
+			// 根据角色id取得角色类型
+			String role=Role.me.getLevelByID(r_id);
+			if (role == null && role.equals("")) {
+				setAttr("msg", "您没有相应的权限来访问此页面");
 			} else {
+				setSessionAttr("r_level", role);
 			}
+			render("login_after_leader.jsp");
+
 		} else {
 			login_student();// 判断是否为学生，yes是特定页面
 		}
@@ -82,7 +80,19 @@ public class IndexController extends Controller {
 	public void login_after_student() {
 		render("login_after_student.jsp");
 	}
-
+	/**
+	 * 注销重新登录
+	 */
+	public void unLogin() {
+		HttpSession session=getSession();
+		Enumeration<String> attrs=session.getAttributeNames();
+		while (attrs.hasMoreElements()) {
+			String string = (String) attrs.nextElement();
+			session.removeAttribute(string);
+		}
+		render("index.jsp");
+		
+	}
 
 	/*
 	 * 处理上传的图片
@@ -90,9 +100,9 @@ public class IndexController extends Controller {
 	public void handleImg() throws Exception {
 		// 为每一个用户创建一个文件名以他的学号命名
 		File file = getFile("image", "image").getFile();
-		
+
 		if (file.getName().endsWith("jpg")) {
-			 file.renameTo(new File("upload/image/"+"201201001003"+".jpg"));
+			file.renameTo(new File("upload/image/" + "201201001003" + ".jpg"));
 			setAttr("img", "upload/image/" + file.getName());
 			setAttr("msg", "上传成功");
 			render("handleImg.jsp");
