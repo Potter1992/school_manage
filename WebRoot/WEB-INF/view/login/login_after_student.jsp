@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
-<jsp:include page="css_js.jsp"></jsp:include>
+<jsp:include page="../login/css_js.jsp"></jsp:include>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 		<div class="mainer">
 			<div class="admin-navbar">
 				<span class="float-right"> <a
-					class="button button-little bg-yellow" href="login.html">注销登录</a>
+					class="button button-little bg-yellow" href="login_validate">注销登录</a>
 				</span>
 				<ul class="nav nav-inline admin-nav">
 					<li class="active"><a href="#" class="icon-cog"> 详情</a></li>
@@ -33,7 +33,7 @@
 	<div class="admin">
 
 		<div class="tab">
-			<jsp:include page="tab-head.jsp"></jsp:include>
+			<jsp:include page="../index/tab-head.jsp"></jsp:include>
 			<div class="tab-body">
 				<div class="tab-panel active" id="tab-apply-detail">
 					<ul class="list-group list-striped">
@@ -96,7 +96,7 @@
 					</ul>
 
 				</div>
-				<jsp:include page="tab-process-detail.jsp"></jsp:include>
+				<jsp:include page="../index/tab-process-detail.jsp"></jsp:include>
 				<div class="tab-panel active" id="tab-manage-detail">
 				申请管理
 				

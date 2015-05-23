@@ -12,7 +12,7 @@ public class Change extends Model<Change> {
 	 * @return 异动类型
 	 */
 	public List<Change> findAll() {
-
+		
 		return find("select * from change_apply");
 	}
 

@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/pintuer.css">
-<link rel="stylesheet" href="css/admin.css">
-<script src="js/jquery.js"></script>
-<script src="js/pintuer.js"></script>
-<script src="js/respond.js"></script>
-<script src="js/admin.js"></script>
+<link rel="stylesheet" href="../css/pintuer.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/jquery.js"></script>
+<script src="../js/pintuer.js"></script>
+<script src="../js/respond.js"></script>
+<script src="../js/admin.js"></script>
 </head>
 
 </html>

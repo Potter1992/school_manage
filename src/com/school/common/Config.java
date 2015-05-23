@@ -11,6 +11,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.school.controller.ApplyController;
 import com.school.controller.IndexController;
+import com.school.controller.LoginController;
 import com.school.controller.ManageController;
 import com.school.model.Academy;
 import com.school.model.Approve_person;
@@ -32,9 +33,10 @@ public class Config extends JFinalConfig {
 
 	@Override
 	public void configRoute(Routes me) {
-		me.add("/", IndexController.class,"index");
+		me.add("index", IndexController.class);
 		me.add("apply",ApplyController.class);
 		me.add("manage",ManageController.class);
+		me.add("login",LoginController.class);
 
 	}
 

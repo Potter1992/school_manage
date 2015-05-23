@@ -21,7 +21,7 @@
 				<br />
 				<br />
 
-				<form action="login" method="post">
+				<form action="../login/login" method="post">
 					<div class="panel">
 						<div class="panel-head">
 							<strong>登录管理系统</strong>
