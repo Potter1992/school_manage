@@ -25,7 +25,12 @@
 					class="button button-little bg-yellow" href="unLogin">注销登录</a>
 				</span>
 				<ul class="nav nav-inline admin-nav">
-					<li class="active"><a href="#" class="icon-cog"> 详情</a></li>
+					<li class="active"><a href="#" class="icon-cog"> 详情</a>
+					<ul>
+					<li>nimei</li>
+					</ul>
+					
+					</li>
 				</ul>
 			</div>
 			

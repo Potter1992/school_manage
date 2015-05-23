@@ -32,6 +32,7 @@ public class IndexController extends Controller {
 	/*
 	 * 登录验证--学生
 	 */
+//	@Before (LoginInterceptor.class)
 	public void login_student() {
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
@@ -51,9 +52,11 @@ public class IndexController extends Controller {
 	/*
 	 * 登录验证--审核人员
 	 */
+	
 	public void login() {
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
+		
 		Approve_person approve_person = Approve_person.me.findByLogin(username,
 				password);
 
