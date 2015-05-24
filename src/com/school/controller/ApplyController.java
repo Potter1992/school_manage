@@ -1,14 +1,8 @@
 package com.school.controller;
 
-import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import com.jfinal.core.Controller;
-import com.jfinal.kit.FileKit;
-import com.jfinal.kit.JsonKit;
-import com.jfinal.kit.StrKit;
-import com.school.model.Academy;
 import com.school.model.Change;
 import com.school.model.Student_apply;
 import com.school.model.Xydmb;
@@ -31,9 +25,6 @@ public class ApplyController extends Controller {
 		List<Change> changess = Change.me.findAll();
 		// setAttr("change_data", changess);
 		setSessionAttr("change_data", changess);
-	
-		
-		
 		render("validate_student.jsp");
 	}
 
@@ -69,7 +60,8 @@ public class ApplyController extends Controller {
 	 */
 	public void save_apply() {
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
-		if (student_apply != null&&student_apply.equals("")) {
+		
+		if (student_apply != null&&!student_apply.equals("")) {
 			if (student_apply.save()) {
 				render("../login/login_after_student");
 			} else {

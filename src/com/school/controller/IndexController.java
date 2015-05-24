@@ -11,17 +11,15 @@ import com.school.model.Student_apply;
 import com.school.model.Zfxfzb_xsjbxxb;
 
 public class IndexController extends Controller {
+	/**
+	 * 首页
+	 */
 	public void index() {
-
 		render("index.jsp");
 	}
-
-	/*
-	 * 测试自动补全
+	/**
+	 * 跳转到login中的学生登陆后的页面
 	 */
-	public void academy() {
-		render("getdata.jsp");
-	}
 
 	public void login_after_student() {
 		render("login/login_after_student.jsp");
@@ -39,13 +37,5 @@ public class IndexController extends Controller {
 			String jsonString = JsonKit.toJson(list);
 			renderJson(jsonString);
 		}
-	}
-
-	
-	/**
-	 * 删除学生申请
-	 */
-	public void delete_stu() {
-		Student_apply.me.update_stu();
 	}
 }

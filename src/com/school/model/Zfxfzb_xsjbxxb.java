@@ -1,10 +1,11 @@
 package com.school.model;
 
 import java.util.List;
-
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.ext.plugin.tablebind.TableBind;
 
 public class Zfxfzb_xsjbxxb extends Model<Zfxfzb_xsjbxxb> {
+
 	public static final Zfxfzb_xsjbxxb me = new Zfxfzb_xsjbxxb();
 
 	public List<Zfxfzb_xsjbxxb> findAll() {

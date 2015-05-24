@@ -45,7 +45,7 @@
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
-						<input type="text" name="stu.s_password" value="${student.xsmm }">
+						<input type="text" name="stu.s_password" value="${student.xsmm }"style="display:none;">
 						<label id="option_label">学号:</label><input readonly="readonly"
 							type="text" class="input" id="s_no" name="stu.s_no"
 							placeholder="学号" value="${student.xh }" /><br> <label

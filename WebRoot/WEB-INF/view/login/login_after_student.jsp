@@ -33,7 +33,7 @@
 	<div class="admin">
 
 		<div class="tab">
-			<jsp:include page="../index/tab-head.jsp"></jsp:include>
+			<jsp:include page="tab-head.jsp"></jsp:include>
 			<div class="tab-body">
 				<div class="tab-panel active" id="tab-apply-detail">
 					<ul class="list-group list-striped">
@@ -96,7 +96,7 @@
 					</ul>
 
 				</div>
-				<jsp:include page="../index/tab-process-detail.jsp"></jsp:include>
+				<jsp:include page="tab-process-detail.jsp"></jsp:include>
 				<div class="tab-panel active" id="tab-manage-detail">
 				申请管理
 				

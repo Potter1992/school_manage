@@ -13,6 +13,7 @@ import com.school.controller.ApplyController;
 import com.school.controller.IndexController;
 import com.school.controller.LoginController;
 import com.school.controller.ManageController;
+import com.school.handler.Handler;
 import com.school.model.Academy;
 import com.school.model.Approve_person;
 import com.school.model.Change;
@@ -85,6 +86,8 @@ public class Config extends JFinalConfig {
 	@Override
 	public void configHandler(Handlers me) {
 		// TODO Auto-generated method stub
+//		me.add(new Handler());
+		
 
 	}
 	
