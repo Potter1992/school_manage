@@ -17,7 +17,7 @@ public class Zfxfzb_xsjbxxb extends Model<Zfxfzb_xsjbxxb> {
 	}
 	public List<Zfxfzb_xsjbxxb> findWithValidate(String s_no,String s_password) {
 		List<Zfxfzb_xsjbxxb> studentList=Zfxfzb_xsjbxxb.me
-		.find("select * from zfxfzb_xsjbxxb where xh = ? && xsmm = ?",s_no,s_password);
+		.find("select * from xsjbxxb where xh = ? && xsmm = ?",s_no,s_password);
 		if (studentList==null) {
 			return null;
 		}

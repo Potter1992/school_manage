@@ -18,7 +18,9 @@ import com.school.model.Approve_person;
 import com.school.model.Change;
 import com.school.model.Role;
 import com.school.model.Student_apply;
+import com.school.model.Xydmb;
 import com.school.model.Zfxfzb_xsjbxxb;
+import com.school.model.Zydmb;
 
 public class Config extends JFinalConfig {
 
@@ -48,11 +50,13 @@ public class Config extends JFinalConfig {
 		ActiveRecordPlugin aPlugin=new ActiveRecordPlugin("mysql",cPlugin);
 		me.add(aPlugin);
 		aPlugin.addMapping("change_apply",Change.class);
-		aPlugin.addMapping("academy",Academy.class);
+		aPlugin.addMapping("academy",Academy.class);//待测
 		aPlugin.addMapping("approve_person", Approve_person.class);
-		aPlugin.addMapping("role", Role.class);
-		aPlugin.addMapping("student_apply", Student_apply.class);
-		aPlugin.addMapping("zfxfzb_xsjbxxb", Zfxfzb_xsjbxxb.class);
+		aPlugin.addMapping("role", Role.class);//角色表
+		aPlugin.addMapping("student_apply", Student_apply.class);//学生申请表
+		aPlugin.addMapping("xsjbxxb", Zfxfzb_xsjbxxb.class);//学生基本信息表
+		aPlugin.addMapping("zydmb", Zydmb.class);//专业
+		aPlugin.addMapping("xydmb", Xydmb.class);//学院
 		/*
 		//oracle
 		ActiveRecordPlugin arp=null;

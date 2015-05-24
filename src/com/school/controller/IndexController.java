@@ -23,36 +23,10 @@ public class IndexController extends Controller {
 		render("getdata.jsp");
 	}
 
-	
-
 	public void login_after_student() {
 		render("login/login_after_student.jsp");
 	}
 	
-
-	/*
-	 * 处理上传的图片
-	 */
-	public void handleImg() throws Exception {
-		// 为每一个用户创建一个文件名以他的学号命名
-		File file = getFile("image", "image").getFile();
-
-		if (file.getName().endsWith("jpg")) {
-			file.renameTo(new File("upload/image/" + "201201001003" + ".jpg"));
-			setAttr("img", "upload/image/" + file.getName());
-			setAttr("msg", "上传成功");
-			render("handleImg.jsp");
-		} else {
-			FileKit.delete(file);
-			setAttr("msg", "格式错误");
-			render("handleImg.jsp");
-		}
-	}
-
-	public void imagehandle() {
-		render("handleImg.jsp");
-	}
-
 	/**
 	 * 获得学院数据
 	 */
@@ -67,20 +41,7 @@ public class IndexController extends Controller {
 		}
 	}
 
-	/**
-	 * 获得专业数据
-	 */
-	public void getSubject() {
-		String para = getPara("q");
-		if (StrKit.isBlank(para)) {
-			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findAll();
-			renderJson(list);
-		} else {
-			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findByArgs(para);
-			String jsonString = JsonKit.toJson(list);
-			renderJson(jsonString);
-		}
-	}
+	
 	/**
 	 * 删除学生申请
 	 */

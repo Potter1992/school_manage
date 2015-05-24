@@ -6,9 +6,14 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.FileKit;
+import com.jfinal.kit.JsonKit;
+import com.jfinal.kit.StrKit;
+import com.school.model.Academy;
 import com.school.model.Change;
 import com.school.model.Student_apply;
+import com.school.model.Xydmb;
 import com.school.model.Zfxfzb_xsjbxxb;
+import com.school.model.Zydmb;
 
 /**
  * 当输入完密码时进行验证，学号和密码是否正确，此时需从oral数据库中查询学生的基本信息
@@ -26,6 +31,9 @@ public class ApplyController extends Controller {
 		List<Change> changess = Change.me.findAll();
 		// setAttr("change_data", changess);
 		setSessionAttr("change_data", changess);
+	
+		
+		
 		render("validate_student.jsp");
 	}
 
@@ -43,6 +51,8 @@ public class ApplyController extends Controller {
 				para_sno, para_password);
 
 		if (student != null && student.size() > 0) {
+			List<Xydmb> academies=Xydmb.me.findAll();
+			setAttr("list_academy", academies);
 			setSessionAttr("current_student", student.get(0));
 			setAttr("student", getSessionAttr("current_student"));
 			setAttr("change", change);
@@ -59,31 +69,30 @@ public class ApplyController extends Controller {
 	 */
 	public void save_apply() {
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
-		
-		if (student_apply.save()) {
-			renderText("保存失败");
+		if (student_apply != null&&student_apply.equals("")) {
+			if (student_apply.save()) {
+				render("../login/login_after_student");
+			} else {
+				renderText("保存失败");
+			}
 		}
-		render("index/login_after_student");
+		renderText("您没有改变任何信息");
 
 	}
-
-	/*
-	 * 处理上传的图片
+	/**
+	 * 获得专业数据
 	 */
-	public void handleImg() throws Exception {
-		// 为每一个用户创建一个文件名以他的学号命名
-		File file = getFile("image", "image").getFile();
-		// GraphicsUtilities.
-
-		if (file.getName().endsWith("jpg")) {
-			file.renameTo(new File("upload/image/" + "201201001003" + ".jpg"));
-			setAttr("img", "upload/image/" + file.getName());
-			setAttr("msg", "上传成功");
-			render("handleImg.jsp");
-		} else {
-			FileKit.delete(file);
-			setAttr("msg", "格式错误");
-			render("handleImg.jsp");
-		}
+	public void getSubjectbyAcademy() {
+		String para = getPara("q");
+		List<Zydmb> zydmbs=Zydmb.me.findByAcademy(para);
+		renderJson(zydmbs);
+//		if (StrKit.isBlank(para)) {
+//			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findAll();
+//			renderJson(list);
+//		} else {
+//			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findByArgs(para);
+//			String jsonString = JsonKit.toJson(list);
+//			renderJson(jsonString);
+//		}
 	}
 }
