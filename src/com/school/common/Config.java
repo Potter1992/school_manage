@@ -54,7 +54,7 @@ public class Config extends JFinalConfig {
 		aPlugin.addMapping("academy",Academy.class);//待测
 		aPlugin.addMapping("approve_person", Approve_person.class);
 		aPlugin.addMapping("role", Role.class);//角色表
-		aPlugin.addMapping("student_apply", Student_apply.class);//学生申请表
+		aPlugin.addMapping("student_apply", "s_id",Student_apply.class);//学生申请表
 		aPlugin.addMapping("xsjbxxb", Zfxfzb_xsjbxxb.class);//学生基本信息表
 		aPlugin.addMapping("zydmb", Zydmb.class);//专业
 		aPlugin.addMapping("xydmb", Xydmb.class);//学院

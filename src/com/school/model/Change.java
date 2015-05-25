@@ -23,4 +23,11 @@ public class Change extends Model<Change> {
 		Change change = findFirst("select * from change_apply where c_name = ?",c_name);
 		return change;
 	}
+	/**
+	 * 根据异动类型名称查找c_name
+	 */
+	public Change findNameChangeByIDString(int  c_id) {
+		Change change = findFirst("select * from change_apply where c_id = ?",c_id);
+		return change;
+	}
 }

@@ -3,6 +3,12 @@ package com.school.controller;
 import java.util.List;
 
 import com.jfinal.core.Controller;
+import com.jfinal.ext.kit.ModelKit;
+import com.jfinal.ext.kit.RecordKit;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.DbPro;
+import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.activerecord.RecordBuilder;
 import com.school.model.Change;
 import com.school.model.Student_apply;
 import com.school.model.Xydmb;
@@ -60,16 +66,44 @@ public class ApplyController extends Controller {
 	 */
 	public void save_apply() {
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
+		Record record=ModelKit.toRecord(student_apply);
 		
 		if (student_apply != null&&!student_apply.equals("")) {
-			if (student_apply.save()) {
-				render("../login/login_after_student");
-			} else {
-				renderText("保存失败");
+			if (getIDBySno(student_apply.get("s_no").toString(),record)) {//如果学号存在就更新,不存在就save
+			Student_apply student_apply2=Student_apply.me.findFirstBySnoAndPwd(student_apply.get("s_no").toString(), student_apply.get("s_password").toString());
+				setAttr("stu", student_apply2);
+				Change change=Change.me.findNameChangeByIDString((int)student_apply2.get("c_id"));
+				setAttr("change", change);
+				forwardAction("/login/login_after_student");
+			}else {
+				if (DbPro.use().save("student_apply", record)) {
+					forwardAction("/login/login_after_student");
+				}else {
+					renderText("保存失败");
+				}
 			}
+		}else {
+			renderText("申请信息为空");
 		}
-		renderText("您没有改变任何信息");
+		
+//		render("login/login_after_student");
+//		renderText("您没有改变任何信息");
 
+	}
+	/**
+	 * 
+	 * 根据学号获得id
+	 */
+	public boolean getIDBySno(String sno,Record record) {
+		Student_apply student_apply=Student_apply.me.findFirst("select * from student_apply where s_no=?", sno);
+		if (student_apply!=null) {
+			record.set("s_id", student_apply.get("s_id"));
+			DbPro.use().update("student_apply", "s_id",record);
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	/**
 	 * 获得专业数据

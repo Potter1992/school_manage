@@ -1,0 +1,115 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+tr:HOVER {
+	color: blue;
+}
+</style>
+</head>
+<body>
+	<table
+		class="table table-hover table-condensed table-striped text-big ">
+		<tr>
+			<td>学号:</td>
+			<td>${stu.s_no}</td>
+		</tr>
+		<tr>
+			<td>性别:</td>
+			<td>${stu.s_sex}</td>
+
+		</tr>
+		<tr>
+			<td>签字图片:</td>
+			<td><img alt="签字图片" src="../upload/image/${stu.s_no}.jpg"
+				style="width: 100px; height: 60px"></td>
+
+		</tr>
+
+		<tr>
+			<td>异动类型:</td>
+			<td style="color: red;">${change.c_name}</td>
+
+		</tr>
+		<tr>
+			<td>异动前学院:</td>
+			<td>${stu.s_before_academy}</td>
+
+		</tr>
+		<tr>
+			<td>异动后学院:</td>
+			<td>${stu.s_after_academy}</td>
+
+		</tr>
+		<tr>
+			<td>异动前专业:</td>
+			<td>${stu.s_before_subject}</td>
+
+		</tr>
+		<tr>
+			<td>异动后专业:</td>
+			<td>${stu.s_after_subject}</td>
+
+		</tr>
+		<tr>
+			<td>异动前班级:</td>
+			<td>${stu.s_before_class}</td>
+
+		</tr>
+		<tr>
+			<td>异动后班级:</td>
+			<td>${stu.s_after_class}</td>
+
+		</tr>
+		<tr>
+			<td>异动前学籍状态:</td>
+			<td>${stu.s_before_status}</td>
+
+		</tr>
+		<tr>
+			<td>异动后学籍状态:</td>
+			<td>${stu.s_after_status}</td>
+
+		</tr>
+		<tr>
+			<td>异动前学历:</td>
+			<td>${stu.s_before_education}</td>
+
+		</tr>
+		<tr>
+			<td>异动后学历:</td>
+			<td>${stu.s_after_education}</td>
+
+		</tr>
+		<tr>
+			<td>异动前是否注册:</td>
+			<td>${stu.s_before_regist}</td>
+
+		</tr>
+		<tr>
+			<td>异动后是否注册:</td>
+			<td>${stu.s_after_regist}</td>
+
+		</tr>
+		<tr>
+			<td>异动前是否在校:</td>
+			<td>${stu.s_before_school}</td>
+
+		</tr>
+		<tr>
+			<td>异动前是否在校:</td>
+			<td>${stu.s_after_school}</td>
+
+		</tr>
+		<tr>
+			<td>异动时间:</td>
+			<td>${stu.s_changetime}</td>
+
+		</tr>
+	</table>
+</body>
+</html>

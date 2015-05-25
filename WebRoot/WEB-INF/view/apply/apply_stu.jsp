@@ -45,6 +45,7 @@
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
+						<input type="text" name="stu.c_id" value="${change.c_id }"style="display:none;">
 						<input type="text" name="stu.s_password" value="${student.xsmm }"style="display:none;">
 						<label id="option_label">学号:</label><input readonly="readonly"
 							type="text" class="input" id="s_no" name="stu.s_no"
@@ -101,7 +102,7 @@
 						</c:forEach>
 					</select> <br> <label id="option_label">专业:</label> <select
 						id="s_after_subject" class="input" name="stu.s_after_subject">
-						<option>1234</option>
+						<option></option>
 					</select> <br> <label id="option_label">年级:</label> <input type="text"
 						class="input" name="stu.s_after_grade" placeholder="异动后年级" /> <br>
 					<label id="option_label">班级:</label> <input type="text"

@@ -9,7 +9,7 @@ import com.jfinal.plugin.activerecord.Model;
 /*
  * 审批人
  */
-@TableBind(pkName="s_id",tableName="student_apply")
+//@TableBind(pkName="s_id",tableName="student_apply")
 public class Student_apply extends Model<Student_apply> {
 	public static final Student_apply me=new Student_apply();
 	/**
@@ -39,4 +39,13 @@ public class Student_apply extends Model<Student_apply> {
 //		int i=Db.update("delete from  student_apply where s_no = ?","123456");
 //		return i;
 //	}
+	/**
+	 * 根据学号和密码获得学生
+	 * @param sno
+	 * @param pwd
+	 * @return
+	 */
+	public Student_apply findFirstBySnoAndPwd(String sno,String pwd) {
+		return Student_apply.me.findFirst("select * from student_apply where s_no =? &&s_password = ?",sno,pwd);
+	}
 }
