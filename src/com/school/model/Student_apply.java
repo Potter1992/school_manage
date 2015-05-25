@@ -31,8 +31,8 @@ public class Student_apply extends Model<Student_apply> {
 	 * @param sPassword
 	 * @return
 	 */
-	public List<Student_apply> getCurrentStudent(String sno,String sPassword) {
-		List<Student_apply> currentStu=find("select * from student_apply where s_no = ? && s_password=?",sno,sPassword );
+	public Student_apply getCurrentStudent(String sno,String sPassword) {
+		Student_apply currentStu=findFirst("select * from student_apply where s_no = ? && s_password=?",sno,sPassword );
 		return currentStu;
 	}
 //	public int update_stu() {

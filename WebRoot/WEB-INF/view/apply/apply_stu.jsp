@@ -12,22 +12,6 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#s_after_academy").change(function() {
-			var academy = $("#s_after_academy").val();
-			$.post("getSubjectbyAcademy", {
-				q : academy
-			}, function(data) {
-				var html = "";
-				for ( var i in data) {
-					html += "<option>" + data[i].zymc + "</option>";
-				}
-				$("#s_after_subject").html(html);
-			});
-		});
-	});
-</script>
 </head>
 
 <body>
@@ -125,7 +109,7 @@
 						type="radio" name="stu.s_after_school" value="无"
 						style="margin-left: 20px"> 无<br> <input type="submit"
 						value="提交申请" class="button radius-big text-green "
-						style="margin-top: 20px; width: 100%" />
+						style="margin-top: 267px; width: 100%;height: 100px" />
 				</div>
 				<!--  <input type="text" name="s_before_academy" class="input academy drop open" id="s_before_academy"
         placeholder="请输入学院" onclick="getcomplete('#s_before_academy','getAcademy');"> -->

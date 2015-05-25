@@ -16,9 +16,7 @@ public class LoginController extends Controller {
 	public void login_after_student() {
 		render("login_after_student.jsp");
 	}
-	
-	
-	
+
 	/**
 	 * 检测用户是否登陆
 	 */
@@ -37,12 +35,12 @@ public class LoginController extends Controller {
 	public void login_student() {
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
-		setSessionAttr("stu_list",
+		setSessionAttr("stu",
 				Student_apply.me.getCurrentStudent(username, password));// 设置当前用户
 
-		List<Student_apply> stulist = getSessionAttr("stu_list");
+		Student_apply stulist = getSessionAttr("stu");
 
-		if (stulist.size() != 0) {
+		if (stulist!= null&&!stulist.equals("")) {
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");
@@ -75,6 +73,7 @@ public class LoginController extends Controller {
 			} else {
 				setSessionAttr("r_level", role);
 			}
+			setAttr("app", app);
 			render("login_after_leader.jsp");
 
 		} else {

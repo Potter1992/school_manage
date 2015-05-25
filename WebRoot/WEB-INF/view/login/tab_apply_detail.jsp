@@ -36,77 +36,77 @@ tr:HOVER {
 
 		</tr>
 		<tr>
-			<td>异动前学院:</td>
+			<td>原学院:</td>
 			<td>${stu.s_before_academy}</td>
 
 		</tr>
 		<tr>
-			<td>异动后学院:</td>
+			<td>现学院:</td>
 			<td>${stu.s_after_academy}</td>
 
 		</tr>
 		<tr>
-			<td>异动前专业:</td>
+			<td>原专业:</td>
 			<td>${stu.s_before_subject}</td>
 
 		</tr>
 		<tr>
-			<td>异动后专业:</td>
+			<td>现专业:</td>
 			<td>${stu.s_after_subject}</td>
 
 		</tr>
 		<tr>
-			<td>异动前班级:</td>
+			<td>原班级:</td>
 			<td>${stu.s_before_class}</td>
 
 		</tr>
 		<tr>
-			<td>异动后班级:</td>
-			<td>${stu.s_after_class}</td>
+			<td>现班级:</td>
+			<td>未分配<%-- ${stu.s_after_class} --%></td>
 
 		</tr>
 		<tr>
-			<td>异动前学籍状态:</td>
+			<td>原学籍状态:</td>
 			<td>${stu.s_before_status}</td>
 
 		</tr>
 		<tr>
-			<td>异动后学籍状态:</td>
+			<td>现学籍状态:</td>
 			<td>${stu.s_after_status}</td>
 
 		</tr>
 		<tr>
-			<td>异动前学历:</td>
+			<td>原学历:</td>
 			<td>${stu.s_before_education}</td>
 
 		</tr>
 		<tr>
-			<td>异动后学历:</td>
+			<td>现学历:</td>
 			<td>${stu.s_after_education}</td>
 
 		</tr>
 		<tr>
-			<td>异动前是否注册:</td>
+			<td>之前是否注册:</td>
 			<td>${stu.s_before_regist}</td>
 
 		</tr>
 		<tr>
-			<td>异动后是否注册:</td>
+			<td>之后是否注册:</td>
 			<td>${stu.s_after_regist}</td>
 
 		</tr>
 		<tr>
-			<td>异动前是否在校:</td>
+			<td>之前是否在校:</td>
 			<td>${stu.s_before_school}</td>
 
 		</tr>
 		<tr>
-			<td>异动前是否在校:</td>
+			<td>之后是否在校:</td>
 			<td>${stu.s_after_school}</td>
 
 		</tr>
 		<tr>
-			<td>异动时间:</td>
+			<td>变动时间:</td>
 			<td>${stu.s_changetime}</td>
 
 		</tr>

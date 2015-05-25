@@ -9,7 +9,7 @@
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
 <jsp:include page="css_js.jsp"></jsp:include>
-<script src="js/auto_hidden.js"></script>
+<script src="../js/auto_hidden.js"></script>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 				<ul class="nav nav-inline admin-nav">
 					<li class="active"><a href="#" class="icon-cog"> 详情</a>
 					<ul>
-					<li>nimei</li>
+					<li><div class="text-large text-center text-gray">您好,${app.a_name}进入了学生申请审批页面,如有差错请您与${app.a_academy }的负责人联系</div></li>
 					</ul>
 					
 					</li>
@@ -54,7 +54,10 @@
 
 
 			<div class="tab-body">
-				<div class="tab-panel active" id="tab-apply-detail">申请详情</div>
+				<div class="tab-panel active" id="tab-apply-detail">
+				
+				
+				申请详情</div>
 				<div class="tab-panel " id="tab-process-detail">进度详情</div>
 				<div class="tab-panel  " id="tab-student-detail">学生申请</div>
 				<div class="tab-panel " id="tab-manage-detail">系统管理</div>
