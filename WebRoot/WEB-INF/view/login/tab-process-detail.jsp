@@ -8,8 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="tab-panel " id="tab-process-detail">
 		进度--详情--	
-	</div>
 </body>
 </html>

@@ -12,6 +12,7 @@
 <script src="../js/pintuer.js"></script>
 <script src="../js/respond.js"></script>
 <script src="../js/admin.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style type="text/css">
 #option_head {
 	width: 80px;

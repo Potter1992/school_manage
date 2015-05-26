@@ -19,13 +19,17 @@ tr:HOVER {
 			<td>${stu.s_no}</td>
 		</tr>
 		<tr>
+			<td>姓名:</td>
+			<td>${stu.s_name}</td>
+		</tr>
+		<tr>
 			<td>性别:</td>
 			<td>${stu.s_sex}</td>
 
 		</tr>
 		<tr>
 			<td>签字图片:</td>
-			<td><img alt="签字图片" src="../upload/image/${stu.s_no}.jpg"
+			<td><img class="radius"" alt="签字图片" src="../upload/image/${stu.s_no}.jpg"
 				style="width: 100px; height: 60px"></td>
 
 		</tr>

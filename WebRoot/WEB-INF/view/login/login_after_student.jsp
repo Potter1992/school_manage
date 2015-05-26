@@ -24,10 +24,14 @@
 					class="button button-little bg-yellow" href="login_validate">注销登录</a>
 				</span>
 				<ul class="nav nav-inline admin-nav" style="margin-top: 13px">
-					<li class="active"><a href="#" class="icon-cog"> 详情</a></li>
+					<li class="active"><a href="#" class="icon-cog"> 详情</a>
+						<ul>
+							<li class="container">
+								<p class="fadein-right">您好${ stu.s_name}同学</p>
+							</li>
+						</ul></li>
 				</ul>
 			</div>
-
 		</div>
 	</div>
 
@@ -36,26 +40,16 @@
 		<div class="tab">
 			<jsp:include page="tab-head.jsp"></jsp:include>
 			<div class="tab-body">
-				<div class="tab-panel active"  id="tab-apply-detail">
+				<div class="tab-panel active" id="tab-apply-detail">
 					<jsp:include page="tab_apply_detail.jsp"></jsp:include>
-						<!-- id: 学号:s_no 姓名:s_name 密码:s_password 性别:s_sex 签字图片s_img 异动类型:c_id
-						异动前学院:s_before_academy 异动后学院s_after_academy 异动前专业:s_before_subject
-						异动后专业s_after_subject 异动前班级s_before_class 异动后班级s_after_class
-						异动前年级:s_before_grade 异动后年级s_after_grade 学制:s_year
-						专业代码(前后,根据学生所选专业定) s_before_subject_no s_after_subject_no
-						异动前是否有学籍s_before_status 异动后是否有学籍s_after_status
-						学历(前后)s_before_education s_after_education 是否注册(前后)
-						s_before_regist s_after_regist 是否在校(前后) s_before_school
-						s_after_school 异动时间s_changetime -->
-					
-
 				</div>
-				<jsp:include page="tab-process-detail.jsp"></jsp:include>
-				
+				<div class="tab-panel" id="tab-process-detail">
+					<jsp:include page="tab-process-detail.jsp"></jsp:include>
+				</div>
+
+
 				<div class="tab-panel " id="tab-manage-detail">
-				申请管理
-				
-				
+					<jsp:include page="tab-manage-detail.jsp"></jsp:include>
 				</div>
 
 			</div>
@@ -71,3 +65,12 @@
 	</div>
 </body>
 </html>
+<!-- id: 学号:s_no 姓名:s_name 密码:s_password 性别:s_sex 签字图片s_img 异动类型:c_id
+						异动前学院:s_before_academy 异动后学院s_after_academy 异动前专业:s_before_subject
+						异动后专业s_after_subject 异动前班级s_before_class 异动后班级s_after_class
+						异动前年级:s_before_grade 异动后年级s_after_grade 学制:s_year
+						专业代码(前后,根据学生所选专业定) s_before_subject_no s_after_subject_no
+						异动前是否有学籍s_before_status 异动后是否有学籍s_after_status
+						学历(前后)s_before_education s_after_education 是否注册(前后)
+						s_before_regist s_after_regist 是否在校(前后) s_before_school
+						s_after_school 异动时间s_changetime -->
