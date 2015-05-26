@@ -5,13 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/pintuer.css">
 <link rel="stylesheet" href="../css/admin.css">
 <link rel="stylesheet" href="../css/autocomplete.css">
 <script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
 <script src="../js/pintuer.js"></script>
 <script src="../js/respond.js"></script>
 <script src="../js/admin.js"></script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style type="text/css">
 #option_head {

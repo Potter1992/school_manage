@@ -10,10 +10,10 @@
 <title>学生异动管理</title>
 <jsp:include page="css_js.jsp"></jsp:include>
 <script src="../js/auto_hidden.js"></script>
-</head>
 
+</head>
 <body>
-<input type="text" id="r_level" value="${r_level}" hidden="hidden" >
+	<input type="text" id="r_level" value="${r_level}" hidden="hidden">
 	<div class="lefter">
 		<div class="logo">学生异动管理</div>
 		<div></div>
@@ -26,38 +26,35 @@
 				</span>
 				<ul class="nav nav-inline admin-nav">
 					<li class="active"><a href="#" class="icon-cog"> 详情</a>
-					<ul>
-					<li><div class="text-large text-center text-gray">您好,${app.a_name}进入了学生申请审批页面,如有差错请您与${app.a_academy }的负责人联系</div></li>
-					</ul>
-					
-					</li>
+						<ul>
+							<li>
+								<div class="alert alert-info" style="background-color: #eee">
+									<button type="button" class="close" data-dismiss="alert" style="margin-bottom: "></button>
+									<h4>提示!</h4>
+									<strong>警告!</strong> 请注意你的个人隐私安全.
+								</div>
+								<div class="text-large text-center text-gray fadein-right"" >您好,${app.a_name}进入了学生申请审批页面,如有差错请您与${app.a_academy }的负责人联系</div>
+							</li>
+						</ul></li>
 				</ul>
 			</div>
-			
-
 		</div>
 	</div>
-
-	<div class="admin">
-
+	<div class="admin radius">
 		<div class="tab">
 			<div class="tab-head">
 				<strong>${r_level }</strong>
 				<ul class="tab-nav">
-					<li class="active">
-					<a href="#tab-apply-detail" id="apply">申请详情</a></li>
+					<li class="active"><a href="#tab-student-detail" id="student">学生申请</a></li>
 					<li><a href="#tab-process-detail" id="process">进度详情</a></li>
-					<li><a href="#tab-student-detail" id="student">学生申请</a></li>
+
 					<li><a href="#tab-manage-detail" id="manage">系统管理</a></li>
 				</ul>
 			</div>
+			<div class="tab-body">
+				<div class="tab-panel  active" id="tab-student-detail">学生申请</div>
+				<div class="tab-panel  " id="tab-process-detail">进度详情</div>
 
-
-			<div class="tab-body"> 
-				<div class="tab-panel active" id="tab-apply-detail">
-				申请详情</div>
-				<div class="tab-panel " id="tab-process-detail">进度详情</div>
-				<div class="tab-panel  " id="tab-student-detail">学生申请</div>
 				<div class="tab-panel " id="tab-manage-detail">系统管理</div>
 			</div>
 		</div>

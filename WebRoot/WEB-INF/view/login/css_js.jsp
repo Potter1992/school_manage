@@ -12,6 +12,7 @@
 <script src="../js/pintuer.js"></script>
 <script src="../js/respond.js"></script>
 <script src="../js/admin.js"></script>
+<script src="../js/auto_hidden.js"></script>
 </head>
 
 </html>

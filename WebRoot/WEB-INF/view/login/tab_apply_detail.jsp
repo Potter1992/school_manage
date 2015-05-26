@@ -12,6 +12,7 @@ tr:HOVER {
 </style>
 </head>
 <body>
+<input type="text" id="r_level" value="${stu.r_level}" style="display: none;" />
 	<table
 		class="table table-hover table-condensed table-striped text-big ">
 		<tr>
@@ -66,7 +67,7 @@ tr:HOVER {
 		</tr>
 		<tr>
 			<td>现班级:</td>
-			<td>未分配<%-- ${stu.s_after_class} --%></td>
+			<td> ${stu.s_after_class} </td>
 
 		</tr>
 		<tr>

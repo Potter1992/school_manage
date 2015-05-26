@@ -11,8 +11,7 @@
 				<strong></strong>
 				<ul class="tab-nav">
 					<li class="active"><a href="#tab-apply-detail">申请详情</a></li>
-					<li><a href="#tab-process-detail">进度详情</a></li>
-					<li><a href="#tab-manage-detail">申请信息管理</a></li>
+					<li id="process"><a href="#tab-process-detail">进度详情</a></li>
 				</ul>
 			</div>
 	</body>

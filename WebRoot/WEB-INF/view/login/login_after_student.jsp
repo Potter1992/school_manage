@@ -15,7 +15,7 @@
 
 <body>
 	<div class="lefter">
-		<div class="logo">学生异动管理</div>
+		<div class="logo"><strong class="text-big">学生异动管理</strong></div>
 	</div>
 	<div class="righter nav-navicon" id="admin-nav">
 		<div class="mainer">
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 
-	<div class="admin">
+	<div class="admin radius"> 
 
 		<div class="tab">
 			<jsp:include page="tab-head.jsp"></jsp:include>
@@ -48,9 +48,6 @@
 				</div>
 
 
-				<div class="tab-panel " id="tab-manage-detail">
-					<jsp:include page="tab-manage-detail.jsp"></jsp:include>
-				</div>
 
 			</div>
 		</div>

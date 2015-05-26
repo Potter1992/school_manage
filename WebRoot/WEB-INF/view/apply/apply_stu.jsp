@@ -25,7 +25,7 @@
 						<div class=" border border-blue radius-big float-left "
 							id="option_head">学生信息</div>
 						<div class="border border-blue radius-big float-right"
-							id="option_head" style="width: auto">${change.c_name }信息</div>
+							id="option_head" style="width: auto;padding-left: 10px;padding-right: 10px">${change.c_name }信息</div>
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
@@ -37,7 +37,7 @@
 							id="option_label ">姓名:</label> <input readonly="readonly"
 							type="text" class="input" id="s_name" name="stu.s_name"
 							placeholder="姓名" value="${student.xm }" /> <br> <label
-							id="option_label">性别:</label><input readonly="readonly"
+							id="option_label">性别:</label><input class="input" readonly="readonly"
 							type="text" name="stu.s_sex" value="${student.xb}"><br>
 						<label id="option_label id="option_label">您所在的学院:</label> <select
 							id="s_before_academy" readonly="readonly" class="input"
@@ -89,8 +89,8 @@
 						<option></option>
 					</select> <br> <label id="option_label">年级:</label> <input type="text"
 						class="input" name="stu.s_after_grade" placeholder="异动后年级" /> <br>
-					<label id="option_label">班级:</label> <input type="text"
-						class="input" name="stu.s_after_class" placeholder="异动后班级" /> <br>
+					<label id="option_label" style="display: none;">班级:</label> <input type="text"
+						class="input"  style="display: none; "value="未分配" name="stu.s_after_class" placeholder="异动后班级" /> <br>
 					<label id="option_label">学籍状态:</label><input type="radio"
 						name="stu.s_after_status" value="有" checked="checked"> 有<input
 						type="radio" name="stu.s_after_status" value="无"
@@ -108,7 +108,7 @@
 						name="stu.s_after_school" value="有" checked="checked"> 有 <input
 						type="radio" name="stu.s_after_school" value="无"
 						style="margin-left: 20px"> 无<br> <input type="submit"
-						value="提交申请" class="button radius-big text-green "
+						value="提交申请" class=" btn btn-primary radius-big  " id="submit_apply"
 						style="margin-top: 267px; width: 100%;height: 100px" />
 				</div>
 				<!--  <input type="text" name="s_before_academy" class="input academy drop open" id="s_before_academy"
