@@ -53,7 +53,7 @@
 			</div>
 
 
-			<div class="tab-body">
+			<div class="tab-body"> 
 				<div class="tab-panel active" id="tab-apply-detail">
 				申请详情</div>
 				<div class="tab-panel " id="tab-process-detail">进度详情</div>
