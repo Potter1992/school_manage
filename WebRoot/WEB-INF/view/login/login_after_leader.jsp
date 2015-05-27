@@ -15,12 +15,12 @@
 <body>
 	<input type="text" id="r_level" value="${r_level}" hidden="hidden">
 	<div class="lefter">
-		<div class="logo">学生异动管理</div>
+		<div class="logo"><strong class="text-big">学生异动管理</strong></div>
 		<div></div>
 	</div>
 	<div class="righter nav-navicon" id="admin-nav">
 		<div class="mainer">
-			<div class="admin-navbar" style="margin-top: 13px">
+			<div class="admin-navbar" style="margin-top: 16px">
 				<span class="float-right"> <a
 					class="button button-little bg-yellow" href="unLogin">注销登录</a>
 				</span>
@@ -33,14 +33,17 @@
 									<h4>提示!</h4>
 									<strong>警告!</strong> 请注意你的个人隐私安全.
 								</div>
-								<div class="text-large text-center text-gray fadein-right"" >您好,${app.a_name}进入了学生申请审批页面,如有差错请您与${app.a_academy }的负责人联系</div>
+								<div class=" text-center text-gray fadein-right" >
+								查看学生申请详情请点击你要查看的学生简要信息
+								</div>
 							</li>
 						</ul></li>
 				</ul>
 			</div>
+			<jsp:include page="bread.jsp"></jsp:include>
 		</div>
 	</div>
-	<div class="admin radius">
+	<div class="admin radius" style="margin-top: 10px;">
 		<div class="tab">
 			<div class="tab-head">
 				<strong>${r_level }</strong>
@@ -52,7 +55,9 @@
 				</ul>
 			</div>
 			<div class="tab-body">
-				<div class="tab-panel  active" id="tab-student-detail">学生申请</div>
+				<div class="tab-panel  active" id="tab-student-detail">学生申请
+				<jsp:include page="student_apply_detail_dialog.jsp"></jsp:include>
+				</div>
 				<div class="tab-panel  " id="tab-process-detail">进度详情</div>
 
 				<div class="tab-panel " id="tab-manage-detail">系统管理</div>

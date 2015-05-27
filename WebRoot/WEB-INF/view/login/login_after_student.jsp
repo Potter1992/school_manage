@@ -32,10 +32,11 @@
 						</ul></li>
 				</ul>
 			</div>
+			
 		</div>
 	</div>
 
-	<div class="admin radius"> 
+	<div class="admin radius" > 
 
 		<div class="tab">
 			<jsp:include page="tab-head.jsp"></jsp:include>

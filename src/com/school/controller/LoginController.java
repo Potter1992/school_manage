@@ -9,6 +9,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.school.Interceptor.LoginInterceptor;
 import com.school.model.Approve_person;
+import com.school.model.Change;
 import com.school.model.Role;
 import com.school.model.Student_apply;
 
@@ -40,7 +41,7 @@ public class LoginController extends Controller {
 
 		Student_apply stulist = getSessionAttr("stu");
 
-		if (stulist!= null&&!stulist.equals("")) {
+		if (stulist != null && !stulist.equals("")) {
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");
@@ -73,12 +74,26 @@ public class LoginController extends Controller {
 			} else {
 				setSessionAttr("r_level", role);
 			}
+			getStudent_apply();//这里可能用到分页
 			setAttr("app", app);
+			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
+
 			render("login_after_leader.jsp");
 
 		} else {
 			login_student();// 判断是否为学生，yes是特定页面
 		}
+	}
+
+	/**
+	 * 获得学生申请的数据,并放到request中
+	 */
+	public void getStudent_apply() {
+		List<Student_apply> student_applies = Student_apply.me.findAll();
+		for (Student_apply student_apply : student_applies) {
+				student_apply.put("c_name", Change.me.findNameChangeByIDString(student_apply.getInt("c_id")).get("c_name"));	
+		}
+		setAttr("stulist", student_applies);
 	}
 
 	/**

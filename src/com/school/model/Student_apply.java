@@ -48,4 +48,10 @@ public class Student_apply extends Model<Student_apply> {
 	public Student_apply findFirstBySnoAndPwd(String sno,String pwd) {
 		return Student_apply.me.findFirst("select * from student_apply where s_no =? &&s_password = ?",sno,pwd);
 	}
+	/**
+	 * 返回所有学生申请的记录
+	 */
+	public List<Student_apply> findAll() {
+		return find("select * from student_apply");
+	}
 }
