@@ -62,15 +62,23 @@ public class ApplyController extends Controller {
 			render("validate_student.jsp");
 		}
 	}
+	
 
 	/**
 	 * 保存学生提交的表单到数据库
 	 */
 	public void save_apply() {
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
+		
+		
+		//根据获得的专业获得学历
+		
 		Record record=ModelKit.toRecord(student_apply);
 		
 		if (student_apply != null&&!student_apply.equals("")) {
+			String zydm=Zydmb.me.getZydm(student_apply.get("s_after_academy").toString().trim(), student_apply.get("s_after_subject").toString().trim());
+			String education=Zydmb.me.getZydmCC(zydm.trim());
+			record.set("s_after_education", education);
 			if (updateGetIDBySno(student_apply.get("s_no").toString(),record)) {//如果学号存在就更新,不存在就save
 			Student_apply student_apply2=Student_apply.me.findFirstBySnoAndPwd(student_apply.get("s_no").toString(), student_apply.get("s_password").toString());
 				setAttr("stu", student_apply2);

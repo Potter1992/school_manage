@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -11,6 +11,7 @@
 <title>学生异动管理</title>
 <jsp:include page="css_js.jsp"></jsp:include>
 <script src="../js/auto_hidden.js"></script>
+
 
 </head>
 <body>
@@ -41,9 +42,9 @@
 									查看学生申请详情请点击你要查看的学生简要信息
 									<div class="alert alert-yellow" style="">
 										<span class="close"></span><strong>注意：</strong>
-										
+
 										${app.a_name}有${size }条未审核的学生申请信息。
-										
+
 									</div>
 								</div>
 							</li>
@@ -58,7 +59,9 @@
 			<div class="tab-head">
 				<strong>${r_level }</strong>
 				<ul class="tab-nav">
-					<li class="active"><a href="#tab-student-detail" id="student">学生申请</a></li>
+					<li class="active"><a class="badge-corner"
+						href="#tab-student-detail" id="student">学生申请<span
+							class="badge bg-red">${size }</span></a></li>
 					<li><a href="#tab-process-detail" id="process">进度详情</a></li>
 
 					<li><a href="#tab-manage-detail" id="manage">系统管理</a></li>

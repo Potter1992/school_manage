@@ -12,6 +12,7 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
+
 </head>
 
 <body>
@@ -23,94 +24,63 @@
 				<div class="field field-icon-right">
 					<div style="width: 100%; height: 40px">
 						<div class=" border border-blue radius-big float-left "
-							id="option_head">学生信息</div>
+							id="option_head"
+							style="width: auto; padding-left: 10px; padding-right: 10px;">${student.xm }的信息</div>
 						<div class="border border-blue radius-big float-right"
-							id="option_head" style="width: auto;padding-left: 10px;padding-right: 10px">${change.c_name }信息</div>
+							id="option_head"
+							style="width: auto; padding-left: 10px; padding-right: 10px">${change.c_name }信息</div>
 					</div>
 					<div class="border border-green radius-big float-left"
 						style="width: 40%; padding: 10px 20px">
-						<input type="text" name="stu.c_id" value="${change.c_id }"style="display:none;">
-						<input type="text" name="stu.s_password" value="${student.xsmm }"style="display:none;">
-						<label id="option_label">学号:</label><input readonly="readonly"
-							type="text" class="input" id="s_no" name="stu.s_no"
-							placeholder="学号" value="${student.xh }" /><br> <label
+						<table></table>
+						<input type="text" name="stu.c_id" value="${change.c_id }"
+							style="display: none;"> <input type="text"
+							name="stu.s_password" value="${student.xsmm }"
+							style="display: none;"> <label id="option_label">学号:</label><input
+							readonly="readonly" type="text" class="none" id="s_no"
+							name="stu.s_no" placeholder="学号" value="${student.xh }" /><label
 							id="option_label ">姓名:</label> <input readonly="readonly"
-							type="text" class="input" id="s_name" name="stu.s_name"
+							type="text" class="none" id="s_name" name="stu.s_name"
 							placeholder="姓名" value="${student.xm }" /> <br> <label
-							id="option_label">性别:</label><input class="input" readonly="readonly"
-							type="text" name="stu.s_sex" value="${student.xb}"><br>
-						<label id="option_label id="option_label">您所在的学院:</label> <select
-							id="s_before_academy" readonly="readonly" class="input"
+							id="option_label">性别:</label><input class="none"
+							readonly="readonly" type="text" name="stu.s_sex"
+							value="${student.xb}"><label id="option_label id="option_label">您所在的学院:</label>
+						<select id="s_before_academy" readonly="readonly" class="none"
 							name="stu.s_before_academy">
 							<option>${student.xy}</option>
 
 						</select> <br> <label id="option_label">您的专业:</label> <select
-							id="s_before_subject" class="input" name="stu.s_before_subject">
+							id="s_before_subject" class="none" name="stu.s_before_subject">
 							<option>${student.zymc}</option>
-						</select> <br> <label id="option_label">您所在的年级:</label> <input
-							type="text" class="input" readonly="readonly"
-							name="stu.s_before_grade" placeholder="异动前年级" readonly="readonly"
-							value="${student.dqszj}" /> <br> <label id="option_label">您所在的班级:</label>
-						<input type="text" class="input" name="stu.s_before_class"
+						</select> <label id="option_label">您所在的年级:</label> <input type="text"
+							class="none" readonly="readonly" name="stu.s_before_grade"
+							placeholder="异动前年级" readonly="readonly" value="${student.dqszj}" />
+						<br> <label id="option_label">您所在的班级:</label> <input
+							type="text" class="none" name="stu.s_before_class"
 							readonly="readonly" placeholder="异动前班级" value="${student.xzb }" />
-						<br> <label id="option_label">学年:</label> <input type="text"
-							class="input" readonly="readonly" name="stu.s_year"
+						<label id="option_label">学年:</label> <input type="text"
+							class="none" readonly="readonly" name="stu.s_year"
 							placeholder="学制" value="${student.xz }" /> <br> <label
 							id="option_label">学籍状态:</label> <input type="text"
 							readonly="readonly" name="stu.s_before_status"
-							value="${student.xjzt}" class="input" /> <br> <label
-							id="option_label">学历状态:</label> <input type="text" class="input"
-							readonly="readonly" name="stu.s_before_education"
-							placeholder="学历前" value="${student.cc}" /> <br> <label
-							id="option_label">注册状态:</label> <input type="text"
-							name="stu.s_before_regist" class="input" readonly="readonly"
-							value="${student.zc }"> <br> <label
-							id="option_label">在校状态:</label> <input type="text" class="input"
+							value="${student.xjzt}" class="none" /> <label id="option_label">学历状态:</label>
+						<input type="text" class="none" readonly="readonly"
+							name="stu.s_before_education" placeholder="学历前"
+							value="${student.cc}" /> <br> <label id="option_label">注册状态:</label>
+						<input type="text" name="stu.s_before_regist" class="none"
+							readonly="readonly" value="${student.zc }"> <br> <label
+							id="option_label">在校状态:</label> <input type="text" class="none"
 							readonly="readonly" name="stu.s_before_school"
 							value="${student.zx}">
 
 					</div>
 				</div>
+				<jsp:include page="tuixue_apply_stu.jsp"></jsp:include>
 
 
 
 
 
-
-				<div class="border border-green radius-big float-right"
-					style="width: 50%; padding: 10px 20px; margin-left: 10px">
-					<br> <label id="option_label">学院:</label> <select
-						id="s_after_academy" class="input" name="stu.s_after_academy">
-						<c:forEach items="${list_academy}" var="academy">
-							<option>${academy.xymc}</option>
-						</c:forEach>
-					</select> <br> <label id="option_label">专业:</label> <select
-						id="s_after_subject" class="input" name="stu.s_after_subject">
-						<option></option>
-					</select> <br> <label id="option_label">年级:</label> <input type="text"
-						class="input" name="stu.s_after_grade" placeholder="异动后年级" /> <br>
-					<label id="option_label" style="display: none;">班级:</label> <input type="text"
-						class="input"  style="display: none; "value="未分配" name="stu.s_after_class" placeholder="异动后班级" /> <br>
-					<label id="option_label">学籍状态:</label><input type="radio"
-						name="stu.s_after_status" value="有" checked="checked"> 有<input
-						type="radio" name="stu.s_after_status" value="无"
-						style="margin-left: 20px"> 无<br> <br> <label
-						id="option_label">学历:</label><select id="s_after_education"
-						class="input" name="stu.s_after_education">
-						<option>无</option>
-						<option>本科</option>
-						<option>专科</option>
-					</select> <br> <label id="option_label">注册状态:</label><input
-						type="radio" name="stu.s_after_regist" value="有" checked="checked">
-					有 <input type="radio" name="stu.s_after_regist" value="无"
-						style="margin-left: 20px"> 无<br> <label
-						id="option_label">在校状态:</label> <input type="radio"
-						name="stu.s_after_school" value="有" checked="checked"> 有 <input
-						type="radio" name="stu.s_after_school" value="无"
-						style="margin-left: 20px"> 无<br> <input type="submit"
-						value="提交申请" class=" btn btn-primary radius-big  " id="submit_apply"
-						style="margin-top: 267px; width: 100%;height: 100px" />
-				</div>
 				<!--  <input type="text" name="s_before_academy" class="input academy drop open" id="s_before_academy"
         placeholder="请输入学院" onclick="getcomplete('#s_before_academy','getAcademy');"> -->
 				<!-- <input type="text" class="input" name="s_after_academy"

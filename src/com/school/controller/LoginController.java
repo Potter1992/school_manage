@@ -18,9 +18,7 @@ public class LoginController extends Controller {
 	 */
 	public void login_validate() {
 		HttpSession session = getSession();
-		session.removeAttribute("stu_list");
-		;
-		session.removeAttribute("app_person");
+		session.invalidate();
 		render("../index/index.jsp");
 	}
 
@@ -34,9 +32,13 @@ public class LoginController extends Controller {
 		setSessionAttr("stu",
 				Student_apply.me.getCurrentStudent(username, password));// 设置当前用户
 
-		Student_apply stulist = getSessionAttr("stu");
+		Student_apply stu = getSessionAttr("stu");
 
-		if (stulist != null && !stulist.equals("")) {
+		if (stu != null && !stu.equals("")) {
+			stu.put(
+					"c_name",
+					Change.me.findNameChangeByIDString(
+							stu.getInt("c_id")).get("c_name"));
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");
@@ -87,10 +89,9 @@ public class LoginController extends Controller {
 	 */
 	public void getStudent_apply(String academy) {
 		// 如果申请人的所在学院为空的话,则认为此审核人的角色级别在院级以上,故所有的信息可以输出
-		boolean nn =academy.trim().equals("无学院");
-		if (academy.trim().equals("无学院"))
-		{
-			List<Student_apply> student_applies = Student_apply.me.findAll();
+		boolean nn = academy.trim().equals("无学院");
+		if (academy.trim().equals("无学院")) {
+			List<Student_apply> student_applies=Student_apply.me.findAll();
 			for (Student_apply student_apply : student_applies) {
 				student_apply.put(
 						"c_name",
@@ -100,18 +101,27 @@ public class LoginController extends Controller {
 			setAttr("size", student_applies.size());
 			setAttr("stulist", student_applies);
 		} else {
-			List<Student_apply> student_applies = Student_apply.me
-					.findByAcademy(academy);
-			for (Student_apply student_apply : student_applies) {
-				student_apply.put(
-						"c_name",
-						Change.me.findNameChangeByIDString(
-								student_apply.getInt("c_id")).get("c_name"));
-			}
+			List<Student_apply> student_applies=getChangeName(academy);
 			setAttr("size", student_applies.size());
 			setAttr("stulist", student_applies);
 		}
 
+	}
+
+	/**
+ * 根据学院获得异动类型
+ */
+	public List<Student_apply> getChangeName(String academy) {
+		List<Student_apply> student_applies = Student_apply.me
+				.findByAcademy(academy);
+		for (Student_apply student_apply : student_applies) {
+			student_apply.put(
+					"c_name",
+					Change.me.findNameChangeByIDString(
+							student_apply.getInt("c_id")).get("c_name"));
+		}
+		
+		return student_applies;
 	}
 
 	/**
