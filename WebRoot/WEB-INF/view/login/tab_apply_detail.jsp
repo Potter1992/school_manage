@@ -26,7 +26,7 @@ td:HOVER {
 	<input type="text" id="r_level" value="${stu.r_level}"
 		style="display: none;" />
 	<table
-		class="table table-hover table-condensed  table-striped text-big  table-bordered" id="table">
+		class="table table-hover table-condensed   text-big  table-bordered" id="table">
 		<tr>
 			<td>学号:</td>
 			<td>${stu.s_no}</td>
@@ -44,7 +44,7 @@ td:HOVER {
 		</tr>
 		<tr>
 			<td>异动类型:</td>
-			<td style="color: red;">${stu.c_name}</td>
+			<td style="color: red;">${stu.c_name}${change.c_name}</td>
 		</tr>
 
 		<tr>

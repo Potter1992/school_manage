@@ -76,8 +76,11 @@ public class ApplyController extends Controller {
 		Record record=ModelKit.toRecord(student_apply);
 		
 		if (student_apply != null&&!student_apply.equals("")) {
-			String zydm=Zydmb.me.getZydm(student_apply.get("s_after_academy").toString().trim(), student_apply.get("s_after_subject").toString().trim());
-			String education=Zydmb.me.getZydmCC(zydm.trim());
+			String zydm_after=Zydmb.me.getZydm(student_apply.get("s_after_academy").toString().trim(), student_apply.get("s_after_subject").toString().trim());
+			String zydm_before=Zydmb.me.getZydm(student_apply.get("s_before_academy").toString().trim(), student_apply.get("s_before_subject").toString().trim());
+			record.set("s_after_subject_no", zydm_after);//学生异动后专业代码
+			record.set("s_before_subject_no", zydm_before);//学生异动后专业代码
+			String education=Zydmb.me.getZydmCC(zydm_after.trim());
 			record.set("s_after_education", education);
 			if (updateGetIDBySno(student_apply.get("s_no").toString(),record)) {//如果学号存在就更新,不存在就save
 			Student_apply student_apply2=Student_apply.me.findFirstBySnoAndPwd(student_apply.get("s_no").toString(), student_apply.get("s_password").toString());

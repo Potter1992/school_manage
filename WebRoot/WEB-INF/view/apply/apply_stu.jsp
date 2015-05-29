@@ -75,7 +75,7 @@
 
 					</div>
 				</div>
-				<jsp:include page="tuixue_apply_stu.jsp"></jsp:include>
+				<jsp:include page="type_apply_stu.jsp"></jsp:include>
 
 
 

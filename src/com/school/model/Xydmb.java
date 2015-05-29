@@ -14,15 +14,28 @@ public class Xydmb extends Model<Xydmb> {
 	 */
 	public List<Xydmb> findAll() {
 		
-		return find("select * from xydmb");
+		return find("select * from "+TableName);
 	}
 	/**
 	 * 
 	 * 通过学院名称获得代码
 	 */
 	public String findByAcademyName(String name) {
-		Xydmb xydmb=findFirst("select * from "+TableName+"where xymc = ?", name);
-		return xydmb.get("xydm");
+		Xydmb xydmb=findFirst("select * from "+TableName+"  where xymc = ?", name);
+		if (xydmb==null) {
+			return null;
+		}else {
+			return xydmb.get("xydm");
+		}
+		
+	}
+	/**
+	 * 
+	 */
+	public Xydmb dm(String para) {
+		Xydmb xydmb = Xydmb.me.find(
+				"select * from "+TableName+" where xymc like '%" + para + "%'").get(0);
+		return xydmb;
 	}
 
 }

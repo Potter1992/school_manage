@@ -39,6 +39,7 @@ public class LoginController extends Controller {
 					"c_name",
 					Change.me.findNameChangeByIDString(
 							stu.getInt("c_id")).get("c_name"));
+			
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");

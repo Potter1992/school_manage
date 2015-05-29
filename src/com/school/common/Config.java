@@ -14,7 +14,6 @@ import com.school.controller.IndexController;
 import com.school.controller.LoginController;
 import com.school.controller.ManageController;
 import com.school.handler.Handler;
-import com.school.model.Academy;
 import com.school.model.Approve_person;
 import com.school.model.Change;
 import com.school.model.Role;
@@ -51,7 +50,6 @@ public class Config extends JFinalConfig {
 		ActiveRecordPlugin aPlugin=new ActiveRecordPlugin("mysql",cPlugin);
 		me.add(aPlugin);
 		aPlugin.addMapping("change_apply",Change.class);
-		aPlugin.addMapping("academy",Academy.class);//待测
 		aPlugin.addMapping("approve_person", Approve_person.class);
 		aPlugin.addMapping("role", Role.class);//角色表
 		aPlugin.addMapping("student_apply", "s_id",Student_apply.class);//学生申请表
