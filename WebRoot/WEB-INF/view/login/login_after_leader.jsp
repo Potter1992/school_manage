@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -15,7 +16,9 @@
 <body>
 	<input type="text" id="r_level" value="${r_level}" hidden="hidden">
 	<div class="lefter">
-		<div class="logo"><strong class="text-big">学生异动管理</strong></div>
+		<div class="logo">
+			<strong class="text-big">学生异动管理</strong>
+		</div>
 		<div></div>
 	</div>
 	<div class="righter nav-navicon" id="admin-nav">
@@ -29,12 +32,19 @@
 						<ul>
 							<li>
 								<div class="alert alert-info" style="background-color: #eee">
-									<button type="button" class="close" data-dismiss="alert" style="margin-bottom: "></button>
+									<button type="button" class="close" data-dismiss="alert"
+										style="margin-bottom:"></button>
 									<h4>提示!</h4>
 									<strong>警告!</strong> 请注意你的个人隐私安全.
 								</div>
-								<div class=" text-center text-gray fadein-right" >
-								查看学生申请详情请点击你要查看的学生简要信息
+								<div class=" text-center text-gray fadein-right">
+									查看学生申请详情请点击你要查看的学生简要信息
+									<div class="alert alert-yellow" style="">
+										<span class="close"></span><strong>注意：</strong>
+										
+										${app.a_name}有${size }条未审核的学生申请信息。
+										
+									</div>
 								</div>
 							</li>
 						</ul></li>
@@ -55,8 +65,9 @@
 				</ul>
 			</div>
 			<div class="tab-body">
-				<div class="tab-panel  active" id="tab-student-detail">学生申请
-				<jsp:include page="student_apply_detail_dialog.jsp"></jsp:include>
+				<div class="tab-panel  active" id="tab-student-detail">
+					学生申请
+					<jsp:include page="student_apply_detail_dialog.jsp"></jsp:include>
 				</div>
 				<div class="tab-panel  " id="tab-process-detail">进度详情</div>
 

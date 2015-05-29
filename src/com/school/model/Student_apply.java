@@ -49,6 +49,14 @@ public class Student_apply extends Model<Student_apply> {
 		return Student_apply.me.findFirst("select * from student_apply where s_no =? &&s_password = ?",sno,pwd);
 	}
 	/**
+	 * 根据学院获得学生申请信息
+	 * @param academy
+	 * @return
+	 */
+	public List<Student_apply> findByAcademy(String academy) {
+		return Student_apply.me.find("select * from student_apply where s_before_academy = ?",academy);
+	}
+	/**
 	 * 返回所有学生申请的记录
 	 */
 	public List<Student_apply> findAll() {

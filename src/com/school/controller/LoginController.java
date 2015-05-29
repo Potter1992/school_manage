@@ -1,13 +1,8 @@
 package com.school.controller;
 
-import java.util.Enumeration;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
-import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.school.Interceptor.LoginInterceptor;
 import com.school.model.Approve_person;
 import com.school.model.Change;
 import com.school.model.Role;
@@ -55,6 +50,7 @@ public class LoginController extends Controller {
 	 */
 
 	public void login() {
+
 		String username = getPara("username").trim();
 		String password = getPara("password").trim();
 
@@ -74,7 +70,8 @@ public class LoginController extends Controller {
 			} else {
 				setSessionAttr("r_level", role);
 			}
-			getStudent_apply();//这里可能用到分页
+			String academy_app = app.get("a_academy").toString().trim();
+			getStudent_apply(academy_app);// 这里可能用到分页
 			setAttr("app", app);
 			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
 
@@ -86,14 +83,35 @@ public class LoginController extends Controller {
 	}
 
 	/**
-	 * 获得学生申请的数据,并放到request中
+	 * 获得学生申请的数据,并放到request中,或者根据学院获得学生信息(根据院级的需要,不需要其他学院看见)
 	 */
-	public void getStudent_apply() {
-		List<Student_apply> student_applies = Student_apply.me.findAll();
-		for (Student_apply student_apply : student_applies) {
-				student_apply.put("c_name", Change.me.findNameChangeByIDString(student_apply.getInt("c_id")).get("c_name"));	
+	public void getStudent_apply(String academy) {
+		// 如果申请人的所在学院为空的话,则认为此审核人的角色级别在院级以上,故所有的信息可以输出
+		boolean nn =academy.trim().equals("无学院");
+		if (academy.trim().equals("无学院"))
+		{
+			List<Student_apply> student_applies = Student_apply.me.findAll();
+			for (Student_apply student_apply : student_applies) {
+				student_apply.put(
+						"c_name",
+						Change.me.findNameChangeByIDString(
+								student_apply.getInt("c_id")).get("c_name"));
+			}
+			setAttr("size", student_applies.size());
+			setAttr("stulist", student_applies);
+		} else {
+			List<Student_apply> student_applies = Student_apply.me
+					.findByAcademy(academy);
+			for (Student_apply student_apply : student_applies) {
+				student_apply.put(
+						"c_name",
+						Change.me.findNameChangeByIDString(
+								student_apply.getInt("c_id")).get("c_name"));
+			}
+			setAttr("size", student_applies.size());
+			setAttr("stulist", student_applies);
 		}
-		setAttr("stulist", student_applies);
+
 	}
 
 	/**
@@ -101,11 +119,7 @@ public class LoginController extends Controller {
 	 */
 	public void unLogin() {
 		HttpSession session = getSession();
-		Enumeration<String> attrs = session.getAttributeNames();
-		while (attrs.hasMoreElements()) {
-			String string = (String) attrs.nextElement();
-			session.removeAttribute(string);
-		}
-		render("index.jsp");
+		session.invalidate();
+		render("../index/index.jsp");
 	}
 }
