@@ -21,12 +21,18 @@ public class Xydmb extends Model<Xydmb> {
 	 * 通过学院名称获得代码
 	 */
 	public String findByAcademyName(String name) {
-		Xydmb xydmb=findFirst("select * from "+TableName+"  where xymc = ?", name);
-		if (xydmb==null) {
-			return null;
+		if (name!=null) {
+			Xydmb xydmb=findFirst("select * from "+TableName+"  where xymc = ?", name);
+			if (xydmb==null) {
+				return null;
+			}else {
+				return xydmb.get("xydm");
+			}	
 		}else {
-			return xydmb.get("xydm");
+			return null;
 		}
+		
+		
 		
 	}
 	/**

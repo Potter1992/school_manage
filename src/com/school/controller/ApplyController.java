@@ -7,6 +7,7 @@ import java.util.List;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.kit.ModelKit;
 import com.jfinal.ext.kit.RecordKit;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Record;
@@ -50,7 +51,7 @@ public class ApplyController extends Controller {
 				para_sno, para_password);
 
 		if (student != null && student.size() > 0) {
-			List<Xydmb> academies=Xydmb.me.findAll();
+			List<Xydmb> academies = Xydmb.me.findAll();
 			setAttr("list_academy", academies);
 			setSessionAttr("current_student", student.get(0));
 			setAttr("student", getSessionAttr("current_student"));
@@ -62,88 +63,108 @@ public class ApplyController extends Controller {
 			render("validate_student.jsp");
 		}
 	}
-	
 
 	/**
 	 * 保存学生提交的表单到数据库
 	 */
 	public void save_apply() {
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
-		
-		
-		//根据获得的专业获得学历
-		
-		Record record=ModelKit.toRecord(student_apply);
-		
-		if (student_apply != null&&!student_apply.equals("")) {
-			String zydm_after=Zydmb.me.getZydm(student_apply.get("s_after_academy").toString().trim(), student_apply.get("s_after_subject").toString().trim());
-			String zydm_before=Zydmb.me.getZydm(student_apply.get("s_before_academy").toString().trim(), student_apply.get("s_before_subject").toString().trim());
-			record.set("s_after_subject_no", zydm_after);//学生异动后专业代码
-			record.set("s_before_subject_no", zydm_before);//学生异动后专业代码
-			String education=Zydmb.me.getZydmCC(zydm_after.trim());
+
+		// 根据获得的专业获得学历
+
+		Record record = ModelKit.toRecord(student_apply);
+
+		if (student_apply != null && !student_apply.equals("")) {
+			String zydm_after = Zydmb.me.getZydm(
+					student_apply.get("s_after_academy").toString().trim(),
+					student_apply.get("s_after_subject").toString().trim());
+			String zydm_before = Zydmb.me.getZydm(
+					student_apply.get("s_before_academy").toString().trim(),
+					student_apply.get("s_before_subject").toString().trim());
+			record.set("s_after_subject_no", zydm_after);// 学生异动后专业代码
+			record.set("s_before_subject_no", zydm_before);// 学生异动后专业代码
+			String education = Zydmb.me.getZydmCC(zydm_after);
 			record.set("s_after_education", education);
-			if (updateGetIDBySno(student_apply.get("s_no").toString(),record)) {//如果学号存在就更新,不存在就save
-			Student_apply student_apply2=Student_apply.me.findFirstBySnoAndPwd(student_apply.get("s_no").toString(), student_apply.get("s_password").toString());
+			if (updateGetIDBySno(student_apply.get("s_no").toString(), record)) {// 如果学号存在就更新,不存在就save
+				Student_apply student_apply2 = Student_apply.me
+						.findFirstBySnoAndPwd(student_apply.get("s_no")
+								.toString(), student_apply.get("s_password")
+								.toString());
 				setAttr("stu", student_apply2);
-				Change change=Change.me.findNameChangeByIDString((int)student_apply2.get("c_id"));
+				Change change = Change.me
+						.findNameChangeByIDString((int) student_apply2
+								.get("c_id"));
 				setAttr("change", change);
+				//保存成功后交给审批人进行处理
+				
 				forwardAction("/login/login_after_student");
-			}else {
+			} else {
 				record.set("s_changetime", getCurrentTime().toString());
 				if (DbPro.use().save("student_apply", record)) {
 					forwardAction("/login/login_after_student");
-				}else {
+				} else {
 					renderText("保存失败");
 				}
 			}
-		}else {
+		} else {
 			renderText("申请信息为空");
 		}
-		
-//		render("login/login_after_student");
-//		renderText("您没有改变任何信息");
+
+		// render("login/login_after_student");
+		// renderText("您没有改变任何信息");
 
 	}
+
 	/**
 	 * 
 	 * 根据学号获得id
 	 */
-	public boolean updateGetIDBySno(String sno,Record record) {
-		Student_apply student_apply=Student_apply.me.findFirst("select * from student_apply where s_no=?", sno);
-		if (student_apply!=null) {
+	public boolean updateGetIDBySno(String sno, Record record) {
+		Student_apply student_apply = Student_apply.me.findFirst(
+				"select * from student_apply where s_no=?", sno);
+		if (student_apply != null) {
 			record.set("s_id", student_apply.get("s_id"));
-		
+
 			record.set("s_changetime", getCurrentTime().toString());
-			DbPro.use().update("student_apply", "s_id",record);
+			DbPro.use().update("student_apply", "s_id", record);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
 	}
+
 	/**
 	 * 获得当前时间
 	 */
 	public String getCurrentTime() {
-		Date now = new Date(); 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		String currentTimedate=dateFormat.format(now);
+		Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy/MM/dd HH:mm:ss");
+		String currentTimedate = dateFormat.format(now);
 		return currentTimedate;
 	}
+
 	/**
 	 * 获得专业数据
 	 */
 	public void getSubjectbyAcademy() {
 		String para = getPara("q");
-		List<Zydmb> zydmbs=Zydmb.me.findByAcademy(para);
-		renderJson(zydmbs);
-//		if (StrKit.isBlank(para)) {
-//			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findAll();
-//			renderJson(list);
-//		} else {
-//			List<Zfxfzb_xsjbxxb> list = Zfxfzb_xsjbxxb.me.findByArgs(para);
-//			String jsonString = JsonKit.toJson(list);
-//			renderJson(jsonString);
-//		}
+		
+		if (para.equals("无")) {
+			String ppString=JsonKit.toJson("无");
+			renderJson(ppString);
+		}else{
+		List<Zydmb> zydmbs = Zydmb.me.findByAcademy(para);
+		renderJson(zydmbs);}
+	}
+	/**
+	 * 根据异动类型获得不同的数据,显示要提交的数据
+	 */
+	public void findByChangeType() {
+		String para = getPara("q");
+		Change change=Change.me.findIDChangeByName(para);
+		
+		renderJson(change);
 	}
 }
