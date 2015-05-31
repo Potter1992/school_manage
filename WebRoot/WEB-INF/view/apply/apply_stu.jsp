@@ -40,7 +40,7 @@
 	是否注册(前后) s_before_regist s_after_regist 是否在校(前后) s_before_school
 	s_after_school 异动时间s_changetime-->
 			</div>
-	</form>
+</form>
 </body>
 </html>
 

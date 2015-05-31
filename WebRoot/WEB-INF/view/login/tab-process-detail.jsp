@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-		进度--详情--	
+<body>进度--详情-- ${msg}<br> ${app}
+
 </body>
 </html>
