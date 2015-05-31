@@ -36,10 +36,6 @@ public class Student_apply extends Model<Student_apply> {
 		Student_apply currentStu=findFirst("select * from "+TableName+"  where s_no = ? && s_password=?",sno,sPassword );
 		return currentStu;
 	}
-//	public int update_stu() {
-//		int i=Db.update("delete from  student_apply where s_no = ?","123456");
-//		return i;
-//	}
 	/**
 	 * 根据学号和密码获得学生
 	 * @param sno

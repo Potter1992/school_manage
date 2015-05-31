@@ -61,7 +61,10 @@
 	<blockquote class="border-main quote-floatleft float-right"
 		style="width: 59%;">
 		<p>
-		<div class="border border-green radius-big "
+
+
+
+			<div class="border border-green radius-big  "
 			style="width: 100%; padding: 8px 10px;">
 			<div class="alert alert-yellow">
 				<span class="close rotate-hover"></span><strong>注意：</strong>如果您不需要填写学院和专业的话,请填写您原来的信息,否则请承担相应的责任。
@@ -73,12 +76,14 @@
 				<c:forEach items="${list_academy}" var="academy">
 					<option>${academy.xymc}</option>
 				</c:forEach>
-			</select> <label id="option_label">专业:</label> <select id="s_after_subject"
+			</select> 
+			
+			<label id="option_label">专业:</label> <select id="s_after_subject"
 				class="input" name="stu.s_after_subject">
 				<option></option>
 			</select>
 			<div class="form-group">
-				<div class="field">
+				<div class="field ">
 					<label id="option_label">年级:</label> <input type="text"
 						class="input" name="stu.s_after_grade" placeholder="异动后年级"
 						data-validate="number:只能填写数字,length#<=4:长度不能大于4" />
@@ -98,21 +103,18 @@
 			<option>无</option>
 			<option>本科</option>
 			<option>专科</option>
-		</select> <br>  -->
-
-
-			<label id="option_label">注册状态:</label><input type="radio"
+		</select> <br>  --><label id="option_label">注册状态:</label><input type="radio"
 				name="stu.s_after_regist" value="有" checked="checked"> 有 <input
 				type="radio" name="stu.s_after_regist" value="无"
 				style="margin-left: 20px"> 无<br> <label
 				id="option_label">在校状态:</label> <input type="radio"
 				name="stu.s_after_school" value="有" checked="checked"> 有 <input
 				type="radio" name="stu.s_after_school" value="无"
-				style="margin-left: 20px"> 无<br>
+				style="margin-left: 20px"> 无<br> <input type="submit"
+				value="提交申请" class=" btn btn-primary radius-big  " id="submit_apply"
+				style="width: 100%; height: 100px" />
 		</div>
-		<input type="submit" value="提交申请"
-			class=" btn btn-primary radius-big  " id="submit_apply"
-			style="width: 100%; height: 100px" />
+		
 		</p>
 	</blockquote>
 </body>

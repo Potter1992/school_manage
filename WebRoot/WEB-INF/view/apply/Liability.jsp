@@ -8,7 +8,7 @@
 	</head>
 	<body>
 	<div class="form-group">
-			<div class="field ">
+			<div class="field float-left">
 				<label><input name="s_agree" type="checkbox"
 					data-validate="required:请选择,length#>=1:请选择" style="margin-top: 20px">同意此协议的内容</label>
 			</div>

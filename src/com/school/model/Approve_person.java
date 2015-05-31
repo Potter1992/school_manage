@@ -25,4 +25,19 @@ public class Approve_person extends Model<Approve_person> {
 				password);
 		return list;
 	}
+	/**
+	 * 通过审核人id获得审核人层次
+	 * 
+	 * @param a_id
+	 * @return
+	 */
+	public List<Approve_person> findA_typeByA_id(int a_id) {
+		 List<Approve_person> approve_person=find("select  *  from" + TableName + " where a_id = ?", a_id);
+		if (approve_person.size()==0) {
+			return null;
+		}else {
+			return approve_person;
+		}
+		
+	}
 }

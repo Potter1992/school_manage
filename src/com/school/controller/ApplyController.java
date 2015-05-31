@@ -13,6 +13,7 @@ import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.RecordBuilder;
 import com.school.model.Apply_approve;
+import com.school.model.Approve_person;
 import com.school.model.Change;
 import com.school.model.Role;
 import com.school.model.Role_change;
@@ -101,14 +102,16 @@ public class ApplyController extends Controller {
 				setAttr("change", change);
 				// 保存成功后交给审批人进行处理
 				if (save_apply_approve(student_apply)) {
-				Apply_approve apply_approve=	Apply_approve.me.findByS_no(student_apply.getStr("s_no"));
+					List<Apply_approve> apply_approve = Apply_approve.me
+							.findByS_no(student_apply.get("s_no").toString());
+					
 					setAttr("apps", apply_approve);
 					forwardAction("/login/login_after_student");
-				}else {
+				} else {
 					setAttr("msg", "对不起您没有记录");
 					forwardAction("/login/login_after_student");
 				}
-				
+
 			} else {
 				record.set("s_changetime", getCurrentTime().toString());
 				if (DbPro.use().save("student_apply", record)) {
@@ -130,31 +133,24 @@ public class ApplyController extends Controller {
 	 * 保存到申请记录表中
 	 */
 	public boolean save_apply_approve(Student_apply student_apply) {
-		Record record=new Record();
-		String stu_sno=student_apply.get("s_no");//得到要保存的学号,时间,异动类型id,当前审核人的层次,下一个审核人的层次(通过role_change表进行获取)
+		Record record = new Record();
+		String stu_sno = student_apply.get("s_no");// 得到要保存的学号,时间,异动类型id,当前审核人的层次,下一个审核人的层次(通过role_change表进行获取)
 		record.set("s_no", stu_sno);
-		int c_id=student_apply.get("c_id");//得到异动类型的id就可以得到异动的步数,类型======貌似没有什么用
-		
-		//对了可以得到角色_异动表中的信息  角色id 角色异动顺序 审核人的层次  就可以定制下一个审核人的层次
-		
-		List<Role_change> rChanges=Role_change.me.findByC_id(c_id);
-		int a_id=rChanges.get(0).get("a_id");
-	String aa_current_a_type=	Apply_approve.me.findA_typeByA_id(a_id);
-		record.set("aa_current_a_type", aa_current_a_type);
-		int a_id_next=rChanges.get(1).get("a_id");
-		String aa_next_a_type=	Apply_approve.me.findA_typeByA_id(a_id_next);
-		record.set("aa_current_a_type", aa_next_a_type);
-		String time=getCurrentTime().toString();
+		int c_id = student_apply.get("c_id");// 得到异动类型的id就可以得到异动的步数,类型======貌似没有什么用
+		// 对了可以得到角色_异动表中的信息 角色id 角色异动顺序 审核人的层次 就可以定制下一个审核人的层次
+		record.set("c_id", c_id);
+		String time = getCurrentTime().toString();
 		record.set("aa_time", time);
-		if (Apply_approve.me.saveByRecord(record)) {
+		if (Apply_approve.me.saveByRecordorUpdate(record)) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		//获得院校----->为了限制各个院之间的查看问题
-		//异动类型表给规定好才可以,role_change中有顺序
-		
+		// 获得院校----->为了限制各个院之间的查看问题
+		// 异动类型表给规定好才可以,role_change中有顺序
+
 	}
+
 	/**
 	 * 
 	 * 根据学号获得id

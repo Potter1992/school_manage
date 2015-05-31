@@ -72,7 +72,9 @@
 					学生申请
 					<jsp:include page="student_apply_detail_dialog.jsp"></jsp:include>
 				</div>
-				<div class="tab-panel  " id="tab-process-detail">进度详情</div>
+				<div class="tab-panel  " id="tab-process-detail">
+				<jsp:include page="student_process_detail_dialog.jsp"></jsp:include>
+				进度详情</div>
 
 				<div class="tab-panel " id="tab-manage-detail">系统管理</div>
 			</div>
