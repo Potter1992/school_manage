@@ -91,6 +91,7 @@ public class ApplyController extends Controller {
 			String education = Zydmb.me.getZydmCC(zydm_after);
 			record.set("s_after_education", education);
 			if (updateGetIDBySno(student_apply.get("s_no").toString(), record)) {// 如果学号存在就更新,不存在就save
+				
 				Student_apply student_apply2 = Student_apply.me
 						.findFirstBySnoAndPwd(student_apply.get("s_no")
 								.toString(), student_apply.get("s_password")
@@ -99,11 +100,12 @@ public class ApplyController extends Controller {
 				Change change = Change.me
 						.findNameChangeByIDString((int) student_apply2
 								.get("c_id"));
+				
 				setAttr("change", change);
 				// 保存成功后交给审批人进行处理
 				if (save_apply_approve(student_apply)) {
-					List<Apply_approve> apply_approve = Apply_approve.me
-							.findByS_no(student_apply.get("s_no").toString());
+					Apply_approve apply_approve = Apply_approve.me
+							.findByS_no(student_apply.get("s_no").toString()).get(0);
 					
 					setAttr("apps", apply_approve);
 					forwardAction("/login/login_after_student");
@@ -139,6 +141,7 @@ public class ApplyController extends Controller {
 		int c_id = student_apply.get("c_id");// 得到异动类型的id就可以得到异动的步数,类型======貌似没有什么用
 		// 对了可以得到角色_异动表中的信息 角色id 角色异动顺序 审核人的层次 就可以定制下一个审核人的层次
 		record.set("c_id", c_id);
+		record.set("aa_steps", 	Change.me.findStepsByC_id(c_id).get("c_number"));
 		String time = getCurrentTime().toString();
 		record.set("aa_time", time);
 		if (Apply_approve.me.saveByRecordorUpdate(record)) {

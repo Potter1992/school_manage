@@ -25,7 +25,14 @@ public class Change extends Model<Change> {
 		return change;
 	}
 	/**
-	 * 根据异动类型名称查找c_name
+	 * 根据异动c_id名称查找总步数
+	 */
+	public Change findStepsByC_id(int c_id) {
+		Change change = findFirst("select * from   "+TableName+"    where c_id= ?",c_id);
+		return change;
+	}
+	/**
+	 * 根据c_id名称查找c_name
 	 */
 	public Change findNameChangeByIDString(int  c_id) {
 		Change change = findFirst("select * from   "+TableName+"    where c_id = ?",c_id);

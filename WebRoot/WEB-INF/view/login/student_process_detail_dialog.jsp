@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div class="collapse">
-		<c:forEach items="${stulist}" var="s">
-
+		<c:forEach items="${appsList}" var="s">
+			id:${s.aa_id }学号:${s.s_no }当前步数:${s.aa_current_step}<br>
 
 		</c:forEach>
 

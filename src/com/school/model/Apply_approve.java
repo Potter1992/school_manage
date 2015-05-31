@@ -23,6 +23,31 @@ public class Apply_approve extends Model<Apply_approve> {
 	public List<Apply_approve> findByS_no(String s_no) {
 		return find("select * from " + TableName + " where s_no = " + s_no);
 	}
+	/**
+	 * 通过学院得到学院的信息,并通过此学院获得记录
+	 * 
+	 * @param s_academy
+	 * @return
+	 */
+	public List<Apply_approve> findA_academy(String s_academy) {
+		List<Student_apply> student_applies=Student_apply.me.findByAcademy(s_academy);
+		List<Apply_approve> apps=null;
+		for (Student_apply student_apply : student_applies) {
+			String sno=student_apply.get("s_no");
+			Apply_approve approve=Apply_approve.me.findByS_no(sno).get(0);
+			apps.add(approve);
+		}
+		return apps;
+	}
+	/**
+	 * 查找全部的信息
+	 * 
+	 * @param s_no
+	 * @return
+	 */
+	public List<Apply_approve> findAll( ) {
+		return find("select * from " + TableName );
+	}
 
 	/**
 	 * 通过record保存申请审核

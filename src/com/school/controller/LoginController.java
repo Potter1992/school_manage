@@ -52,6 +52,7 @@ public class LoginController extends Controller {
 							stu.getInt("c_id")).get("c_name"));
 			Apply_approve apply_approve=Apply_approve.me.findByS_no(stu.getStr("s_no")).get(0);
 					setAttr("apps", apply_approve);
+					//根据c_id获得学生要申请的总步数
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");
@@ -88,6 +89,15 @@ public class LoginController extends Controller {
 			String academy_app = app.get("a_academy").toString().trim();
 			getStudent_apply(academy_app);// 这里可能用到分页
 			setAttr("app", app);
+			if (app.get("a_academy").equals("无学院")) {
+				List<Apply_approve> aList=Apply_approve.me.findAll();	
+				setAttr("appsList", aList);
+			}else {
+				List<Apply_approve> aList=Apply_approve.me.findA_academy(academy_app);
+				setAttr("appsList", aList);
+			}
+			
+			//根据
 			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
 			render("login_after_leader.jsp");
 
