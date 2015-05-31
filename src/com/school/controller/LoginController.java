@@ -24,16 +24,24 @@ public class LoginController extends Controller {
 		session.invalidate();
 		render("../index/index.jsp");
 	}
+	/**
+	 * 验证学生是否登陆
+	 */
+	public String login_stu() {
+		String username = getPara("username").trim();
+		String password = getPara("password").trim();
+		Student_apply student_apply=Student_apply.me.findFirstBySnoAndPwd(username, password);
+		setSessionAttr("stu",
+				student_apply);// 设置当前用户
+		return username;
+	}
 
 	/*
 	 * 登录验证--学生
 	 */
 	// @Before (LoginInterceptor.class)
 	public void login_student() {
-		String username = getPara("username").trim();
-		String password = getPara("password").trim();
-		setSessionAttr("stu",
-				Student_apply.me.getCurrentStudent(username, password));// 设置当前用户
+		String userString=login_stu();//设置学生
 
 		Student_apply stu = getSessionAttr("stu");
 
@@ -47,7 +55,7 @@ public class LoginController extends Controller {
 			render("login_after_student.jsp");
 		} else {
 			setAttr("msg", "帐号或密码错误或者你没有资格访问");
-			setAttr("username", username);
+			setAttr("username",userString);
 			render("../index/index.jsp");
 		}
 	}
