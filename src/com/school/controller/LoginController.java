@@ -93,10 +93,10 @@ public class LoginController extends Controller {
 				List<Apply_approve> aList=Apply_approve.me.findAll();	
 				setAttr("appsList", aList);
 			}else {
+				
 				List<Apply_approve> aList=Apply_approve.me.findA_academy(academy_app);
 				setAttr("appsList", aList);
 			}
-			
 			//根据
 			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
 			render("login_after_leader.jsp");
@@ -145,6 +145,7 @@ public class LoginController extends Controller {
 		
 		return student_applies;
 	}
+
 
 	/**
 	 * 注销重新登录

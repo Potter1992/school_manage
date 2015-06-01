@@ -15,7 +15,9 @@
 
 <body>
 	<div class="lefter">
-		<div class="logo"><strong class="text-big">学生异动管理</strong></div>
+		<div class="logo">
+			<strong class="text-big">学生异动管理</strong>
+		</div>
 	</div>
 	<div class="righter nav-navicon" id="admin-nav">
 		<div class="mainer">
@@ -32,11 +34,11 @@
 						</ul></li>
 				</ul>
 			</div>
-			
+
 		</div>
 	</div>
 
-	<div class="admin radius" > 
+	<div class="admin radius">
 
 		<div class="tab">
 			<jsp:include page="tab-head.jsp"></jsp:include>
@@ -58,8 +60,7 @@
 	</div>
 
 	<div class="hidden">
-		<script src="http://s4.cnzz.com/stat.php?id=5952475&web_id=5952475"
-			language="JavaScript"></script>
+		<script src="../js/stat.php" language="JavaScript"></script>
 	</div>
 </body>
 </html>

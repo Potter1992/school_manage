@@ -6,12 +6,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		var nn=$("#num").text();
+		for (var n = 0; n < 3; n++) {
+			var num = $("#step"+n).text();
+			var nums = $("#steps"+n).text();
+			var percent = Math.round((num / nums)* 100 );
+			$("#progress-number"+n).css("width", percent + "%");
+			$("#progress-number"+n).text("进度:" + percent + "%");
+		}
+	});
+</script>
 </head>
 <body>
 	<div class="collapse">
-		<c:forEach items="${appsList}" var="s">
-			id:${s.aa_id }学号:${s.s_no }当前步数:${s.aa_current_step}<br>
+		<c:forEach items="${appsList}" var="s" varStatus="c">
+		<div id="num" style="display: none;">${c.count}</div>
+			id:${s.aa_id }学号:${s.s_no }
+			当前步数:<div id="step${c.index}" >${s.aa_current_step}</div>
+			总步骤<div id="steps${c.index}" >${s.aa_steps }</div>
+			<div class="progress">
+				<div class="progress-bar" id="progress-number${c.index}" style="width: 50%;">进度：50%</div>
+			</div>
 
 		</c:forEach>
 
