@@ -37,6 +37,15 @@ public class Student_apply extends Model<Student_apply> {
 		return currentStu;
 	}
 	/**
+	 * 查找sno学生
+	 * @param sno
+	 * @return
+	 */
+	public Student_apply findBySno(String sno) {
+		Student_apply currentStu=findFirst("select * from "+TableName+"  where s_no = ? ",sno );
+		return currentStu;
+	}
+	/**
 	 * 根据学号和密码获得学生
 	 * @param sno
 	 * @param pwd

@@ -28,10 +28,10 @@ public class Role extends Model<Role> {
 	 * @param id
 	 * @return
 	 */
-	public String getLevelByID(int id) {
+	public Role getRoleByID(int id) {
 		List<Role> roles = find("select * from  "+TableName+"   where r_id = ?", id);
 		if (roles.size() != 0) {
-			return roles.get(0).get("r_level");
+			return roles.get(0);
 		}
 		return null;
 	}

@@ -74,9 +74,7 @@ public class ApplyController extends Controller {
 	public void save_apply() {
 
 		Student_apply student_apply = getModel(Student_apply.class, "stu");
-
 		// 根据获得的专业获得学历
-
 		Record record = ModelKit.toRecord(student_apply);
 
 		if (student_apply != null && !student_apply.equals("")) {
@@ -105,7 +103,7 @@ public class ApplyController extends Controller {
 				// 保存成功后交给审批人进行处理
 				if (save_apply_approve(student_apply)) {
 					Apply_approve apply_approve = Apply_approve.me
-							.findByS_no(student_apply.get("s_no").toString()).get(0);
+							.findByS_no(student_apply.get("s_no").toString());
 					
 					setAttr("apps", apply_approve);
 					forwardAction("/login/login_after_student");
@@ -141,6 +139,7 @@ public class ApplyController extends Controller {
 		int c_id = student_apply.get("c_id");// 得到异动类型的id就可以得到异动的步数,类型======貌似没有什么用
 		// 对了可以得到角色_异动表中的信息 角色id 角色异动顺序 审核人的层次 就可以定制下一个审核人的层次
 		record.set("c_id", c_id);
+		record.set("aa_current_step", 2);
 		record.set("aa_steps", 	Change.me.findStepsByC_id(c_id).get("c_number"));
 		String time = getCurrentTime().toString();
 		record.set("aa_time", time);

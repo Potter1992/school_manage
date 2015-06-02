@@ -10,10 +10,9 @@
 	$(document).ready(function() {
 		var num = $("#step").text();
 		var nums = $("#steps").text();
-		var percent = num / nums;
-		alert(percent);
-		$("#progress-number").css("width", percent * 100 + "%");
-		$("#progress-number").text("进度:" + percent * 100 + "%");
+		var percent = Math.round(num / nums * 100 );
+		$("#progress-number").css("width", percent+ "%");
+		$("#progress-number").text("进度:" + percent  + "%");
 	});
 </script>
 </head>

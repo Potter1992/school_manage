@@ -10,6 +10,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.school.controller.ApplyController;
+import com.school.controller.ApproveController;
 import com.school.controller.IndexController;
 import com.school.controller.LoginController;
 import com.school.controller.ManageController;
@@ -41,6 +42,7 @@ public class Config extends JFinalConfig {
 		me.add("apply",ApplyController.class);
 		me.add("manage",ManageController.class);
 		me.add("login",LoginController.class);
+		me.add("approve",ApproveController.class);
 
 	}
 

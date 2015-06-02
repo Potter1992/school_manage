@@ -56,7 +56,7 @@
 
 					</blockquote>
 					<button class="button bg-sub radius-rounded float-right"
-						onclick="getagree()">审核通过</button>
+						onclick="getagree()"><a href="../approve/approveAgree?sno=${s.s_no}">审核通过</a></button>
 				</div>
 			</div>
 

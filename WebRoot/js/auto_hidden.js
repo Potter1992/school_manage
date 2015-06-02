@@ -4,7 +4,7 @@ $(document).ready(function(){
 		$("#manage").hide();
 		$("#tab-manage-detail").hide();
 	}
-	if(r_level=="院级"||r_level=="处级"){
+	if(r_level=="院级"||r_level=="处级"||r_level=="校级"){
 		$("#apply").hide();
 		$("#manage").hide();
 	}
