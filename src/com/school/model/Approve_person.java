@@ -9,6 +9,16 @@ import com.jfinal.plugin.activerecord.Model;
 public class Approve_person extends Model<Approve_person> {
 	public static final String TableName = "approve_person";
 	public static final Approve_person me=new Approve_person();
+	public List<Approve_person> findAll() {
+		
+		return Approve_person.me.find("select * from "+TableName);
+	}
+	/**
+	 * 根据用户名密码登陆审核人
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public Approve_person findByLogin(String username,String password) {
 		String sql = "select * from  "+TableName+"    where a_account= ? && a_password = ? ";
 		List<Approve_person> list = Approve_person.me.find(sql, username,

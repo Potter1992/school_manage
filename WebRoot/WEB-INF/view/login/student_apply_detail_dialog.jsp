@@ -8,8 +8,11 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function getagree() {
-		$.post("", {}, function() {
-
+		var sno = $("#s_no").text();
+		$.post("../approve/approveAgree", {
+			q : sno
+		}, function(data) {
+			location.reload();
 		});
 	}
 	$(document).ready(function() {
@@ -24,6 +27,16 @@
 		});
 	});
 </script>
+<style type="text/css">
+#strong strong {
+	display: inline;
+	margin-left: 10px;
+}
+
+#strong label {
+	color: blue;
+}
+</style>
 </head>
 <body>
 	<div class="collapse">
@@ -31,7 +44,7 @@
 			<div class="panel">
 				<div class="panel-head" style="cursor: pointer;">
 					<h4>
-						申请人:${s.s_name},学号:<strong>${s.s_no }</strong>申请类型:<strong>${s.c_name}</strong>
+						申请人:${s.s_name},学号:<strong id="s_no">${s.s_no }</strong>申请类型:<strong>${s.c_name}</strong>
 					</h4>
 				</div>
 
@@ -49,14 +62,32 @@
 						     r_level:学生, s_img:null, s_before_regist:是,
 						      s_no:201201001003, s_year:4, c_name:保留入学资格, s_after_status:有,
 						       s_name:刘磊, s_before_area:德州学院, s_after_subject_no:null} -->
-						<big><label style="color: blue;">申请前内容:</label>学号:${s.s_no},姓名:${s.s_name},性别:${s.s_sex},所在学院${s.s_before_academy},所在专业${s.s_before_subject }
-							,所在班级:${s.s_before_class},是否注册:${s.s_before_regist} </big><br> <big><label
-							style="color: blue;">申请后内容:</label>所在学院:${s.s_after_academy},所在专业:${s.s_after_subject }
-							,所在班级:${s.s_after_class},是否注册:${s.s_after_regist}</big>
 
+						<div id="strong">
+							<label>申请前内容:</label><strong>所在学院:</strong>${s.s_before_academy},<strong>所在专业:</strong>${s.s_before_subject }
+							,<strong>所在班级:</strong>${s.s_before_class},<strong>注册状态:</strong>${s.s_before_regist},<strong>学籍状态:</strong>${s.s_before_status}<br>
+							<label>申请后内容:</label><strong>所在学院:</strong>${s.s_after_academy},<strong>所在专业:</strong>${s.s_after_subject }
+							,<strong>所在班级:</strong>${s.s_after_class},<strong>注册状态:</strong>${s.s_after_regist},<strong>学籍状态:</strong>${s.s_after_status}
+						<button class="button icon-thumbs-o-up text-red radius-rounded float-right dialogs"
+						data-toggle="click" data-target="#mydialog" data-mask="1" > 审核通过</button>
+						</div>
+						
 					</blockquote>
-					<button class="button bg-sub radius-rounded float-right"
-						onclick="getagree()"><a href="../approve/approveAgree?sno=${s.s_no}">审核通过</a></button>
+					<div id="mydialog">
+						<div class="dialog">
+							<div class="dialog-head">
+								<span class="dialog-close close rotate-hover"></span> <strong>友情提示</strong>
+							</div>
+							<div class="dialog-body">
+								您确认审核通过<label style="color: red;">申请人:${s.s_name},学号:${s.s_no }:申请类型:${s.c_name}.</label>的申请吗?
+							</div>
+							<div class="dialog-foot">
+								<button class="dialog-close button">取消</button>
+								<button class="button bg-green" onclick="getagree()">确认</button>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 

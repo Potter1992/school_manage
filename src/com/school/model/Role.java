@@ -7,6 +7,13 @@ import com.jfinal.plugin.activerecord.Model;
 public class Role extends Model<Role> {
 	public static final String TableName = "role";
 	public static final Role me = new Role();
+	/**
+	 * 获取角色的名称类型
+	 * 
+	 */
+	public List<Role> findAll() {
+		return find("select * from "+TableName);
+	}
 
 	/**
 	 * 通过id获取角色的名称类型
@@ -20,6 +27,19 @@ public class Role extends Model<Role> {
 			return roles.get(0).get("r_name");
 		}
 		return null;
+	}
+	/**
+	 * 通过角色的名称类型获得id
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int findByname(String name) {
+		List<Role> roles = find("select * from  "+TableName+"   where r_name = ?", name);
+		if (roles.size() != 0) {
+			return roles.get(0).getInt("r_id");
+		}
+		return 0;
 	}
 
 	/**

@@ -11,7 +11,7 @@ public class ApproveController extends Controller {
 	 * 进行审核通过后操作
 	 */
 	public void approveAgree() {
-		String snoString = getPara("sno");
+		String snoString = getPara("q");
 		if (Apply_approve.me.agree(snoString)) {
 			forwardAction("/login/login_index");
 		} else {

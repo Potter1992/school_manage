@@ -10,27 +10,12 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="tabbable" id="tabs-134624">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#panel-201102" data-toggle="tab">第一部分</a>
-						</li>
-						<li><a href="#panel-790363" data-toggle="tab">第二部分</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="panel-201102">
-							<p>第一部分内容.</p>
-						</div>
-						<div class="tab-pane" id="panel-790363">
-							<p>第二部分内容.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<li id="manage_hidden">
+						<ul id="main_manage">
+							<li class="active"> <a href="#tab-approve-detail">审核成员管理</a></li>
+							<li><a href="#tab-apply-stu-detail">学生申请管理</a></li>
+							<li><a href="#tab-change-detail">异动管理</a></li>
+						</ul></li>
 
 </body>
 </html>

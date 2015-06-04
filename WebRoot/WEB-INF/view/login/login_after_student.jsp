@@ -31,6 +31,10 @@
 							<li class="container">
 								<p class="fadein-right">您好${ stu.s_name}同学</p>
 							</li>
+							<div class="alert alert-red">
+									<span class="close"></span><strong>注意：</strong>
+									如果想修改申请的内容,请重新申请。
+								</div>
 						</ul></li>
 				</ul>
 			</div>

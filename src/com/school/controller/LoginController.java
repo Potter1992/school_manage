@@ -102,24 +102,30 @@ public class LoginController extends Controller {
 		} else {
 			setSessionAttr("r_level", role);
 		}
-		String academy_app = app.get("a_academy").toString().trim();
-		Role_change rc = Role_change.me.findByR_id(r_id).get(0);
-		int rc_sort = rc.getInt("rc_sort");
-		getStudent_apply(academy_app, rc_sort);// 这里可能用到分页
-		setAttr("app", app);
-		if (app.get("a_academy").equals("无学院")) {
-			// rc_sort与当前步数进行比较
-			List<Apply_approve> aList = Apply_approve.me
-					.findByCurrent_step(rc_sort);
-			setAttr("appsList", aList);
+		if (role.equals("管理员")) {
+//			render("login_after_leader.jsp");
+			forwardAction("/manage/index");
 		} else {
-			List<Apply_approve> aList = Apply_approve.me
-					.findA_academyAndCurrent_step(academy_app, rc_sort);
-			setAttr("appsList", aList);
+			String academy_app = app.get("a_academy").toString().trim();
+			Role_change rc = Role_change.me.findByR_id(r_id).get(0);
+			int rc_sort = rc.getInt("rc_sort");
+			getStudent_apply(academy_app, rc_sort);// 这里可能用到分页
+			setAttr("app", app);
+			if (app.get("a_academy").equals("无学院")) {
+				// rc_sort与当前步数进行比较
+				List<Apply_approve> aList = Apply_approve.me
+						.findByCurrent_step(rc_sort);
+				setAttr("appsList", aList);
+			} else {
+				List<Apply_approve> aList = Apply_approve.me
+						.findA_academyAndCurrent_step(academy_app, rc_sort);
+				setAttr("appsList", aList);
+			}
+			// 根据
+			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
+			render("login_after_leader.jsp");
 		}
-		// 根据
-		// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
-		render("login_after_leader.jsp");
+
 	}
 
 	/**
@@ -136,9 +142,16 @@ public class LoginController extends Controller {
 			for (Apply_approve apply_approve : apply_approves) {
 				student_appliess.add(Student_apply.me.findBySno(apply_approve
 						.getStr("s_no")));
+
 			}
 			// 判断记录表中的当前步数(顺序)和异动申请表中的顺序是否一致 当大于时则显示以前的数据
 			// 首先获得当前角色id,并获得顺序,然后和步数相比
+			for (Student_apply student_apply : student_appliess) {
+				student_apply.put(
+						"c_name",
+						Change.me.findNameChangeByIDString(
+								student_apply.getInt("c_id")).get("c_name"));
+			}
 			setAttr("size", student_appliess.size());
 			setAttr("stulist", student_appliess);
 		} else {
@@ -155,6 +168,12 @@ public class LoginController extends Controller {
 				if (student_apply.get("s_before_academy").equals(academy)) {
 					student_appliesss.add(student_apply);
 				}
+			}
+			for (Student_apply student_apply : student_appliess) {
+				student_apply.put(
+						"c_name",
+						Change.me.findNameChangeByIDString(
+								student_apply.getInt("c_id")).get("c_name"));
 			}
 			setSessionAttr("size", student_appliesss.size());
 			setSessionAttr("stulist", student_appliesss);
