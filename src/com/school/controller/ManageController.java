@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.Record;
 import com.school.model.Approve_person;
 import com.school.model.Role;
 import com.school.model.Xydmb;
@@ -22,8 +20,11 @@ public class ManageController extends Controller {
 			approve_person.put("r_name", r_name);
 		}
 		setAttr("approve", approve_persons);
-
 		render("index.jsp");
+	}
+
+	public void add_approve() {
+		render("add_approve.jsp");
 	}
 
 	/**
@@ -36,25 +37,63 @@ public class ManageController extends Controller {
 	public void manage_student() {
 		render("manage_student.jsp");
 	}
+//	public void handle_approve1() {
+//		render("handle_approve.jsp");
+//	}
+
+	/**
+	 * 修改审核人
+	 */
+	public void handle_approve() {
+		int a_id = getParaToInt();
+		Approve_person approve_person = Approve_person.me.findById(a_id);
+		int r_id = approve_person.get("r_id");
+		approve_person.put("r_name", Role.me.getRNameByID(r_id));
+		setAttr("app", approve_person);
+		render("handle_approve.jsp");
+//		handle_approve1();
+	}
 
 	/**
 	 * 增加审核人
 	 */
 	public void addApprove() {
 		// 获得传过来的数据
-		Approve_person approve_person=getModel(Approve_person.class, "app");
-		String r_nameString=getPara("r_name");
-		int r_id=Role.me.findByname(r_nameString);
+		Approve_person approve_person = getModel(Approve_person.class, "app");
+		String r_nameString = getPara("r_name");
+		int r_id = Role.me.findByname(r_nameString);
 		approve_person.set("r_id", r_id);
 		approve_person.save();
-		render("../login/login_index");
+		index();
 	}
+	/**
+	 * 更新审核人
+	 */
+	public void editApprove() {
+		// 获得传过来的数据
+		Approve_person approve_person=getModel(Approve_person.class,"app");
+		String r_name=getPara("r_name");
+		int r_id=Role.me.findByname(r_name);
+		approve_person.put("r_id", r_id);
+		approve_person.update();
+		index();
+	}
+	/**
+	 * 删除审核人
+	 */
+	public void deleteApprove() {
+		// 获得传过来的数据
+		int a_id=getParaToInt();
+		Approve_person.me.deleteById(a_id);
+		index();
+	}
+
 	/**
 	 * 判断审核人账号是否存在
 	 */
 	public void checkApprove_account() {
 		// 获得传过来的数据
-		
+
 	}
 
 	/**

@@ -10,7 +10,9 @@ public class Handler extends com.jfinal.handler.Handler{
 @Override
 	public void handle(String target, HttpServletRequest request,
 			HttpServletResponse response, boolean[] isHandled) {
+	
 				try {
+					
 					if (request.getServletPath().contains("index")) {
 						response.sendRedirect("/index/index");
 					}

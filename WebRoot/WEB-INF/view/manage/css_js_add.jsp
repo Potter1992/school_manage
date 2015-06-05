@@ -28,23 +28,21 @@ td {
 <script type="text/javascript">
 	$(function() {
 		$("#addApprove input").addClass("input");
-		$.post("../getAcademy", "", function(data) {
+		$.post("../manage/getAcademy", "", function(data) {
 			var html = "";
-			html += "<option>${app.a_academy }</option>";
-			$.post("../getR_name", "", function(data) {
-				var html = "";
-				html += "<option>${app.r_name }</option>";
-				for ( var i in data) {
-					html += "<option>" + data[i].r_name + "</option>";
-				}
-				$("#r_name").html(html);
-			});
+			html += "<option>无学院</option>";
 			for ( var i in data) {
 				html += "<option>" + data[i].xymc + "</option>";
 			}
 			$("#academy").html(html);
 		});
-	
+		$.post("../manage/getR_name", "", function(data) {
+			var html = "";
+			for ( var i in data) {
+				html += "<option>" + data[i].r_name + "</option>";
+			}
+			$("#r_name").html(html);
+		});
 	});
 </script>
 </head>

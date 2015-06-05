@@ -104,7 +104,7 @@ public class LoginController extends Controller {
 		}
 		if (role.equals("管理员")) {
 //			render("login_after_leader.jsp");
-			forwardAction("/manage/index");
+			redirect("/manage/index");
 		} else {
 			String academy_app = app.get("a_academy").toString().trim();
 			Role_change rc = Role_change.me.findByR_id(r_id).get(0);
