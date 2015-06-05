@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="head.jsp"></jsp:include>
-	<form action="../editApprove" method="post">
+	<form action="../editApprove" method="post" enctype="multipart/form-data">
 	<input name="app.a_id" style="display: none;" value="${app.a_id }">
 		<table class="table">
 			<tr>
@@ -51,10 +51,10 @@
 						<option selected="selected">${app.a_academy }</option>
 				</select>
 				<td><label>审核签字: </label></td>
-				<td><a class="button input-file" href="javascript:void(0);">
+				<td>
 						+ 上传签字 <input type="file" name="app.a_img"
-						data-validate="required:必填" value="${app.a_img }" />
-				</a></td>
+						data-validate="required:必填" /><img width="50px" height="20px" alt="签字图片" src="<%=request.getContextPath() %>${app.a_img }"">
+				</td>
 			</tr>
 
 		</table>

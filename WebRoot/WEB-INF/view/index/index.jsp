@@ -18,7 +18,7 @@
 				<br />
 				<br />
 
-				<form action="../login/login_approveOrstu" method="post">
+				<form action="login/login_approveOrstu" method="post">
 					<div class="panel">
 						<div class="panel-head">
 							<strong>登录管理系统</strong>
@@ -48,9 +48,7 @@
 					</div>
 				</form>
 				<div class="panel-foot text-center">
-					
-						<a href="../apply/apply_form" class="button button-block bg-dot text-big radius-rounded">申请</a>
-
+						<a href="apply/apply_form" class="button button-block bg-dot text-big radius-rounded">申请</a>
 				</div>
 			</div>
 		</div>

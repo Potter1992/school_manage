@@ -29,7 +29,7 @@
 						<td>${app.a_name }</td>
 						<td>${app.a_password }</td>
 						<td>${app.a_type }</td>
-						<td><img width="50px" height="25px" src="${app.a_img }" /></td>
+						<td><img width="50px" height="25px" src="<%=request.getContextPath() %>${app.a_img }" /></td>
 						<td>${app.r_name }</td>
 						<td>${app.a_academy }</td>
 						<td><a href="handle_approve/${app.a_id}" id="edit_approve">修改</a>
