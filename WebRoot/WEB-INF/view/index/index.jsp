@@ -18,7 +18,7 @@
 				<br />
 				<br />
 
-				<form action="login/login_approveOrstu" method="post">
+				<form action="<%=request.getContextPath() %>/login/login_approveOrstu" method="post">
 					<div class="panel">
 						<div class="panel-head">
 							<strong>登录管理系统</strong>

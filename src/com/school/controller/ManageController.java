@@ -54,35 +54,21 @@ public class ManageController extends Controller {
 	/**
 	 * 处理上传图片,返回图片路径
 	 */
-	public String handleImage(String name) {
-		UploadFile file = getFile("app.a_img");
-		if (file == null) {
-			return null;
-		}
-		String fileName = file.getFileName();
-		
-//		String pathString = PathKit.getWebRootPath()
-//				+ "/upload/image/approve/"
-//				+ name
-//				+ fileName.substring(fileName.lastIndexOf("."),
-//						fileName.length());
-		String pathString = "/upload/image/approve/"
-				+ name
-				+ fileName.substring(fileName.lastIndexOf("."),
-						fileName.length());
-		File fi = new File(pathString);
-		file.getFile().renameTo(fi);
-		// 读取数据库中图片的路径
-		return pathString;
+	public String handleImage() {
+		String savepath="/upload/image/approve/";//定义您的图片路径基于webroot
+		UploadFile file = getFile();//获取前台上传文件
+		String nameString=getPara("img_name");//自定义名称
+		String fileName = file.getFileName();//获取文件名
+		String subStringName=fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀名
+		String paString=savepath+nameString+subStringName;//文件路径
+		File fi=new File(PathKit.getWebRootPath()+paString);//创建新的文件
+		file.getFile().renameTo(fi);//给保存的文件重新命名
+		return paString;
 	}
 
 	public void manage_student() {
 		render("manage_student.jsp");
 	}
-
-	// public void handle_approve1() {
-	// render("handle_approve.jsp");
-	// }
 
 	/**
 	 * 修改审核人
@@ -94,18 +80,19 @@ public class ManageController extends Controller {
 		approve_person.put("r_name", Role.me.getRNameByID(r_id));
 		setAttr("app", approve_person);
 		render("handle_approve.jsp");
-		// handle_approve1();
 	}
 
 	/**
 	 * 更新审核人
 	 */
 	public void editApprove() {
+		
 		// 获得传过来的数据
-		String image_path = handleImage("1234");
+		String imgpathString=handleImage();
 		Approve_person approve_person = getModel(Approve_person.class, "app");
+		
 		String r_name = getPara("r_name");
-		approve_person.set("a_img", image_path);
+		approve_person.set("a_img",imgpathString );
 		int r_id = Role.me.findByname(r_name);
 		approve_person.put("r_id", r_id);
 		approve_person.update();

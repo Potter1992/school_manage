@@ -6,6 +6,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -34,6 +35,7 @@ public class Config extends JFinalConfig {
 		me.setBaseViewPath("/WEB-INF/view");
 		me.setViewType(ViewType.JSP);
 		me.setEncoding("UTF-8");
+//		me.setUploadedFileSaveDirectory(PathKit.getWebRootPath()+"/upload/image");
 	}
 
 	@Override

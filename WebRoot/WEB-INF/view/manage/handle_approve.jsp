@@ -52,7 +52,8 @@
 				</select>
 				<td><label>审核签字: </label></td>
 				<td>
-						+ 上传签字 <input type="file" name="app.a_img"
+				<input type="text" name="img_name" value="${app.a_account }" style="display: none;">
+						+ 上传签字 <input type="file"  name="file"
 						data-validate="required:必填" /><img width="50px" height="20px" alt="签字图片" src="<%=request.getContextPath() %>${app.a_img }"">
 				</td>
 			</tr>
