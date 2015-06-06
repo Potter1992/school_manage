@@ -43,7 +43,9 @@ public class ManageController extends Controller {
 	 */
 	public void addApprove() {
 		// 获得传过来的数据
+		String imgString=handleImage();
 		Approve_person approve_person = getModel(Approve_person.class, "app");
+		approve_person.put("a_img", imgString);
 		String r_nameString = getPara("r_name");
 		int r_id = Role.me.findByname(r_nameString);
 		approve_person.set("r_id", r_id);
@@ -57,7 +59,7 @@ public class ManageController extends Controller {
 	public String handleImage() {
 		String savepath="/upload/image/approve/";//定义您的图片路径基于webroot
 		UploadFile file = getFile();//获取前台上传文件
-		String nameString=getPara("img_name");//自定义名称
+		String nameString=getPara("app.a_account");//自定义名称img_name
 		String fileName = file.getFileName();//获取文件名
 		String subStringName=fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀名
 		String paString=savepath+nameString+subStringName;//文件路径

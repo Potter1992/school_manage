@@ -34,8 +34,7 @@
 </head>
 <body>
 	<jsp:include page="head.jsp"></jsp:include><!-- 管理员页面头部 -->
-	<form action="addApprove" id="addApprove" method="post"
-		class="form">
+	<form action="addApprove" id="addApprove" method="post" class="form" enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<td><label>审核账号:</label></td>
@@ -78,16 +77,16 @@
 						<option>学院</option>
 				</select>
 				<td><label>审核签字: </label></td>
-				<td><a class="button input-file" href="javascript:void(0);">
-						+ 上传签字 <input type="file" name="app.a_img"
-						data-validate="required:必填" value="${app.a_img }" />
-				</a></td>
+				<td>+ 上传签字 <input class="button input-file" type="file"
+					name="app.a_img" data-validate="required:必填" value="${app.a_img }" />
+				</td>
 			</tr>
 
 		</table>
 		<div class="form-button">
-			<input class="button bg-red" type="submit" value="修改" /> <a
-				href="../manage/index" class="button bg-green" style="margin-top: 10px;">返回</a>
+			<input class="button bg-red" type="submit" value="增加审核人" /> <a
+				href="../manage/index" class="button bg-green"
+				style="margin-top: 10px;">返回</a>
 		</div>
 	</form>
 </body>
