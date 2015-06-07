@@ -39,7 +39,7 @@ td:HOVER {
 			<td>${stu.s_sex}</td>
 			<td>签字图片:</td>
 			<td><img class="radius " alt="签字图片"
-				src="../upload/image/${stu.s_no}.jpg"
+				src="<%=request.getContextPath() %>${stu.s_img }"
 				style="width: 100px; height: 60px"></td>
 		</tr>
 		<tr>

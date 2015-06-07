@@ -12,17 +12,17 @@ $(document).ready(function() {
 		$("#manage").hide();
 		$("#tab-panel-manage").hide();
 	}
-	if (r_level == "管理员") {
-		$("#student").hide();
-		$("#apply").hide();
-		$("#process").hide();
-		$("#tab-student-detail").hide();
-		$("#tab-process-detail").hide();
-		$("#alert_main").hide();
-
-		$("#main_manage").removeClass();
-		$("#tab-manage-detail").addClass("active");
-		$("#alert").hide();
-	}
+	// if (r_level == "管理员") {
+		// $("#student").hide();
+		// $("#apply").hide();
+		// $("#process").hide();
+		// $("#tab-student-detail").hide();
+		// $("#tab-process-detail").hide();
+		// $("#alert_main").hide();
+// 
+		// $("#main_manage").removeClass();
+		// $("#tab-manage-detail").addClass("active");
+		// $("#alert").hide();
+	// }
 
 }); 

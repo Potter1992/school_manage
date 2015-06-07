@@ -100,10 +100,9 @@ public class LoginController extends Controller {
 			setAttr("msg", "您没有相应的权限来访问此页面");
 			render("../index/index.jsp");
 		} else {
-			setSessionAttr("r_level", role);
+			setSessionAttr("r_name", role_1.getStr("r_name"));
 		}
-		if (role.equals("管理员")) {
-//			render("login_after_leader.jsp");
+		if (role.equals("管理员")) {//如果是管理员的话直接调到管理模块
 			redirect("/manage/index");
 		} else {
 			String academy_app = app.get("a_academy").toString().trim();

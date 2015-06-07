@@ -10,12 +10,20 @@
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
 <jsp:include page="css_js.jsp"></jsp:include>
-<script src="../js/auto_hidden.js"></script>
-
+<!-- <script src="../js/auto_hidden.js"></script>
+ -->
+ <script type="text/javascript">
+ 		$(function(){
+ 			$("#apply_img").hide();
+ 			if($("#r_name").val()=="学院经办人"){
+ 				$("#apply_img").show();
+ 			}
+ 		});
+ </script>
 
 </head>
 <body>
-	<input type="text" id="r_level" value="${r_level}" hidden="hidden">
+	<input type="text" id ="r_name" value="${r_name}" hidden="hidden">
 	<div class="lefter">
 		<div class="logo">
 			<strong class="text-big">学生异动管理</strong>
@@ -55,7 +63,7 @@
 	<div class="admin radius" style="margin-top: 10px;">
 		<div class="tab">
 			<div class="tab-head">
-				<strong>${r_level }</strong>
+				<strong>${r_name }</strong>
 				<ul class="tab-nav" style="margin-top: 10px; margin-left: 10px;">
 					<li class="active"><a class="badge-corner"
 						href="#tab-student-detail" id="student">学生申请<span

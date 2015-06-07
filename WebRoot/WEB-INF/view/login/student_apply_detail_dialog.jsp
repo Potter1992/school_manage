@@ -5,12 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/ajaxfileupload.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 	function getagree() {
 		var sno = $("#s_no").text();
 		$.post("../approve/approveAgree", {
-			q : sno
+			q : sno,
 		}, function(data) {
 			location.reload();
 		});
@@ -37,6 +39,36 @@
 	color: blue;
 }
 </style>
+<script type="text/javascript">
+								function ajaxFileUpload() {
+									$	.ajaxFileUpload({
+												url : '../approve/approveAgree?s_no='
+														+ $("#s_no").text(), //用于文件上传的服务器端请求地址
+												secureuri : false, //是否需要安全协议，一般设置为false
+												fileElementId : 's_img', //文件上传域的ID
+												dataType : 'HTML', //返回值类型 一般设置为json
+												success : function(data, status) //服务器成功响应处理函数
+												{
+												 /* 	alert("123");
+													alert(data);  */
+													location.reload();  
+													if (typeof (data.error) != 'undefined') {
+														if (data.error != '') {
+															alert(data.error);
+														} else {
+															alert(data.msg);
+														}
+													}
+												},
+												error : function(data, status,
+														e)//服务器响应失败处理函数
+												{
+													alert(e);
+												}
+											})
+									return false;
+								}
+							</script>
 </head>
 <body>
 	<div class="collapse">
@@ -44,13 +76,29 @@
 			<div class="panel">
 				<div class="panel-head" style="cursor: pointer;">
 					<h4>
-						申请人:${s.s_name},学号:<strong id="s_no">${s.s_no }</strong>申请类型:<strong>${s.c_name}</strong>
+						申请人:${s.s_name},学号:<strong id="s_no">${s.s_no },</strong>申请类型:<strong>${s.c_name}</strong>
 					</h4>
 				</div>
 
-				<div class="panel-body">
+				<div class="panel-body " >
 					<blockquote class="border-main">
-						<strong style="color: red;">申请人:${s.s_name},学号:${s.s_no }:申请类型:${s.c_name}</strong>
+						<strong style="color: red;">申请人:${s.s_name},学号:<big>${s.s_no }</big> ,申请类型:${s.c_name}</strong>
+						<div class="form-group" id="apply_img">
+									<input id="s_no" value="${s.s_no }" style="display: none;">
+									<a class="button  icon-upload " href="#"
+										style="display: inline-block; width: auto; height: 40px; background: white-space; position: relative; overflow: hidden;
+										margin-bottom: 10px;
+										">
+										上传签字图片<small style="color: red">必须上传图片</small><input type="file" id="s_img"
+										style="position: absolute; right: 0; top: 0; font-size: 100px; opacity: 0; filter: alpha(opacity = 0);"
+										name="s_img" accept="image/png"
+										value="${app.a_img }">
+									</a>
+							</div>
+						<button
+								class="button icon-thumbs-o-up text-red radius-rounded float-right dialogs"
+								data-toggle="click" data-target="#mydialog" data-mask="1"
+								>审核通过</button>
 						<!-- <p>...</p>{s_before_status:有, s_manager_name:null,
 						 s_password:123456, s_before_academy:信息管理学院, 
 						 s_before_class:12计科本, s_after_school:有, s_after_area:德州学院,
@@ -63,15 +111,16 @@
 						      s_no:201201001003, s_year:4, c_name:保留入学资格, s_after_status:有,
 						       s_name:刘磊, s_before_area:德州学院, s_after_subject_no:null} -->
 
-						<div id="strong">
+						<div id="strong" >
 							<label>申请前内容:</label><strong>所在学院:</strong>${s.s_before_academy},<strong>所在专业:</strong>${s.s_before_subject }
 							,<strong>所在班级:</strong>${s.s_before_class},<strong>注册状态:</strong>${s.s_before_regist},<strong>学籍状态:</strong>${s.s_before_status}<br>
 							<label>申请后内容:</label><strong>所在学院:</strong>${s.s_after_academy},<strong>所在专业:</strong>${s.s_after_subject }
 							,<strong>所在班级:</strong>${s.s_after_class},<strong>注册状态:</strong>${s.s_after_regist},<strong>学籍状态:</strong>${s.s_after_status}
-						<button class="button icon-thumbs-o-up text-red radius-rounded float-right dialogs"
-						data-toggle="click" data-target="#mydialog" data-mask="1" > 审核通过</button>
+							
+							
+							
 						</div>
-						
+
 					</blockquote>
 					<div id="mydialog">
 						<div class="dialog">
@@ -83,11 +132,10 @@
 							</div>
 							<div class="dialog-foot">
 								<button class="dialog-close button">取消</button>
-								<button class="button bg-green" onclick="getagree()">确认</button>
+								<button class="button bg-green" onclick="ajaxFileUpload()">确认</button>
 							</div>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 
