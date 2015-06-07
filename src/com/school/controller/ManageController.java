@@ -43,12 +43,13 @@ public class ManageController extends Controller {
 	 */
 	public void addApprove() {
 		// 获得传过来的数据
-		String imgString=handleImage();
+		String imgString = handleImage();
 		Approve_person approve_person = getModel(Approve_person.class, "app");
-		approve_person.put("a_img", imgString);
+		approve_person.set("a_img", imgString);
 		String r_nameString = getPara("r_name");
-		int r_id = Role.me.findByname(r_nameString);
-		approve_person.set("r_id", r_id);
+		Role role = Role.me.findByname(r_nameString);
+		approve_person.set("r_id", role.getInt("r_id"));
+		approve_person.set("a_type", role.get("r_level"));
 		approve_person.save();
 		index();
 	}
@@ -57,14 +58,18 @@ public class ManageController extends Controller {
 	 * 处理上传图片,返回图片路径
 	 */
 	public String handleImage() {
-		String savepath="/upload/image/approve/";//定义您的图片路径基于webroot
-		UploadFile file = getFile();//获取前台上传文件
-		String nameString=getPara("app.a_account");//自定义名称img_name
-		String fileName = file.getFileName();//获取文件名
-		String subStringName=fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀名
-		String paString=savepath+nameString+subStringName;//文件路径
-		File fi=new File(PathKit.getWebRootPath()+paString);//创建新的文件
-		file.getFile().renameTo(fi);//给保存的文件重新命名
+		String savepath = "/upload/image/approve/";// 定义您的图片路径基于webroot
+		UploadFile file = getFile();// 获取前台上传文件
+		if (file == null) {
+			return null;
+		}
+		String nameString = getPara("app.a_account");// 自定义名称img_name
+		String fileName = file.getFileName();// 获取文件名
+		String subStringName = fileName.substring(fileName.lastIndexOf("."),
+				fileName.length());// 文件后缀名
+		String paString = savepath + nameString + subStringName;// 文件路径
+		File fi = new File(PathKit.getWebRootPath() + paString);// 创建新的文件
+		file.getFile().renameTo(fi);// 给保存的文件重新命名
 		return paString;
 	}
 
@@ -88,15 +93,21 @@ public class ManageController extends Controller {
 	 * 更新审核人
 	 */
 	public void editApprove() {
-		
+
 		// 获得传过来的数据
-		String imgpathString=handleImage();
+		String imgpathString = handleImage();
 		Approve_person approve_person = getModel(Approve_person.class, "app");
-		
+
 		String r_name = getPara("r_name");
-		approve_person.set("a_img",imgpathString );
-		int r_id = Role.me.findByname(r_name);
-		approve_person.put("r_id", r_id);
+		if (imgpathString != null) {
+			approve_person.set("a_img", imgpathString);
+		}
+
+		Role role = Role.me.findByname(r_name);
+		approve_person.set("r_id", role.getInt("r_id"));
+		String cc=role.get("r_level");
+		approve_person.set("a_type", role.get("r_level"));
+//		approve_person.put("a_type", role.get("r_level"));
 		approve_person.update();
 		index();
 	}

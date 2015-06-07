@@ -34,12 +34,12 @@ public class Role extends Model<Role> {
 	 * @param name
 	 * @return
 	 */
-	public int findByname(String name) {
+	public Role findByname(String name) {
 		List<Role> roles = find("select * from  "+TableName+"   where r_name = ?", name);
 		if (roles.size() != 0) {
-			return roles.get(0).getInt("r_id");
+			return roles.get(0);
 		}
-		return 0;
+		return null;
 	}
 
 	/**

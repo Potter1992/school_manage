@@ -34,7 +34,8 @@
 </head>
 <body>
 	<jsp:include page="head.jsp"></jsp:include><!-- 管理员页面头部 -->
-	<form action="addApprove" id="addApprove" method="post" class="form" enctype="multipart/form-data">
+	<form action="addApprove" id="addApprove" method="post" class="form"
+		enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<td><label>审核账号:</label></td>
@@ -55,13 +56,21 @@
 				</td>
 
 				<td><label>审核姓名:</label></td>
-				<td><input type="text" name="app.a_name" placeholder="审核姓名"
-					value="${app.a_name}"></td>
+				<td>
+					<div class="form-group">
+						<input type="text" name="app.a_name" data-validate="required:*"
+							placeholder="审核姓名" value="${app.a_name}">
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td><label>审核部门:</label></td>
-				<td><input type="text" name="app.a_part" placeholder="审核部门"
-					value="${app.a_part}"></td>
+				<td>
+					<div class="form-group">
+						<input type="text" name="app.a_part" data-validate="required:*"
+							placeholder="审核部门" value="${app.a_part}">
+					</div>
+				</td>
 
 				<!-- <input type="text" name="app.a_type"placeholder="审核级别"></td>r_level -->
 				<td><label>审核角色:</label></td>
@@ -75,11 +84,23 @@
 				<td><select id="academy" name="app.a_academy" class="input"
 					value="${app.a_academy }">
 						<option>学院</option>
-				</select>
-				<td><label>审核签字: </label></td>
-				<td>+ 上传签字 <input class="button input-file" type="file"
-					name="app.a_img" data-validate="required:必填" value="${app.a_img }" />
+				</select> <!-- 上传-start -->
+				<td><label>审核签字: <small style="color: red;">png格式</small></label></td>
+				<td>
+				
+					<div class="form-group">
+						<div class="field" style="float: left">
+							<a class="button  icon-upload " href="#"
+								style="display: inline-block; width: auto; height: 40px; background: white-space; position: relative; overflow: hidden;">
+								上传签字图片<input type="file"
+								style="position: absolute; right: 0; top: 0; font-size: 100px; opacity: 0; filter: alpha(opacity = 0);"
+								name="app.a_img" data-validate="required:必须上传"
+								accept="image/png" value="${app.a_img }">
+							</a>
+						</div>
+					</div>
 				</td>
+				<!-- 上传-end -->
 			</tr>
 
 		</table>

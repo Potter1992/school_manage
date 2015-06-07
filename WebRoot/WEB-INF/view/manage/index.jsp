@@ -16,7 +16,7 @@
 	<div class="tab-body">
 		<div id="tab-panel-manage">
 			<div class="tab-panel active" id="tab-approve-detail">
-				审核成员管理
+				<!-- 审核成员管理 -->
 				<jsp:include page="approve.jsp"></jsp:include>
 			</div>
 			<div class="tab-panel " id="tab-apply-stu-detail">
