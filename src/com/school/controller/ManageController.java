@@ -10,9 +10,30 @@ import com.jfinal.upload.MultipartRequest;
 import com.jfinal.upload.UploadFile;
 import com.school.model.Approve_person;
 import com.school.model.Role;
+import com.school.model.Student_apply;
 import com.school.model.Xydmb;
 
 public class ManageController extends Controller {
+	/**
+	 * 验证账号是否重复
+	 */
+	public void validate_account() {
+		String accountString = getPara("account");
+		System.out.println(accountString);
+		if (Approve_person.me.accountIsExited(accountString)) {
+			setAttr("validate_account", "false");
+//			renderJson("validate_account", "false");
+//			renderJson("{'validate_account':'true'}");
+			renderJson();
+		} else {
+//			renderJson("{'validate_account':'true'}");
+			setAttr("validate_account", "true");
+			renderJson();
+//			renderJson("validate_account", "true");
+		}
+
+	}
+
 	/**
 	 * 将审核人的所有信息返回到主页面
 	 */
@@ -23,10 +44,23 @@ public class ManageController extends Controller {
 			String r_name = Role.me.getRNameByID(r_id);
 			approve_person.put("r_name", r_name);
 		}
+		getApply_Student();
 		setAttr("approve", approve_persons);
 		render("index.jsp");
 	}
 
+	/**
+	 * 获取学生申请的基本信息
+	 */
+	public void getApply_Student() {
+		List list = Student_apply.me.findByStudent_appliesAndChange();
+		setAttr("stu_lists", list);
+
+	}
+
+	/**
+	 * 添加审核人页面
+	 */
 	public void add_approve() {
 		render("add_approve.jsp");
 	}
@@ -105,9 +139,9 @@ public class ManageController extends Controller {
 
 		Role role = Role.me.findByname(r_name);
 		approve_person.set("r_id", role.getInt("r_id"));
-		String cc=role.get("r_level");
+		String cc = role.get("r_level");
 		approve_person.set("a_type", role.get("r_level"));
-//		approve_person.put("a_type", role.get("r_level"));
+		// approve_person.put("a_type", role.get("r_level"));
 		approve_person.update();
 		index();
 	}
@@ -119,7 +153,8 @@ public class ManageController extends Controller {
 		// 获得传过来的数据
 		int a_id = getParaToInt();
 		Approve_person.me.deleteById(a_id);
-		index();
+		redirect("/manage/index");
+		// index();
 	}
 
 	/**

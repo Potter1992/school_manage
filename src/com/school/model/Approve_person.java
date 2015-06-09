@@ -9,6 +9,21 @@ import com.jfinal.plugin.activerecord.Model;
 public class Approve_person extends Model<Approve_person> {
 	public static final String TableName = "approve_person";
 	public static final Approve_person me=new Approve_person();
+	/**
+	 *根据账号查看是否存在 
+	 */
+	public boolean accountIsExited(String account) {
+		Approve_person person=Approve_person.me.findFirst("select * from "+TableName+" where a_account = ?", account);
+		if (person!=null) {
+			return true;
+		}
+		return false;
+		
+	}
+	/**
+	 * 查找所有的审核人
+	 * @return
+	 */
 	public List<Approve_person> findAll() {
 		
 		return Approve_person.me.find("select * from "+TableName);

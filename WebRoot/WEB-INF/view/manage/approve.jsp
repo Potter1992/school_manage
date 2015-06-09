@@ -13,7 +13,6 @@
 </style>
 </head>
 <body>
-
 	<a href="add_approve" class="button bg-green"  style="margin-bottom: 10px;">添加审核人</a>
 	<%-- com.school.model.Approve_person@6c7941f4 {a_academy:无学院, a_id:1,
 	a_part:教务处负责人, a_img:, a_password:132, a_name:处级干部, r_id:4,

@@ -39,47 +39,20 @@
 	color: blue;
 }
 </style>
-<script type="text/javascript">
-								function ajaxFileUpload() {
-									$	.ajaxFileUpload({
-												url : '../approve/approveAgree?s_no='
-														+ $("#s_no").text(), //用于文件上传的服务器端请求地址
-												secureuri : false, //是否需要安全协议，一般设置为false
-												fileElementId : 's_img', //文件上传域的ID
-												dataType : 'HTML', //返回值类型 一般设置为json
-												success : function(data, status) //服务器成功响应处理函数
-												{
-												 /* 	alert("123");
-													alert(data);  */
-													location.reload();  
-													if (typeof (data.error) != 'undefined') {
-														if (data.error != '') {
-															alert(data.error);
-														} else {
-															alert(data.msg);
-														}
-													}
-												},
-												error : function(data, status,
-														e)//服务器响应失败处理函数
-												{
-													alert(e);
-												}
-											})
-									return false;
-								}
-							</script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/custtom.js"></script>
 </head>
 <body>
 	<div class="collapse">
 		<c:forEach items="${stulist}" var="s">
+		<!--面板  -->
 			<div class="panel">
+			<!--面板 头部 -->
 				<div class="panel-head" style="cursor: pointer;">
 					<h4>
-						申请人:${s.s_name},学号:<strong id="s_no">${s.s_no },</strong>申请类型:<strong>${s.c_name}</strong>
+						申请人:${s.s_name},学号:<strong id="s_no">${s.s_no }</strong>申请类型:<strong>${s.c_name}</strong>
 					</h4>
 				</div>
-
+			<!--面板 主体 -->
 				<div class="panel-body " >
 					<blockquote class="border-main">
 						<strong style="color: red;">申请人:${s.s_name},学号:<big>${s.s_no }</big> ,申请类型:${s.c_name}</strong>
@@ -95,7 +68,7 @@
 										value="${app.a_img }">
 									</a>
 							</div>
-						<button
+						<button id="agree"
 								class="button icon-thumbs-o-up text-red radius-rounded float-right dialogs"
 								data-toggle="click" data-target="#mydialog" data-mask="1"
 								>审核通过</button>
@@ -122,6 +95,7 @@
 						</div>
 
 					</blockquote>
+					<!-- 对话框 -->
 					<div id="mydialog">
 						<div class="dialog">
 							<div class="dialog-head">

@@ -15,19 +15,10 @@ public class ApproveController extends Controller {
 	/**
 	 * 进行审核通过后操作
 	 */
-//	public void approveAgree() {
-//		UploadFile file=getFile("s_img");
-//		System.out.println(file);
-//		String snoString = getPara("q");
-//		if (Apply_approve.me.agree(snoString)) {
-//			forwardAction("/login/login_index");
-//		} else {
-//			renderText("更新失败");
-//		}
 		public void approveAgree() {
 			String r_name=getSessionAttr("r_name");
 			String snoString= getPara("s_no");
-			if (r_name=="学院经办人") {
+			if (r_name.equals("学院经办人") ){
 				UploadFile file=getFile("s_img");
 				if (file==null) {
 					setAttr("msg", "必须上传签字文件");

@@ -7,10 +7,11 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<jsp:include page="css_js_add.jsp"></jsp:include>
+<jsp:include page="css_js.jsp"></jsp:include>
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function() {
+		$("#error").hide();
 		$("#addApprove input").addClass("input");
 		$.post("../manage/getAcademy", "", function(data) {
 			var html = "";
@@ -27,10 +28,11 @@
 			}
 			$("#r_name").html(html);
 		});
+		/* ajax#../manage/validate_account?account=:错误提示(用户已注册) */
 	});
 </script>
-<style type="text/css">
-</style>
+
+
 </head>
 <body>
 	<jsp:include page="head.jsp"></jsp:include><!-- 管理员页面头部 -->
@@ -38,12 +40,40 @@
 		enctype="multipart/form-data">
 		<table class="table">
 			<tr>
-				<td><label>审核账号:</label></td>
+				<td><label>审核账号:<small id="error" class=" text-dot" >账号已存在</small></label></td>
 				<td>
-					<div class="form-group">
-						<input class="input" type="text" name="app.a_account"
-							value="${app.a_account }" data-validate="required:*"
+					<div class="form-group" id="account_exited">
+						<input class="input " type="text" name="app.a_account"
+							id="account" value="${app.a_account }"
+							onchange="change_account();" data-validate="required:* "
 							placeholder="审核账号">
+						<script type="text/javascript">
+							function change_account() {
+								/* alert("123"); */
+								/* $("#account").onchange(function(){ */
+								$.ajax({
+									url : "../manage/validate_account",
+									type : "GET",
+									data : {
+										account : $("#account").val()
+									},
+									dataType : "json",
+									success : function(data) {
+										var flag=data.validate_account;
+										/* alert(data.validate_account); */
+										if (flag=="false") {
+											$("#account_exited").removeClass("check-success");
+											$("#account_exited").addClass("check-error");
+											$("#error").show();
+										}else{
+											$("#account_exited").removeClass("check-error");
+											$("#error").hide();
+										}
+									}
+								});
+								/* }); */
+							}
+						</script>
 					</div>
 				</td>
 				<td><label>审核密码:</label></td>
@@ -87,7 +117,7 @@
 				</select> <!-- 上传-start -->
 				<td><label>审核签字: <small style="color: red;">png格式</small></label></td>
 				<td>
-				
+
 					<div class="form-group">
 						<div class="field" style="float: left">
 							<a class="button  icon-upload " href="#"

@@ -51,7 +51,7 @@
 					<li id="manage_hidden">
 						<ul id="main_manage">
 							<li class="active"> <a href="#tab-approve-detail">审核成员管理</a></li>
-							<li><a href="#tab-apply-stu-detail">学生申请管理</a></li>
+							<li><a href="#tab-apply-stu-detail" >学生申请管理</a></li>
 							<li><a href="#tab-change-detail">异动管理</a></li>
 						</ul></li>
 				</ul>

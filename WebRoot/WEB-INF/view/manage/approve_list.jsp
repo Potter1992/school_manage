@@ -5,7 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>审核人详情列表</title>
+<style type="text/css">
+#edit_approve{color: red;}
+#edit_approve :HOVER {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<div class="table-responsive" id="remove">
@@ -19,7 +25,7 @@
 					<td>审核人签字</td>
 					<td>审核人角色类型</td>
 					<td>审核人学院</td>
-					<td class="text-dot">操作</td>
+					<td >操作</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,10 +36,12 @@
 						<td>${app.a_password }</td>
 						<td>${app.a_type }</td>
 						<td><img width="50px" height="25px"
-							src="<%=request.getContextPath() %>${app.a_img }" /></td>
+							src="<%=request.getContextPath() %>${app.a_img }" />
+						</td>
 						<td>${app.r_name }</td>
 						<td>${app.a_academy }</td>
-						<td><a class="icon-edit" href="handle_approve/${app.a_id}" id="edit_approve" style="color: red;">修改</a>
+						<td><a class="icon-edit" 
+						href="handle_approve/${app.a_id}" id="edit_approve">修改</a>
 							<a href="deleteApprove/${app.a_id}" class="icon-recycle">删除</a></td>
 					</tr>
 

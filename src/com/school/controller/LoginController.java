@@ -118,9 +118,10 @@ public class LoginController extends Controller {
 			} else {
 				List<Apply_approve> aList = Apply_approve.me
 						.findA_academyAndCurrent_step(academy_app, rc_sort);
+				System.out.println(aList);
+					
 				setAttr("appsList", aList);
 			}
-			// 根据
 			// 获取学生申请的数据,根据审核人的学院,如果没有学院就全部显示,并且还要根据审核人是否已经审核
 			render("login_after_leader.jsp");
 		}

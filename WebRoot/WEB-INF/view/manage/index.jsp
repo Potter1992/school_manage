@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<jsp:include page="css_js_add.jsp"></jsp:include>
+	<jsp:include page="css_js.jsp"></jsp:include>
 <meta name="renderer" content="webkit">
 <title>学生异动管理</title>
 </head>

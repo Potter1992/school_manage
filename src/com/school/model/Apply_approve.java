@@ -16,6 +16,7 @@ public class Apply_approve extends Model<Apply_approve> {
 	 */
 	public static final String TableName = "apply_approve";
 	public static final Apply_approve me = new Apply_approve();
+
 	/**
 	 * 通过审核人审核后,进行更新数据库
 	 * 
@@ -23,13 +24,15 @@ public class Apply_approve extends Model<Apply_approve> {
 	 * @return
 	 */
 	public boolean agree(String sno) {
-		Apply_approve apply_approve=findFirst("select * from "+TableName+"  where s_no = ?", sno);
-		int step=apply_approve.get("aa_current_step");
-		Db.update("update "+TableName+" set aa_current_step = ? where s_no = ?", step+1,sno);
+		Apply_approve apply_approve = findFirst("select * from " + TableName
+				+ "  where s_no = ?", sno);
+		int step = apply_approve.get("aa_current_step");
+		Db.update("update " + TableName
+				+ " set aa_current_step = ? where s_no = ?", step + 1, sno);
 		return true;
-		
+
 	}
-	
+
 	/**
 	 * 通过审核人的顺序获得审核申请记录,以便不同审核人查看
 	 * 
@@ -40,6 +43,7 @@ public class Apply_approve extends Model<Apply_approve> {
 		return find("select * from " + TableName + " where aa_current_step = "
 				+ sort);
 	}
+
 	/**
 	 * 通过审核人的顺序获得审核申请记录,以便不同审核人查看
 	 * 
@@ -58,7 +62,8 @@ public class Apply_approve extends Model<Apply_approve> {
 	 * @return
 	 */
 	public Apply_approve findByS_no(String s_no) {
-		return find("select * from " + TableName + " where s_no = " + s_no).get(0);
+		return find("select * from " + TableName + " where s_no = " + s_no)
+				.get(0);
 	}
 
 	/**
@@ -69,24 +74,17 @@ public class Apply_approve extends Model<Apply_approve> {
 	 */
 	public List<Apply_approve> findA_academyAndCurrent_step(String s_academy,
 			int sort) {
-		
 		List<Student_apply> student_applies = Student_apply.me
 				.findByAcademy(s_academy);
 		List<Apply_approve> apps = new ArrayList<Apply_approve>();
 		for (Student_apply student_apply : student_applies) {
-			Apply_approve ee=Apply_approve.me.findByS_no(student_apply.getStr("s_no"));
-			int nn=ee.getInt("aa_current_step");
-			if (nn<=sort) {
+			Apply_approve ee = Apply_approve.me.findByS_no(student_apply
+					.getStr("s_no"));
+			int nn = ee.getInt("aa_current_step");
+			if (nn == sort) {
 				apps.add(ee);
 			}
-			
 		}
-		
-		// for (Student_apply student_apply : student_applies) {
-		// String sno = student_apply.get("s_no");
-		// Apply_approve approve = Apply_approve.me.findByS_no(sno);
-		// apps.add(approve);
-		// }
 		return apps;
 	}
 

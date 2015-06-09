@@ -53,8 +53,8 @@
 				</select>
 				<td><label>审核签字: </label></td>
 				<td><input type="text" name="img_name"
-					value="${app.a_account }" style="display: none;"> + 上传签字 <input
-					type="file" name="file" /><img width="50px" height="20px"
+					value="${app.a_account }" style="display: none;"> 上传签字<small style="color:red;">格式png</small>
+					<input type="file" name="file" /><img width="50px" height="20px"
 					alt="签字图片" src="<%=request.getContextPath() %>${app.a_img }"">
 				</td>
 			</tr>

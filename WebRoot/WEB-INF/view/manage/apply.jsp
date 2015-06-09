@@ -14,29 +14,22 @@
 				<tr class="text-main">
 					<td>申请人学号</td>
 					<td>申请人姓名</td>
-					<td>申请人密码</td>
-					<td>申请人级别</td>
+					<td>申请类型</td>
 					<td>申请人签字</td>
-					<td>申请人角色类型</td>
-					<td>申请人学院</td>
-					<td class="text-dot">操作</td>
+					<!-- <td class="text-dot">操作</td> -->
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${approve }" var="app">
+				<c:forEach items="${stu_lists }" var="stu">
 					<tr id="hover">
-						<td>${app.a_account }</td>
-						<td>${app.a_name }</td>
-						<td>${app.a_password }</td>
-						<td>${app.a_type }</td>
+						<td>${stu.s_no }</td>
+						<td>${stu.s_name }</td>
+						<td>${stu.c_name }</td>
 						<td><img width="50px" height="25px"
-							src="<%=request.getContextPath() %>${app.a_img }" /></td>
-						<td>${app.r_name }</td>
-						<td>${app.a_academy }</td>
-						<td><a class="icon-edit" href="handle_approve/${app.a_id}" id="edit_approve" style="color: red;">修改</a>
-							<a href="deleteApprove/${app.a_id}" class="icon-recycle">删除</a></td>
+							src="<%=request.getContextPath() %>${stu.s_img }" /></td>
+						<%-- <td><a class="icon-edit" href="handle_approve/${app.a_id}" id="edit_approve" style="color: red;">修改</a>
+							<a href="deleteApprove/${app.a_id}" class="icon-recycle">删除</a></td> --%>
 					</tr>
-
 
 				</c:forEach>
 			</tbody>
