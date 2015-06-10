@@ -4,9 +4,16 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>异动管理表</title>
 	</head>
 	<body>
-		change
+	选中异动类型----->显示角色名称----->添加顺序      ()
+	   异动id(复学)  顺序   角色id(教务)
+	<select id="change_id_name">
+	<option>复学</option>
+	<option>休学</option>
+	<option>保留学籍</option>
+	</select>
+		<input type="button" value="添加权限">
 	</body>
 </html>

@@ -3,12 +3,28 @@ package com.school.model;
 import java.util.List;
 
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 /*
  * 审批人
  */
 public class Approve_person extends Model<Approve_person> {
 	public static final String TableName = "approve_person";
+	public static final String TableName_Role = "role";
 	public static final Approve_person me=new Approve_person();
+	/**
+	 * 审核人员根据r_id获取审核人员的角色名称
+	 */
+	public List findListByr_id() {
+		String sqlString="select * from "+TableName+" as a, "+TableName_Role+" as b where a.r_id=b.r_id ";
+		List list=find(sqlString);
+		return list;
+	}
+	/**
+	 * 分页
+	 */
+	public Page<Approve_person> paginate(int pageNumber, int pageSize) {
+		return paginate(pageNumber, pageSize, "select *", " from "+TableName+" as a ,role as b where a.r_id=b.r_id order by a_id asc");
+	}
 	/**
 	 *根据账号查看是否存在 
 	 */

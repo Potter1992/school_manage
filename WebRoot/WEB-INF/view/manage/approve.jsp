@@ -18,5 +18,6 @@
 	a_part:教务处负责人, a_img:, a_password:132, a_name:处级干部, r_id:4,
 	a_account:123456789, a_type:处级 ${approve} --%>
 	<jsp:include page="approve_list.jsp"></jsp:include><!-- 审核人列表 -->
+	
 </body>
 </html>

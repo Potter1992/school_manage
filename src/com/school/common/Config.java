@@ -32,15 +32,16 @@ public class Config extends JFinalConfig {
 	public void configConstant(Constants me) {
 		loadPropertyFile("config.properties");
 		me.setDevMode(true);
-		me.setBaseViewPath("/WEB-INF/view");
+		me.setBaseViewPath("/WEB-INF/view/");
 		me.setViewType(ViewType.JSP);
 		me.setEncoding("UTF-8");
+//		me.setUrlParaSeparator("&");
 //		me.setUploadedFileSaveDirectory(PathKit.getWebRootPath()+"/upload/image");
 	}
 
 	@Override
 	public void configRoute(Routes me) {
-		me.add("index", IndexController.class);
+		me.add("/", IndexController.class,"/index");
 		me.add("apply",ApplyController.class);
 		me.add("manage",ManageController.class);
 		me.add("login",LoginController.class);

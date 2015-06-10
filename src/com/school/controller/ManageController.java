@@ -6,6 +6,7 @@ import java.util.List;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.PathKit;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.MultipartRequest;
 import com.jfinal.upload.UploadFile;
 import com.school.model.Approve_person;
@@ -15,6 +16,19 @@ import com.school.model.Xydmb;
 
 public class ManageController extends Controller {
 	/**
+	 * 按照分页进行显示
+	 */
+	public void manage_page() {
+		int paraString = getPara("page") == null ? 1 : getParaToInt("page");
+		Page<Approve_person> apPage=Approve_person.me.paginate(paraString, 10);
+		System.out.println(apPage);
+//		List<Approve_person> apList=apPage.getList();
+		
+		setAttr("approve_page",apPage );// 从url中获得参数，并将默认值转化为int类型的值.
+
+	}
+
+	/**
 	 * 验证账号是否重复
 	 */
 	public void validate_account() {
@@ -22,14 +36,14 @@ public class ManageController extends Controller {
 		System.out.println(accountString);
 		if (Approve_person.me.accountIsExited(accountString)) {
 			setAttr("validate_account", "false");
-//			renderJson("validate_account", "false");
-//			renderJson("{'validate_account':'true'}");
+			// renderJson("validate_account", "false");
+			// renderJson("{'validate_account':'true'}");
 			renderJson();
 		} else {
-//			renderJson("{'validate_account':'true'}");
+			// renderJson("{'validate_account':'true'}");
 			setAttr("validate_account", "true");
 			renderJson();
-//			renderJson("validate_account", "true");
+			// renderJson("validate_account", "true");
 		}
 
 	}
@@ -38,14 +52,16 @@ public class ManageController extends Controller {
 	 * 将审核人的所有信息返回到主页面
 	 */
 	public void index() {
-		List<Approve_person> approve_persons = Approve_person.me.findAll();
-		for (Approve_person approve_person : approve_persons) {
-			int r_id = approve_person.getInt("r_id");
-			String r_name = Role.me.getRNameByID(r_id);
-			approve_person.put("r_name", r_name);
-		}
+//		List<Approve_person> approve_persons = Approve_person.me.findAll();
+//		for (Approve_person approve_person : approve_persons) {
+//			int r_id = approve_person.getInt("r_id");
+//			String r_name = Role.me.getRNameByID(r_id);
+//			approve_person.put("r_name", r_name);
+//		}
+//-----		List list=Approve_person.me.findListByr_id();
 		getApply_Student();
-		setAttr("approve", approve_persons);
+//		setAttr("approve", approve_persons);
+		manage_page();
 		render("index.jsp");
 	}
 
@@ -155,14 +171,6 @@ public class ManageController extends Controller {
 		Approve_person.me.deleteById(a_id);
 		redirect("/manage/index");
 		// index();
-	}
-
-	/**
-	 * 判断审核人账号是否存在
-	 */
-	public void checkApprove_account() {
-		// 获得传过来的数据
-
 	}
 
 	/**
