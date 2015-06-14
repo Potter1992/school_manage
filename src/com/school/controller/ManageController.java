@@ -6,10 +6,13 @@ import java.util.List;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.PathKit;
+import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.MultipartRequest;
 import com.jfinal.upload.UploadFile;
 import com.school.model.Approve_person;
+import com.school.model.Change;
 import com.school.model.Role;
 import com.school.model.Student_apply;
 import com.school.model.Xydmb;
@@ -22,10 +25,49 @@ public class ManageController extends Controller {
 		int paraString = getPara("page") == null ? 1 : getParaToInt("page");
 		Page<Approve_person> apPage=Approve_person.me.paginate(paraString, 10);
 		System.out.println(apPage);
-//		List<Approve_person> apList=apPage.getList();
-		
 		setAttr("approve_page",apPage );// 从url中获得参数，并将默认值转化为int类型的值.
 
+	}
+	/**
+	 * 根据c_name获取c_id,添加角色id和顺序
+	 */
+	public void setRoleAndSort() {
+		String c_nameString=getPara("c_name");
+		int sort_sum=getParaToInt("sort_sum");
+		Change change=Change.me.findIDChangeByName(c_nameString);
+		//根据异动类型添加角色和顺序
+		int c_id=change.getInt("c_id");
+		//选择角色
+		List<Role> rList=Role.me.findAll();
+		setAttr("rList", rList);
+		setAttr("sort_sum", sort_sum);
+		//顺序个数,默认1为学生,不容更改
+		renderJson();
+	}
+	/**
+	 * 保存角色和异动之间的关系
+	 */
+	public void saveRoleAndChange() {
+		String c_nameString=getPara("c_name");
+		Change change=Change.me.findIDChangeByName(c_nameString);
+		//根据异动类型添加角色和顺序
+		int c_id=change.getInt("c_id");
+		String role_nameString=getPara("role_name");
+		Role role=Role.me.findByname(role_nameString);
+		int r_id=role.getInt("r_id");
+		int rc_sort=getParaToInt("rc_sort");
+		int sort_sum=getParaToInt("sort_sum");
+		Record record=new Record();
+		record.set("r_id", r_id);
+		record.set("c_id", c_id);
+		record.set("rc_sort", rc_sort);
+		boolean flag=DbPro.use().save("role_change", record);
+		if (flag) {
+			renderText("保存成功");
+		}else {
+			renderText("保存失败");
+		}
+		
 	}
 
 	/**
@@ -36,33 +78,38 @@ public class ManageController extends Controller {
 		System.out.println(accountString);
 		if (Approve_person.me.accountIsExited(accountString)) {
 			setAttr("validate_account", "false");
-			// renderJson("validate_account", "false");
-			// renderJson("{'validate_account':'true'}");
 			renderJson();
 		} else {
-			// renderJson("{'validate_account':'true'}");
 			setAttr("validate_account", "true");
 			renderJson();
-			// renderJson("validate_account", "true");
 		}
 
 	}
-
+	/**
+	 * 根据异动类型获取对应的角色类型和
+	 */
+	public void getChange() {
+		getApply_Student();
+		manage_page();
+		getChange_apply();
+		render("index.jsp");
+	}
 	/**
 	 * 将审核人的所有信息返回到主页面
 	 */
 	public void index() {
-//		List<Approve_person> approve_persons = Approve_person.me.findAll();
-//		for (Approve_person approve_person : approve_persons) {
-//			int r_id = approve_person.getInt("r_id");
-//			String r_name = Role.me.getRNameByID(r_id);
-//			approve_person.put("r_name", r_name);
-//		}
-//-----		List list=Approve_person.me.findListByr_id();
 		getApply_Student();
-//		setAttr("approve", approve_persons);
 		manage_page();
+		getChange_apply();
 		render("index.jsp");
+//		redirect("/index");
+	}
+	/**
+	 * 获取异动类型
+	 */
+	public void getChange_apply() {
+		List<Change> list=Change.me.findAll();
+		setAttr("change", list);
 	}
 
 	/**
@@ -168,9 +215,19 @@ public class ManageController extends Controller {
 	public void deleteApprove() {
 		// 获得传过来的数据
 		int a_id = getParaToInt();
-		Approve_person.me.deleteById(a_id);
-		redirect("/manage/index");
-		// index();
+		Approve_person approve_person=Approve_person.me.findById(a_id);
+		String img_pathString=approve_person.get("a_img");
+		File file=new File(PathKit.getWebRootPath()+img_pathString);
+		if (file.delete()) {
+			Approve_person.me.deleteById(a_id);
+			//删除记录后删除资源
+			redirect("/manage/index");
+			// index();
+		}else {
+			renderText("删除失败");
+		}
+		
+		
 	}
 
 	/**

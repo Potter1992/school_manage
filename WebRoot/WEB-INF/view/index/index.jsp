@@ -28,7 +28,7 @@
 								<div class="field field-icon-right">
 									<input type="text" class="input" name="username"
 										placeholder="登录账号" value="${username}" />
-									<span class="icon icon-user"></span>
+									<span class="icon icon-user" style="margin-top: 7px;"></span>
 								</div>
 								<div ><font color="red">${msg}</font></div>
 							</div>

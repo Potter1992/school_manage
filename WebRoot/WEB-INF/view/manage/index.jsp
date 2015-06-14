@@ -19,10 +19,10 @@
 				<!-- 审核成员管理 -->
 				<jsp:include page="approve.jsp"></jsp:include>
 			</div>
-			<div class="tab-panel " id="tab-apply-stu-detail">
+			<%-- <div class="tab-panel " id="tab-apply-stu-detail">
 				学生申请管理
 				<jsp:include page="apply.jsp"></jsp:include>
-			</div>
+			</div> --%>
 			<div class="tab-panel " id="tab-change-detail">
 				异动管理
 				<jsp:include page="change.jsp"></jsp:include>
