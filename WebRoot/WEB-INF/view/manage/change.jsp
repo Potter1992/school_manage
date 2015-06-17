@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>异动管理表</title>
+
 <style type="text/css">
 select {
 	margin-top: 10px;
@@ -24,61 +25,85 @@ option :HOVER {
 <script type="text/javascript">
 	function change_onchange() {
 		var change_name = $("#change").val();
-		var sort_sum = $("#sort_sum").val();
-		if (sort_sum == "") {
-			alert("请输入您的审核人具备的最基本的元素");
+		$.post("setRoleAndSort", {
+			c_name : change_name
+		}, function(data) {
+			/* alert(data); */
+		});
+	}
+	function rolechange_show() {
+		$("#rolechange").removeClass("hidden");
+		$("#add_rolechange").addClass("hidden");
+	}
+	function rolechange_add() {
+		$("#rolechange").addClass("hidden");
+		$("#add_rolechange").removeClass("hidden");
+	}
+	function change_query() {
+		var c_name = $("#change_query").val();
+		if (c_name == "---------请选择异动类型-------") {
+			var html = "<strong class='text-dot'  style='text-align: center;'>请选择异动类型</strong>";
+			$("#rc_detail").html(html);
 		} else {
-			$.post("setRoleAndSort", {
-				sort_sum : sort_sum,
-				c_name : change_name
-			}, function(data) {
-				alert(data);
-				
-			});
-		}
+			$
+					.post(
+							"getRoleAndSort",
+							{
+								c_name : c_name
+							},
+							function(data) {
+								var html = "";
+								if (data.length == 0) {
+									html = "";
+									html += "<strong class='text-dot'  style='text-align: center;'>您查询的数据不存在</strong>";
+								} else {
+									html += "<tr ><th style='text-align:center;'>异动类型</th><th style='text-align:center;'>角色名称</th><th style='text-align:center;'>顺序</th><th style='text-align:center;'>总步骤</th></tr>";
+									for (var per = 0; per < data.length; per++) {
+										html += "<tr><td>" + data[per].c_name
+												+ " </td>";
+										html += "<td>" + data[per].r_name
+												+ " </td>";
+										html += "<td>" + data[per].rc_sort
+												+ " </td>";
+										html += "<td>" + data[per].c_number
+												+ " </td></tr>";
+									}
 
-		alert(change_name);
+								}
+								$("#rc_detail").html(html);
+							});
+		}
 	}
 </script>
 </head>
 <body>
+	<strong></strong>
 	<!-- 	选中异动类型>显示角色名称 添加顺序 异动id(复学) 顺序 角色id(教务) -->
-	<form action="saveRoleAndChange" method="post">
-		<div id="left" class="float-left">
-			<!--右侧显示异动类型的选项  -->
-
-			<strong class="text-white bg-main">请选择异动类型</strong> <select
-				class="input" id="change" onchange="change_onchange();"
-				name="c_name">
+	<div id="handler">
+		<a href="#" class="button bg-green float-left"
+			onclick="rolechange_show()">查询</a> <a href="#"
+			class="button bg-green " style="margin-left: 30px"
+			onclick="rolechange_add()">添加</a>
+	</div>
+	<div id="right">
+		<!-- <strong class="text-white bg-main">请选择要查看的异动类型</strong> -->
+		<div id="rolechange" class="hidden" style="margin-top: 15px">
+			<select class="input button" id="change_query" name="c_name"
+				onchange="change_query();">
+				<option>---------请选择异动类型-------</option>
 				<c:forEach items="${change}" var="c">
 					<option>${c.c_name}</option>
 				</c:forEach>
-
 			</select>
-			<!-- 需要添加的步骤总数 -->
-			步骤总数:<input type="text" id="sort_sum" /> 请选择角色: <select class="input"
-				name="role_name">
-				<c:forEach items="${rList }" var="role">
-					<option>${role.r_name }</option>
-				</c:forEach>
-			</select> 添加审核的顺序 <select class="input" name="rc_sort">
-				<c:forEach items="${sort_sum }" var="sort">
-					<option>${sort}</option>
-				</c:forEach>
-			</select>
-
+			<!--左侧显示异动类型所对应的角色和顺序  -->
+			<div id="show_result">
+				<!-- 显示异动角色查询结果 -->
+				<jsp:include page="rolechange_show.jsp"></jsp:include>
+			</div>
 		</div>
-	</form>
-	<hr class="bg-blue" />
-	<div id="right">
-		<!--左侧显示异动类型所对应的角色和顺序  -->
-		<div id="tab">这是tab显示页面,添加和查看 删除 修改</div>
-	</div>
-	<div id="select-info">
-		<!--左侧显示异动类型所对应的角色和顺序  -->
-		<div id="tab">这是tab显示页面,添加和查看 删除 修改</div>
-
-	</div>
-
+		<div id="add_rolechange" class="hidden">
+			<!-- 增加异动角色 -->
+			<jsp:include page="rolechange_add.jsp"></jsp:include>
+		</div>
 </body>
 </html>

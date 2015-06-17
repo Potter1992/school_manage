@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="admin radius" style="margin-top: 10px;">
+	<div class="admin radius" >
 		<div class="tab">
 			<div class="tab-head">
 				<ul class="tab-nav" style="margin-top: 10px; margin-left: 10px;">

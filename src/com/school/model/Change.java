@@ -2,6 +2,9 @@ package com.school.model;
 
 import java.util.List;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.DbKit;
+import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Model;
 
 public class Change extends Model<Change> {
@@ -30,6 +33,19 @@ public class Change extends Model<Change> {
 	public Change findStepsByC_id(int c_id) {
 		Change change = findFirst("select * from   "+TableName+"    where c_id= ?",c_id);
 		return change;
+	}
+	/**
+	 * 总步数+1
+	 */
+	public boolean updateStepsByC_id(int c_id) {
+		//在原先的总步数基础上加一update  `change_apply` set c_number = c_number+1 where `c_id`=1
+//		DbPro.use().update(sql, paras)
+		int flag=Db.update("update  "+TableName+" set c_number = c_number+1 where  c_id = ?",c_id);
+		if (flag>0) {
+			return true;
+		}else{
+			return false;
+		}
 	}
 	/**
 	 * 根据c_id名称查找c_name

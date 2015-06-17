@@ -3,6 +3,8 @@ package com.school.controller;
 import java.io.File;
 import java.util.List;
 
+import oracle.net.aso.r;
+
 import com.jfinal.core.Controller;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.PathKit;
@@ -14,6 +16,7 @@ import com.jfinal.upload.UploadFile;
 import com.school.model.Approve_person;
 import com.school.model.Change;
 import com.school.model.Role;
+import com.school.model.Role_change;
 import com.school.model.Student_apply;
 import com.school.model.Xydmb;
 
@@ -23,51 +26,106 @@ public class ManageController extends Controller {
 	 */
 	public void manage_page() {
 		int paraString = getPara("page") == null ? 1 : getParaToInt("page");
-		Page<Approve_person> apPage=Approve_person.me.paginate(paraString, 10);
+		Page<Approve_person> apPage = Approve_person.me
+				.paginate(paraString, 10);
 		System.out.println(apPage);
-		setAttr("approve_page",apPage );// 从url中获得参数，并将默认值转化为int类型的值.
+		setAttr("approve_page", apPage);// 从url中获得参数，并将默认值转化为int类型的值.
 
 	}
+
+	/**
+	 * 根据c_name获取c_id,添加角色id和顺序
+	 */
+	public void getRoleAndSort() {
+		String c_nameString = getPara("c_name");
+		Change change = Change.me.findIDChangeByName(c_nameString);
+		// 根据异动类型添加角色和顺序
+		int c_id = change.getInt("c_id");
+		// 选择角色
+		// List<Role_change> rcLists = Role_change.me.findAll();
+		List<Role_change> rcList = Role_change.me.findAllByC_id(c_id);
+		String rcJson = JsonKit.toJson(rcList);
+		System.out.println(rcJson);
+		renderJson(rcJson);
+		// //顺序个数,默认1为学生,不容更改
+
+	}
+
 	/**
 	 * 根据c_name获取c_id,添加角色id和顺序
 	 */
 	public void setRoleAndSort() {
-		String c_nameString=getPara("c_name");
-		int sort_sum=getParaToInt("sort_sum");
-		Change change=Change.me.findIDChangeByName(c_nameString);
-		//根据异动类型添加角色和顺序
-		int c_id=change.getInt("c_id");
-		//选择角色
-		List<Role> rList=Role.me.findAll();
+		String c_nameString = getPara("c_name");
+		int sort_sum = getParaToInt("sort_sum");
+		Change change = Change.me.findIDChangeByName(c_nameString);
+		// 根据异动类型添加角色和顺序
+		int c_id = change.getInt("c_id");
+		// 选择角色
+		List<Role> rList = Role.me.findAll();
+
 		setAttr("rList", rList);
 		setAttr("sort_sum", sort_sum);
-		//顺序个数,默认1为学生,不容更改
-		renderJson();
+		// //顺序个数,默认1为学生,不容更改
+
 	}
+
+	/**
+	 * 判断如果对应的异动类型有了相同的顺序的时候,报异常
+	 */
+	public boolean judgeByC_idAndRc_sortIsexited(int c_id, String r_name) {
+		Role role=Role.me.findByname(r_name);
+		int r_id=role.getInt("r_id");
+		
+		boolean flag = Role_change.me.findByC_idAndRc_ridIsexited(c_id,
+				r_id);//如果为true的话,则存在,false的话不存在就可以继续添加
+		
+		if (flag) {
+			return true;// 存在
+		} else {
+			return false;// 不存在
+		}
+	}
+
 	/**
 	 * 保存角色和异动之间的关系
 	 */
 	public void saveRoleAndChange() {
-		String c_nameString=getPara("c_name");
-		Change change=Change.me.findIDChangeByName(c_nameString);
-		//根据异动类型添加角色和顺序
-		int c_id=change.getInt("c_id");
-		String role_nameString=getPara("role_name");
-		Role role=Role.me.findByname(role_nameString);
-		int r_id=role.getInt("r_id");
-		int rc_sort=getParaToInt("rc_sort");
-		int sort_sum=getParaToInt("sort_sum");
-		Record record=new Record();
-		record.set("r_id", r_id);
-		record.set("c_id", c_id);
-		record.set("rc_sort", rc_sort);
-		boolean flag=DbPro.use().save("role_change", record);
-		if (flag) {
-			renderText("保存成功");
-		}else {
-			renderText("保存失败");
-		}
+		String c_nameString = getPara("c_name");
+		String role_nameString = getPara("r_name");
+		Change change = Change.me.findIDChangeByName(c_nameString);
+		// 根据异动类型添加角色和顺序
+		int c_id = change.getInt("c_id");
+		// -------------------------------
+		Role role = Role.me.findByname(role_nameString);
+		int r_id = role.getInt("r_id");
 		
+		int rc_sort = getParaToInt("rc_sort");
+		// 判断如果对应的异动类型有了相同的顺序的时候,报异常
+		//需要异步判断角色名称有没有重复
+		boolean sign = judgeByC_idAndRc_sortIsexited(c_id, role_nameString);
+		if (sign) {
+//			setAttr("msg", "该角色已经存在相应的顺序");
+			renderJson(0);
+		} else {
+			// -------------------------------
+			Record record = new Record();
+			record.set("r_id", r_id);
+			record.set("c_id", c_id);
+			record.set("rc_sort", rc_sort);
+			boolean flag = DbPro.use().save("role_change", record);
+			if (flag) {
+				boolean flag2=Change.me.updateStepsByC_id(c_id);
+				if (flag2) {
+					renderJson(1);//更新成功
+				}else {
+					renderJson(0);//更新失败
+				}
+				
+				
+			} else {
+				renderText("保存失败");
+			}
+		}
 	}
 
 	/**
@@ -85,6 +143,7 @@ public class ManageController extends Controller {
 		}
 
 	}
+
 	/**
 	 * 根据异动类型获取对应的角色类型和
 	 */
@@ -94,24 +153,55 @@ public class ManageController extends Controller {
 		getChange_apply();
 		render("index.jsp");
 	}
+
 	/**
 	 * 将审核人的所有信息返回到主页面
 	 */
 	public void index() {
 		getApply_Student();
 		manage_page();
+		// 角色名称
+		List<Role> rList = Role.me.findAll();
+		setAttr("rList", rList);
+
 		getChange_apply();
 		render("index.jsp");
-//		redirect("/index");
+		// redirect("/index");
 	}
+
 	/**
 	 * 获取异动类型
 	 */
 	public void getChange_apply() {
-		List<Change> list=Change.me.findAll();
+		List<Change> list = Change.me.findAll();
 		setAttr("change", list);
 	}
 
+	/**
+	 * 获取异动角色数据
+	 */
+	public void changeByC_id() {
+		String c_nameString = getPara("c_name");
+		if (c_nameString!= null&&!c_nameString.equals("")) {
+			
+			Change change = Change.me.findIDChangeByName(c_nameString);
+			int c_id = change.getInt("c_id");
+			List<Role_change> change_roleList=Role_change.me.findAllByC_id(c_id);
+			if (change_roleList.size()>0) {
+				setAttr("changeRole_list", change_roleList);
+				render("changeByC_id.jsp");
+			}else {
+				setAttr("msg", "该异动暂时没有信息");
+				render("changeByC_id.jsp");
+			}
+		}else {
+			setAttr("msg", "该异动没有信息");
+			render("changeByC_id.jsp");
+		}
+	
+		// 根据异动类型添加角色和顺序
+	
+	}
 	/**
 	 * 获取学生申请的基本信息
 	 */
@@ -215,19 +305,18 @@ public class ManageController extends Controller {
 	public void deleteApprove() {
 		// 获得传过来的数据
 		int a_id = getParaToInt();
-		Approve_person approve_person=Approve_person.me.findById(a_id);
-		String img_pathString=approve_person.get("a_img");
-		File file=new File(PathKit.getWebRootPath()+img_pathString);
+		Approve_person approve_person = Approve_person.me.findById(a_id);
+		String img_pathString = approve_person.get("a_img");
+		File file = new File(PathKit.getWebRootPath() + img_pathString);
 		if (file.delete()) {
 			Approve_person.me.deleteById(a_id);
-			//删除记录后删除资源
+			// 删除记录后删除资源
 			redirect("/manage/index");
 			// index();
-		}else {
+		} else {
 			renderText("删除失败");
 		}
-		
-		
+
 	}
 
 	/**
@@ -243,5 +332,25 @@ public class ManageController extends Controller {
 	 */
 	public void getR_name() {
 		renderJson(Role.me.findAll());
+	}
+	/**
+	 * 根据角色名称和异动类型查找数据库中的相应的顺序,若没有默认为1,若有在此基础上加1
+	 */
+	public void setRoleSort() {
+		String change_cName=getPara("c_name");
+//		String change_RoleName=getPara("r_name");
+		Change change=Change.me.findIDChangeByName(change_cName);
+		int c_id=change.getInt("c_id");
+		List<Role_change> role_changes= Role_change.me.findAllByC_id(c_id);
+		System.out.println(role_changes.size());
+		if (role_changes.size()==0) {
+			renderJson(0);
+		}else{
+//		List<Role_change> role_changesForsort=Role_change.me.findAllByC_NameAndR_Name(change_cName, change_RoleName);
+//		if (role_changesForsort.size()==0) {
+//			renderJson("");
+//		}else {
+			renderJson(role_changes.size()+1);
+		}
 	}
 }

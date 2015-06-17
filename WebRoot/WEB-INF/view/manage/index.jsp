@@ -24,7 +24,7 @@
 				<jsp:include page="apply.jsp"></jsp:include>
 			</div> --%>
 			<div class="tab-panel " id="tab-change-detail">
-				异动管理
+				<!-- 异动管理 -->
 				<jsp:include page="change.jsp"></jsp:include>
 			</div>
 		</div>

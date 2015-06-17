@@ -18,7 +18,6 @@
 		$.post("findByChangeType", {
 			q : change_type
 		}, function(data) {
-			/* alert(data.c_id); */
 		});
 	});
 	$(document).ready(function() {
@@ -61,10 +60,7 @@
 	<blockquote class="border-main quote-floatleft float-right"
 		style="width: 59%;">
 		<p>
-
-
-
-			<div class="border border-green radius-big  "
+		<div class="border border-green radius-big  "
 			style="width: 100%; padding: 8px 10px;">
 			<div class="alert alert-yellow">
 				<span class="close rotate-hover"></span><strong>注意：</strong>如果您不需要填写学院和专业的话,请填写您原来的信息,否则请承担相应的责任。
@@ -76,17 +72,21 @@
 				<c:forEach items="${list_academy}" var="academy">
 					<option>${academy.xymc}</option>
 				</c:forEach>
-			</select> 
-			
-			<label id="option_label">专业:</label> <select id="s_after_subject"
+			</select> <label id="option_label">专业:</label> <select id="s_after_subject"
 				class="input" name="stu.s_after_subject">
 				<option></option>
 			</select>
 			<div class="form-group">
 				<div class="field ">
-					<label id="option_label">年级:</label> <input type="text"
-						class="input" name="stu.s_after_grade" placeholder="异动后年级"
-						data-validate="number:只能填写数字,length#<=4:长度不能大于4" />
+					<label id="option_label">年级:</label>
+					<select class=" input" name="stu.s_after_grade">
+						<option><%=new Date().getYear() - 4 + 1900%></option>
+						<option><%=new Date().getYear() - 3 + 1900%></option>
+						<option><%=new Date().getYear() - 2 + 1900%></option>
+						<option><%=new Date().getYear() - 1 + 1900%></option>
+						<option><%=new Date().getYear() + 1900%></option>
+						<option><%=new Date().getYear() + 1 + 1900%></option>
+					</select>
 				</div>
 			</div>
 			<label id="option_label" style="display: none;">班级:</label> <input
@@ -97,13 +97,7 @@
 				type="radio" name="stu.s_after_status" value="无"
 				style="margin-left: 20px"> 无<br>
 
-			<!-- <label
-			id="option_label">学历:</label><select id="s_after_education"
-			class="input" name="stu.s_after_education">
-			<option>无</option>
-			<option>本科</option>
-			<option>专科</option>
-		</select> <br>  --><label id="option_label">注册状态:</label><input type="radio"
+			<label id="option_label">注册状态:</label><input type="radio"
 				name="stu.s_after_regist" value="有" checked="checked"> 有 <input
 				type="radio" name="stu.s_after_regist" value="无"
 				style="margin-left: 20px"> 无<br> <label
@@ -114,7 +108,7 @@
 				value="提交申请" class=" btn btn-primary radius-big  " id="submit_apply"
 				style="width: 100%; height: 100px" />
 		</div>
-		
+
 		</p>
 	</blockquote>
 </body>
