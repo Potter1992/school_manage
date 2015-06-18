@@ -73,12 +73,11 @@ public class ManageController extends Controller {
 	 * 判断如果对应的异动类型有了相同的顺序的时候,报异常
 	 */
 	public boolean judgeByC_idAndRc_sortIsexited(int c_id, String r_name) {
-		Role role=Role.me.findByname(r_name);
-		int r_id=role.getInt("r_id");
-		
-		boolean flag = Role_change.me.findByC_idAndRc_ridIsexited(c_id,
-				r_id);//如果为true的话,则存在,false的话不存在就可以继续添加
-		
+		Role role = Role.me.findByname(r_name);
+		int r_id = role.getInt("r_id");
+
+		boolean flag = Role_change.me.findByC_idAndRc_ridIsexited(c_id, r_id);// 如果为true的话,则存在,false的话不存在就可以继续添加
+
 		if (flag) {
 			return true;// 存在
 		} else {
@@ -98,14 +97,14 @@ public class ManageController extends Controller {
 		// -------------------------------
 		Role role = Role.me.findByname(role_nameString);
 		int r_id = role.getInt("r_id");
-		
+
 		int rc_sort = getParaToInt("rc_sort");
 		// 判断如果对应的异动类型有了相同的顺序的时候,报异常
-		//需要异步判断角色名称有没有重复
+		// 需要异步判断角色名称有没有重复
 		boolean sign = judgeByC_idAndRc_sortIsexited(c_id, role_nameString);
 		if (sign) {
-//			setAttr("msg", "该角色已经存在相应的顺序");
-			renderJson(0);
+			// setAttr("msg", "该角色已经存在相应的顺序");
+			renderJson(505);
 		} else {
 			// -------------------------------
 			Record record = new Record();
@@ -114,20 +113,44 @@ public class ManageController extends Controller {
 			record.set("rc_sort", rc_sort);
 			boolean flag = DbPro.use().save("role_change", record);
 			if (flag) {
-				boolean flag2=Change.me.updateStepsByC_id(c_id);
+				boolean flag2 = Change.me.updateStepsByC_id(c_id);
 				if (flag2) {
-					renderJson(1);//更新成功
-				}else {
-					renderJson(0);//更新失败
+					renderJson(1);// 更新成功
+				} else {
+					renderJson(0);// 更新失败
 				}
-				
-				
+
 			} else {
 				renderText("保存失败");
 			}
 		}
 	}
 
+	/**
+	 * 删除异动角色关系
+	 */
+	public void deleteChangeRole() {
+		int r_id=getParaToInt("r_id");
+		int c_id=getParaToInt("c_id");
+		//通过角色和异动类型查找到rc_id,再根据rc_id删除记录
+		Role_change role_change=Role_change.me.findByC_idAndR_id(c_id, r_id);
+		int rc_id=role_change.getInt("rc_id");
+		int rc_sort=role_change.getInt("rc_sort");
+		if (Role_change.me.deleteById(rc_id)) {
+			//删除成功后,其他剩余的rc_sort自动减一
+			boolean flag=Role_change.me.deleteAfter_minus(rc_sort, c_id);
+			if (flag) {
+				renderJson(1);
+			}else {
+				renderJson(0);
+			}
+//			DbPro.use().update(sql, paras)
+			
+		}else {
+			renderJson(0);
+		}
+		
+	}
 	/**
 	 * 验证账号是否重复
 	 */
@@ -182,26 +205,28 @@ public class ManageController extends Controller {
 	 */
 	public void changeByC_id() {
 		String c_nameString = getPara("c_name");
-		if (c_nameString!= null&&!c_nameString.equals("")) {
-			
+		if (c_nameString != null && !c_nameString.equals("")) {
+
 			Change change = Change.me.findIDChangeByName(c_nameString);
 			int c_id = change.getInt("c_id");
-			List<Role_change> change_roleList=Role_change.me.findAllByC_id(c_id);
-			if (change_roleList.size()>0) {
+			List<Role_change> change_roleList = Role_change.me
+					.findAllByC_id(c_id);
+			if (change_roleList.size() > 0) {
 				setAttr("changeRole_list", change_roleList);
 				render("changeByC_id.jsp");
-			}else {
+			} else {
 				setAttr("msg", "该异动暂时没有信息");
 				render("changeByC_id.jsp");
 			}
-		}else {
+		} else {
 			setAttr("msg", "该异动没有信息");
 			render("changeByC_id.jsp");
 		}
-	
+
 		// 根据异动类型添加角色和顺序
-	
+
 	}
+
 	/**
 	 * 获取学生申请的基本信息
 	 */
@@ -333,24 +358,20 @@ public class ManageController extends Controller {
 	public void getR_name() {
 		renderJson(Role.me.findAll());
 	}
+
 	/**
 	 * 根据角色名称和异动类型查找数据库中的相应的顺序,若没有默认为1,若有在此基础上加1
 	 */
 	public void setRoleSort() {
-		String change_cName=getPara("c_name");
-//		String change_RoleName=getPara("r_name");
-		Change change=Change.me.findIDChangeByName(change_cName);
-		int c_id=change.getInt("c_id");
-		List<Role_change> role_changes= Role_change.me.findAllByC_id(c_id);
+		String change_cName = getPara("c_name");
+		Change change = Change.me.findIDChangeByName(change_cName);
+		int c_id = change.getInt("c_id");
+		List<Role_change> role_changes = Role_change.me.findAllByC_id(c_id);
 		System.out.println(role_changes.size());
-		if (role_changes.size()==0) {
-			renderJson(0);
-		}else{
-//		List<Role_change> role_changesForsort=Role_change.me.findAllByC_NameAndR_Name(change_cName, change_RoleName);
-//		if (role_changesForsort.size()==0) {
-//			renderJson("");
-//		}else {
-			renderJson(role_changes.size()+1);
+		if (role_changes.size() == 0) {
+			renderJson(1);
+		} else {
+			renderJson(role_changes.size() + 1);
 		}
 	}
 }

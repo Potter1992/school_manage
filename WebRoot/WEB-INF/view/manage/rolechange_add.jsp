@@ -7,18 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	function change_detail() {
-		$("#validate_msg").addClass("hidden");
-		var c_name = $("#change").val();
-		$.post("changeByC_id", {
-			c_name : c_name
-		}, function(data) {
-			$("#iframe").remove("src");
-			var args = 'changeByC_id?c_name=' + c_name;
-			$("#iframe").attr("src", args);
-		});
-		changeSort();
-	}
 	function changeSort() {
 		$("#validate_msg").addClass("hidden");
 		var change_cName = $("#change").val();
@@ -35,7 +23,21 @@
 			alert("异动类型或角色不能为空");
 		}
 	}
+	function change_detail() {
+		$("#validate_msg").addClass("hidden");
+		var c_name = $("#change").val();
+		$.post("changeByC_id", {
+			c_name : c_name
+		}, function(data) {
+			$("#iframe").remove("src");
+			var args = 'changeByC_id?c_name=' + c_name;
+			$("#iframe").attr("src", args);
+		});
+		changeSort();
+	}
+
 	function saveRoleAndChange() {
+		changeSort();
 		var c_name = $("#change").val();
 		var r_name = $("#role_name").val();
 		var rc_sort = $("#rc_sort").val();
@@ -47,21 +49,21 @@
 				r_name : r_name,
 				rc_sort : rc_sort
 			}, function(data) {
-				if (data == 0) {//重复
-						$("#validate_msg").removeClass();
-						$("#validate_msg").addClass("text-dot");
-				}else{
-					var html="添加成功";
+				if (data == "505") {//重复
+					$("#validate_msg").removeClass();
+					$("#validate_msg").addClass("text-dot");
+				} else {
+					var html = "添加成功";
 					$("#validate_msg").html(html);
 					$("#validate_msg").removeClass();
 					$("#validate_msg").addClass("text-green");
 					$('#iframe').attr('src', $('#iframe').attr('src'));
-					 $("#role_name").find("option[value='']").attr("selected",true);
-					 changeSort();
+					$("#role_name").find("option[value='']").attr("selected",
+							true);
+					changeSort();
 				}
 			});
 		}
-
 	}
 </script>
 </head>
