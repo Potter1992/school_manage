@@ -20,6 +20,7 @@
 				$("#rc_sort").html(html);
 			});
 		} else {
+			//tijiao
 			alert("异动类型或角色不能为空");
 		}
 	}
