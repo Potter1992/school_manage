@@ -20,7 +20,7 @@
 				$("#rc_sort").html(html);
 			});
 		} else {
-			//tijiao
+			//提交项目
 			alert("异动类型或角色不能为空");
 		}
 	}
