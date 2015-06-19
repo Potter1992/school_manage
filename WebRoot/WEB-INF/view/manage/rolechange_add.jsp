@@ -20,7 +20,7 @@
 				$("#rc_sort").html(html);
 			});
 		} else {
-			//提交项目
+			//提交项目https://github.com/Potter1992/school_manage.git
 			alert("异动类型或角色不能为空");
 		}
 	}
